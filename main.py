@@ -3,12 +3,33 @@ from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
 import time
+import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:password@localhost/student-tracker'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
 db = SQLAlchemy(app)
+
+weekdays = [
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday'
+]
+
+weekdays_abbreviated = {
+    'mon': weekdays[0],
+    'tues': weekdays[1],
+    'wed': weekdays[2],
+    'thurs': weekdays[3],
+    'fri': weekdays[4],
+    'sat': weekdays[5],
+    'sun': weekdays[6]
+}
 
 
 class Student(db.Model):
@@ -40,10 +61,10 @@ class Student(db.Model):
     def delete(id: int):
         to_delete = Student.get(id)
         if to_delete is None:
-            return False
+            return {'message': 'student not found'}
         db.session.delete(to_delete)
         db.session.commit()
-        return True
+        return {'message': 'student deleted successfully'}
 
     @staticmethod
     def add(name, lesson_day, lesson_time, address, price):
@@ -51,13 +72,15 @@ class Student(db.Model):
         to_add = Student(name=name, lesson_day=lesson_day, lesson_time=lesson_time, address=address, price=price)
         db.session.add(to_add)
         db.session.commit()
-        return to_add.json()
+        return to_add
 
     @staticmethod
     def get(id: int):
         found = Student.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
-        return found.json()
-        # return found
+        if not found:
+            return None
+        # return found.json()
+        return found
 
 
 class StudentResource(Resource):
@@ -66,18 +89,33 @@ class StudentResource(Resource):
         if not to_show:
             return "Student doesn't exist"
         else:
-            return to_show
+            return to_show.json()
 
     def post(self, id):
-        # id is ditched
+        # id is not used to add new student
         name = request.form['name']
-        lesson_day = request.form['lesson_day']
+
+        lesson_day = request.form['lesson_day'].lower()
+        if lesson_day not in weekdays:
+            if lesson_day not in weekdays_abbreviated:
+                return {'message': 'lesson day must be a day Eg. Monday'}
+            lesson_day = weekdays_abbreviated[lesson_day]
+
         lesson_time = request.form['lesson_time']
+        try:
+            time.strptime(lesson_day)  # TODO: Test this better
+        except ValueError:
+            return {'message': 'Time must be in format HH:MM (24 hour time)'}
+
         address = request.form['address']
         price = request.form['price']
 
         added = Student.add(name, lesson_day, lesson_time, address, price)
-        return added
+        return added.json()
+
+    def delete(self, id):
+        return Student.delete(id)
+
 
 api.add_resource(StudentResource, '/student/<id>')
 

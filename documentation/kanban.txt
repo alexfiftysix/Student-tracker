@@ -1,0 +1,29 @@
+### backlog
+
+As a teacher I want to view students on a weekly view so I can understand my schedule
+
+As a teacher I want to make/view notes for each lesson so I can keep track of my students' progress
+
+As a teacher I want to be warned if adding two students to the same time slot so I don't double-book
+
+As a teacher I want to be able to tick off when students have attended their lessons so I can keep track of who attended when
+
+As a teacher I want to be able to tick off when students have payed for their lessons so I know who's up-to-date
+
+As a teacher I want to block off holiday periods so I don't have to manually check off all those lessons
+
+As a teacher I want to be able to remove students from the system when they leave so I don't have their appointments anymore
+
+As a teacher I want to be able to see history of all previous lessons - even from students who are not here anymore
+
+As a teacher I want recommended lesson price to be calculated so I know how much to charge - based on student location/time
+
+As a teacher I want students to be automatically added to my weekly schedule so I don't have to do it myself
+
+### todo
+
+### doing
+
+### done
+Can add students.
+Students have day and time
