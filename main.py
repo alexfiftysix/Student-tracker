@@ -104,6 +104,14 @@ class Student(db.Model):
         # return found.json()
         return found
 
+    class AllStudents(Resource):
+        def get(self):
+            students = []
+            for student in Student.query.all():
+                students.append(student.json())
+            return {'students': students}
+
+
 
 class StudentResource(Resource):
     def get(self, id):
@@ -142,21 +150,76 @@ class StudentResource(Resource):
 class Appointment(db.Model):
     __tablename__ = 'appointment'
     id = db.Column('id', db.Integer, primary_key=True)
-    student = db.Column('student', db.Integer, db.ForeignKey(Student.id))
+    student = db.Column('student', db.Integer, db.ForeignKey(Student.id, onupdate="CASCADE", ondelete="CASCADE"))
     datetime = db.Column('datetime', db.DateTime)
+
+    def __repr__(self):
+        return f'Appointment({self.id}): {self.datetime} | {Student.get(self.student)}'
+
+    def __str__(self):
+        return self.__repr__()
+
+    def json(self):
+        return {
+            'id': self.id,
+            'student': Student.get(self.student).json(),
+            'datetime': str(self.datetime)
+        }
 
     @staticmethod
     def add_for_next_available_date(student: Student):
+        # TODO: Run this every monday? Every time they sign on for every student?
         hour = int(student.lesson_time.strftime('%H'))
         minute = int(student.lesson_time.strftime('%M'))
         weekday = student.lesson_day
         now = datetime.now().replace(hour=hour, minute=minute, second=0, microsecond=0)
-        print(now)
-        print(weekday)
-        print(next_weekday(now, weekday))
+        next_lesson_time = next_weekday(now, weekday)
+
+        clash = Appointment.query.filter_by(datetime=next_lesson_time).first()
+        if clash:
+            return None
+
+        to_add = Appointment(student=student.id, datetime=next_lesson_time)
+        db.session.add(to_add)
+        db.session.commit()
+        return to_add
+
+    class SingleResource(Resource):
+        def get(self, id):
+            found = Appointment.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
+            if not found:
+                return {'message': 'Appointment not found'}
+            else:
+                return found.json()
+
+        def post(self, id):
+            # id is id of student
+            student = Student.get(id)
+            if not student:
+                return {'message': 'Student does not exist'}
+            added = Appointment.add_for_next_available_date(student)
+            if not added:
+                return {'message': 'Clashes with existing appointment'}
+            return added.json()
+
+        def delete(self, id):
+            found = Appointment.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
+            if not found:
+                return {'message': 'Appointment not found'}
+            else:
+                db.session.delete(found)
+                db.session.commit()
+                return {'message': 'Appointment deleted successfully'}
+
+    class GroupResource(Resource):
+        def get(self):
+            appointments = []
+            for a in Appointment.query.all():
+                appointments.append(a.json())
+            return {'appointments': appointments}
 
 
 api.add_resource(StudentResource, '/student/<id>')
-
-s = Student.get(5)
-Appointment.add_for_next_available_date(s)
+api.add_resource(Student.AllStudents, '/student')
+api.add_resource(Appointment.SingleResource, '/appointment/<id>')
+api.add_resource(Appointment.GroupResource, '/appointment')

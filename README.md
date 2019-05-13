@@ -1,4 +1,4 @@
-### Student Tracker
+# Student Tracker
 This project is for tracking students, 
 specifically students of private teachers who travel to their students' homes.
 
