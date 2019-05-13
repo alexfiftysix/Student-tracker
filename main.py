@@ -19,17 +19,16 @@ weekdays = [
     'thursday',
     'friday',
     'saturday',
-
 ]
 
 weekdays_abbreviated = {
-    'mon': weekdays[0],
-    'tues': weekdays[1],
-    'wed': weekdays[2],
-    'thurs': weekdays[3],
-    'fri': weekdays[4],
-    'sat': weekdays[5],
-    'sun': weekdays[6]
+    'sun': weekdays[0],
+    'mon': weekdays[1],
+    'tues': weekdays[2],
+    'wed': weekdays[3],
+    'thurs': weekdays[4],
+    'fri': weekdays[5],
+    'sat': weekdays[6],
 }
 
 
@@ -47,6 +46,7 @@ def weekday_to_decimal(weekday: str) -> int:
 
 
 def next_weekday(current_date: datetime, weekday: str):
+    # TODO: Doesn't always work - certainly not for Tuesday
     weekday = weekday_to_decimal(weekday) - 1 % 7  # Following uses monday=0
     days_ahead = weekday - current_date.weekday()
     if days_ahead <= 0:  # Target day already happened this week
@@ -111,40 +111,38 @@ class Student(db.Model):
                 students.append(student.json())
             return {'students': students}
 
+    class SingleStudent(Resource):
+        def get(self, id):
+            to_show = Student.get(id)
+            if not to_show:
+                return "Student doesn't exist"
+            else:
+                return to_show.json()
 
+        def post(self, id):
+            # id is not used to add new student
+            name = request.form['name']
 
-class StudentResource(Resource):
-    def get(self, id):
-        to_show = Student.get(id)
-        if not to_show:
-            return "Student doesn't exist"
-        else:
-            return to_show.json()
+            lesson_day = request.form['lesson_day'].lower()
+            if lesson_day not in weekdays:
+                if lesson_day not in weekdays_abbreviated:
+                    return {'message': 'lesson day must be a day Eg. Monday'}
+                lesson_day = weekdays_abbreviated[lesson_day]
 
-    def post(self, id):
-        # id is not used to add new student
-        name = request.form['name']
+            lesson_time = request.form['lesson_time']
+            try:
+                time.strptime(lesson_time, "%H:%M")
+            except ValueError:
+                return {'message': 'lesson_time must be in format HH:MM (24 hour time)'}
 
-        lesson_day = request.form['lesson_day'].lower()
-        if lesson_day not in weekdays:
-            if lesson_day not in weekdays_abbreviated:
-                return {'message': 'lesson day must be a day Eg. Monday'}
-            lesson_day = weekdays_abbreviated[lesson_day]
+            address = request.form['address']
+            price = request.form['price']
 
-        lesson_time = request.form['lesson_time']
-        try:
-            time.strptime(lesson_day)  # TODO: Test this better
-        except ValueError:
-            return {'message': 'Time must be in format HH:MM (24 hour time)'}
+            added = Student.add(name, lesson_day, lesson_time, address, price)
+            return added.json()
 
-        address = request.form['address']
-        price = request.form['price']
-
-        added = Student.add(name, lesson_day, lesson_time, address, price)
-        return added.json()
-
-    def delete(self, id):
-        return Student.delete(id)
+        def delete(self, id):
+            return Student.delete(id)
 
 
 class Appointment(db.Model):
@@ -152,6 +150,8 @@ class Appointment(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     student = db.Column('student', db.Integer, db.ForeignKey(Student.id, onupdate="CASCADE", ondelete="CASCADE"))
     datetime = db.Column('datetime', db.DateTime)
+    date = db.Column('date', db.Date)
+    time = db.Column('time', db.Time)
 
     def __repr__(self):
         return f'Appointment({self.id}): {self.datetime} | {Student.get(self.student)}'
@@ -173,18 +173,22 @@ class Appointment(db.Model):
         minute = int(student.lesson_time.strftime('%M'))
         weekday = student.lesson_day
         now = datetime.now().replace(hour=hour, minute=minute, second=0, microsecond=0)
-        next_lesson_time = next_weekday(now, weekday)
+        next_lesson_datetime = next_weekday(now, weekday)
 
-        clash = Appointment.query.filter_by(datetime=next_lesson_time).first()
+        clash = Appointment.query.filter_by(datetime=next_lesson_datetime).first()
         if clash:
             return None
 
-        to_add = Appointment(student=student.id, datetime=next_lesson_time)
+        next_lesson_date = next_lesson_datetime.date()
+        next_lesson_time = next_lesson_datetime.time()
+        to_add = Appointment(student=student.id, datetime=next_lesson_datetime, date=next_lesson_date,
+                             time=next_lesson_time)
+
         db.session.add(to_add)
         db.session.commit()
         return to_add
 
-    class SingleResource(Resource):
+    class SingleAppointment(Resource):
         def get(self, id):
             found = Appointment.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
             if not found:
@@ -193,6 +197,9 @@ class Appointment(db.Model):
                 return found.json()
 
         def post(self, id):
+            """
+            Creates appointment for student in next week
+            """
             # id is id of student
             student = Student.get(id)
             if not student:
@@ -211,15 +218,27 @@ class Appointment(db.Model):
                 db.session.commit()
                 return {'message': 'Appointment deleted successfully'}
 
-    class GroupResource(Resource):
+    class AllAppointments(Resource):
         def get(self):
             appointments = []
             for a in Appointment.query.all():
                 appointments.append(a.json())
             return {'appointments': appointments}
 
+    class DailyAppointments(Resource):
+        def get(self, date):
+            """
+            Gets all appointments for a given date
+            """
+            appointments = []
+            for a in Appointment.query.filter_by(date=date):
+                appointments.append(a.json())
+            return {'appointments': appointments}
 
-api.add_resource(StudentResource, '/student/<id>')
+
+api.add_resource(Student.SingleStudent, '/student/<id>')
 api.add_resource(Student.AllStudents, '/student')
-api.add_resource(Appointment.SingleResource, '/appointment/<id>')
-api.add_resource(Appointment.GroupResource, '/appointment')
+
+api.add_resource(Appointment.SingleAppointment, '/appointment/<id>')
+api.add_resource(Appointment.AllAppointments, '/appointment')
+api.add_resource(Appointment.DailyAppointments, '/daily_appointments/<date>')
