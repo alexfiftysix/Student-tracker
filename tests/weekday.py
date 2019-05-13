@@ -23,3 +23,4 @@ class TestWeekday(unittest.TestCase):
         self.assertEqual(datetime.datetime(2019, 5, 5), next_weekday(now, 'sunday'))
 
         self.assertEqual(None, next_weekday(now, 'blurnsday'))
+        self.assertEqual(None, next_weekday(now, 'tuseday'))

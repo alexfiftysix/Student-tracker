@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        main {
+            width: 500px;
+            max-width: 500px;
+        }
+
+        .appointment {
+            background: darkblue;
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .icon {
+            background: white;
+            color: #000;
+            width: 50%;
+            margin: 5px;
+            border-radius: 2px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!--TODO: Get jinja2 syntax showing up in this-->
+<main>
+    {% for appointment in appointments %}
+    <div class="appointment">
+        <h3>{{ appointment.student.name }}</h3>
+        <p>{{ appointment.datetime }}</p>
+        {% if appointment.attended %}
+            <div class="icon">Attended</div>
+        {% else %}
+            <div class="icon">Not Attended</div>
+        {% endif %}
+        {% if appointment.payed %}
+            <div class="icon">Payed</div>
+        {% else %}
+            <div class="icon">Not Payed</div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</main>
+</body>
+</html>

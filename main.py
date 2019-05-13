@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date, timedelta
 import time
 import json
+import requests
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:password@localhost/student-tracker'
@@ -53,7 +54,7 @@ def next_weekday(current_date: datetime, weekday: str):
     weekday = weekday_to_decimal(weekday)
     if weekday == -1:
         return None
-    weekday = weekday- 1 % 7  # Following uses monday=0
+    weekday = weekday - 1 % 7  # Following uses monday=0
 
     days_ahead = weekday - current_date.weekday()
     if days_ahead <= 0:  # Target day already happened this week
@@ -159,6 +160,8 @@ class Appointment(db.Model):
     datetime = db.Column('datetime', db.DateTime)
     date = db.Column('date', db.Date)
     time = db.Column('time', db.Time)
+    attended = db.Column('attended', db.Boolean)
+    payed = db.Column('payed', db.Boolean)
 
     def __repr__(self):
         return f'Appointment({self.id}): {self.datetime} | {Student.get(self.student)}'
@@ -170,7 +173,11 @@ class Appointment(db.Model):
         return {
             'id': self.id,
             'student': Student.get(self.student).json(),
-            'datetime': str(self.datetime)
+            'datetime': str(self.datetime),
+            'date': str(self.date),
+            'time': str(self.time),
+            'attended': self.attended,
+            'payed': self.payed,
         }
 
     @staticmethod
@@ -189,7 +196,7 @@ class Appointment(db.Model):
         next_lesson_date = next_lesson_datetime.date()
         next_lesson_time = next_lesson_datetime.time()
         to_add = Appointment(student=student.id, datetime=next_lesson_datetime, date=next_lesson_date,
-                             time=next_lesson_time)
+                             time=next_lesson_time, attended=False, payed=False)
 
         db.session.add(to_add)
         db.session.commit()
@@ -238,7 +245,7 @@ class Appointment(db.Model):
             Gets all appointments for a given date
             """
             appointments = []
-            for a in Appointment.query.filter_by(date=date):
+            for a in Appointment.query.filter_by(date=date).order_by(Appointment.time):
                 appointments.append(a.json())
             return {'appointments': appointments}
 
@@ -249,3 +256,15 @@ api.add_resource(Student.AllStudents, '/student')
 api.add_resource(Appointment.SingleAppointment, '/appointment/<id>')
 api.add_resource(Appointment.AllAppointments, '/appointment')
 api.add_resource(Appointment.DailyAppointments, '/daily_appointments/<date>')
+
+
+@app.route('/')
+def daily_view():
+    today = datetime.now().date()
+    appointments = requests.get(f'http://localhost:5000/daily_appointments/{today}')
+    appointments = json.loads(appointments.text)
+    print(appointments)
+    for a in appointments['appointments']:
+        print(a)
+
+    return render_template('daily_view.html', appointments=appointments['appointments'])
