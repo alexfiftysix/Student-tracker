@@ -9,7 +9,7 @@
     text-align: left;
 
     width: 600px;
-    height: 200px;
+    height: 100px;
 
     display: grid;
     grid-template-columns: repeat(5, 1fr);

@@ -260,6 +260,8 @@ api.add_resource(Appointment.AllAppointments, '/appointment')
 api.add_resource(Appointment.DailyAppointments, '/daily_appointments/<date>')
 
 
+# TODO: Add weekly view. input any day from that week (Sun-Mon) and get the whole week of bookings
+
 @app.route('/')
 def daily_view():
     today = datetime.now().date() + timedelta(days=1)
