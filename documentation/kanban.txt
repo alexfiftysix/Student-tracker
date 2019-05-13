@@ -20,6 +20,10 @@ As a teacher I want recommended lesson price to be calculated so I know how much
 
 As a teacher I want students to be automatically added to my weekly schedule so I don't have to do it myself
 
+As a teacher I want public holidays to be highlighted so I can decide to teach or not on these days
+
+As a teacher I want my effective hourly rate to be calculated for each term so I know if my prices are set correctly
+
 ### todo
 
 ### doing

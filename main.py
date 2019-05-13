@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import time
 import json
 
@@ -12,13 +12,14 @@ api = Api(app)
 db = SQLAlchemy(app)
 
 weekdays = [
+    'sunday',
     'monday',
     'tuesday',
     'wednesday',
     'thursday',
     'friday',
     'saturday',
-    'sunday'
+
 ]
 
 weekdays_abbreviated = {
@@ -30,6 +31,27 @@ weekdays_abbreviated = {
     'sat': weekdays[5],
     'sun': weekdays[6]
 }
+
+
+def weekday_to_decimal(weekday: str) -> int:
+    """
+    Returns int of weekday. 0=sunday, 6=saturday
+    returns -1 on invalid input
+    """
+    weekday = weekday.lower()
+    if weekday.lower() in weekdays:
+        return weekdays.index(weekday)
+    if weekday in weekdays_abbreviated:
+        return weekdays.index(weekdays_abbreviated[weekday])
+    return -1
+
+
+def next_weekday(current_date: datetime, weekday: str):
+    weekday = weekday_to_decimal(weekday) - 1 % 7  # Following uses monday=0
+    days_ahead = weekday - current_date.weekday()
+    if days_ahead <= 0:  # Target day already happened this week
+        days_ahead += 7
+    return current_date + timedelta(days_ahead)
 
 
 class Student(db.Model):
@@ -117,27 +139,24 @@ class StudentResource(Resource):
         return Student.delete(id)
 
 
+class Appointment(db.Model):
+    __tablename__ = 'appointment'
+    id = db.Column('id', db.Integer, primary_key=True)
+    student = db.Column('student', db.Integer, db.ForeignKey(Student.id))
+    datetime = db.Column('datetime', db.DateTime)
+
+    @staticmethod
+    def add_for_next_available_date(student: Student):
+        hour = int(student.lesson_time.strftime('%H'))
+        minute = int(student.lesson_time.strftime('%M'))
+        weekday = student.lesson_day
+        now = datetime.now().replace(hour=hour, minute=minute, second=0, microsecond=0)
+        print(now)
+        print(weekday)
+        print(next_weekday(now, weekday))
+
+
 api.add_resource(StudentResource, '/student/<id>')
 
-
-@app.route('/')
-def hello():
-    return '<h1>Howdy</h1>'
-
-
-@app.route('/add_student')
-def add_student():
-    Student.add(name='Alex', lesson_day="Monday", lesson_time="15:30",
-                address='3/25 davenport St', price=50)
-    return '<h1>hey</h1>'
-
-
-@app.route('/show_student/<id>')
-def show_student(id):
-    to_show = Student.get(id)
-    if not to_show:
-        return "Student doesn't exist"
-    else:
-        print(to_show)
-        print(to_show.json())
-        return to_show.json()
+s = Student.get(5)
+Appointment.add_for_next_available_date(s)
