@@ -5,18 +5,52 @@
     margin: 5px;
     color: #000;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+
+    text-align: left;
+
+    width: 600px;
+    height: 200px;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 5px;
+    column-gap: 5px;
+    grid-template-areas:
+        'nm nm nm attended payed'
+        'tm tm addr addr addr';
+}
+
+.booking > * {
+    background: rgba(0,0,0,0.2);
+    margin: 0;
+    padding: 5px 10px;
     display: flex;
-    flex-direction: column;
     align-items: center;
 }
 
 .booking h3 {
-    margin: 0;
+    grid-area: nm;
 }
 
-.button {
+.time {
+    grid-area: tm;
+}
+
+.address {
+    grid-area: addr;
+}
+
+.attended, .payed{
     padding: 5px 10px;
-    margin: 5px;
+}
+
+.attended {
+    grid-area: attended;
+}
+
+.payed {
+    grid-area: payed;
 }
 
 .success {
@@ -26,4 +60,3 @@
 .failure {
     background: orangered;
 }
-

@@ -6,10 +6,12 @@ function Booking(props) {
     return (
         <div className={'booking'}>
             <h3>{props.name}</h3>
-            <p>{props.time} <br/> {props.address}</p>
-            <div className={'button ' + (props.attended ? 'success' : 'failure')}>Attended</div>
-            <div className={'button ' + (props.payed ? 'success' : 'failure')}>Payed</div>
+            <p className={'time'}>{props.time}</p>
+            <p className={'address'}>{props.address}</p>
+            <div className={'attended ' + (props.attended ? 'success' : 'failure')}>Attended</div>
+            <div className={'payed ' + (props.payed ? 'success' : 'failure')}>Payed</div>
         </div>
+
     );
 }
 
