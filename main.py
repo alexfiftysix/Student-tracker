@@ -46,8 +46,15 @@ def weekday_to_decimal(weekday: str) -> int:
 
 
 def next_weekday(current_date: datetime, weekday: str):
-    # TODO: Doesn't always work - certainly not for Tuesday
-    weekday = weekday_to_decimal(weekday) - 1 % 7  # Following uses monday=0
+    """
+    Given a date and a weekday, returns the next date which falls on that weekday.
+    Returns none if weekday is not valid
+    """
+    weekday = weekday_to_decimal(weekday)
+    if weekday == -1:
+        return None
+    weekday = weekday- 1 % 7  # Following uses monday=0
+
     days_ahead = weekday - current_date.weekday()
     if days_ahead <= 0:  # Target day already happened this week
         days_ahead += 7
