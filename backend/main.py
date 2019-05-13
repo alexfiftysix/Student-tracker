@@ -5,8 +5,10 @@ from datetime import datetime, date, timedelta
 import time
 import json
 import requests
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:password@localhost/student-tracker'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
@@ -260,7 +262,7 @@ api.add_resource(Appointment.DailyAppointments, '/daily_appointments/<date>')
 
 @app.route('/')
 def daily_view():
-    today = datetime.now().date()
+    today = datetime.now().date() + timedelta(days=1)
     appointments = requests.get(f'http://localhost:5000/daily_appointments/{today}')
     appointments = json.loads(appointments.text)
     print(appointments)

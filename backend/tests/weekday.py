@@ -1,6 +1,6 @@
 import unittest
 import datetime
-from main import next_weekday
+from backend.main import next_weekday
 
 
 class TestWeekday(unittest.TestCase):

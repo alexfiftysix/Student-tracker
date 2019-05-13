@@ -1,4 +1,4 @@
-from main import db
+from backend.main import db
 from flask import request
 from flask_restful import Resource
 import time
