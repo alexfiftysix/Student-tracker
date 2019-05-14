@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react'
 import Booking from "./Booking";
-import './booking-list.css'
+import './DailyView.css'
 
-function BookingList(props) {
+function DailyView(props) {
     const [bookings, setBookings] = React.useState(null);
-    const date = '2019-05-14';
+    const date = props.date ? props.date : '2019-05-14';
 
     // TODO: get date from url
     useEffect(() => {
@@ -27,4 +27,4 @@ function BookingList(props) {
     );
 }
 
-export default BookingList;
+export default DailyView;

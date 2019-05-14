@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import './booking.css'
+import './Booking.css'
 
 function Booking(props) {
     return (
@@ -11,7 +11,6 @@ function Booking(props) {
             <div className={'attended ' + (props.attended ? 'success' : 'failure')}>Attended</div>
             <div className={'payed ' + (props.payed ? 'success' : 'failure')}>Payed</div>
         </div>
-
     );
 }
 

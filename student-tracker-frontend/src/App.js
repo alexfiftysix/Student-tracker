@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import BookingList from './components/BookingList'
+import DailyView from './components/DailyView'
+import WeeklyView from './components/WeeklyView'
 
 function App() {
     return (
         <div className="App">
-            <header className="App-header">
-                <BookingList/>
-            </header>
+            {/*<DailyView/>*/}
+            <WeeklyView/>
         </div>
     );
 }

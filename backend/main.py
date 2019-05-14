@@ -64,6 +64,18 @@ def next_weekday(current_date: datetime, weekday: str):
     return current_date + timedelta(days_ahead)
 
 
+def all_days_in_week(day: date):
+    day_num = day.weekday() + 1 % 7
+    first_sunday = day - timedelta(days=day_num)
+    first_sunday = first_sunday.date()
+
+    week = []
+    for i in range(0, 7):
+        week.append(first_sunday + timedelta(days=i))
+
+    return week
+
+
 class Student(db.Model):
     __tablename__ = 'student'
     id = db.Column('id', db.Integer, primary_key=True)
@@ -235,14 +247,16 @@ class Appointment(db.Model):
                 return {'message': 'Appointment deleted successfully'}
 
     class AllAppointments(Resource):
-        def get(self):
+        @staticmethod
+        def get():
             appointments = []
             for a in Appointment.query.all():
                 appointments.append(a.json())
             return {'appointments': appointments}
 
     class DailyAppointments(Resource):
-        def get(self, date):
+        @staticmethod
+        def get(date):
             """
             Gets all appointments for a given date
             """
@@ -251,6 +265,17 @@ class Appointment(db.Model):
                 appointments.append(a.json())
             return {'appointments': appointments}
 
+    class WeeklyAppointments(Resource):
+        @staticmethod
+        def get(day):
+            day = datetime.strptime(day, '%Y-%m-%d')
+            print(day)
+            week = all_days_in_week(day)
+            appointments = []
+            for day in week:
+                appointments.append(Appointment.DailyAppointments.get(day)['appointments'])
+
+            return appointments
 
 api.add_resource(Student.SingleStudent, '/student/<id>')
 api.add_resource(Student.AllStudents, '/student')
@@ -258,6 +283,7 @@ api.add_resource(Student.AllStudents, '/student')
 api.add_resource(Appointment.SingleAppointment, '/appointment/<id>')
 api.add_resource(Appointment.AllAppointments, '/appointment')
 api.add_resource(Appointment.DailyAppointments, '/daily_appointments/<date>')
+api.add_resource(Appointment.WeeklyAppointments, '/weekly_appointments/<day>')
 
 
 # TODO: Add weekly view. input any day from that week (Sun-Mon) and get the whole week of bookings
