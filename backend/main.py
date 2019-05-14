@@ -216,6 +216,14 @@ class Appointment(db.Model):
         db.session.commit()
         return to_add
 
+    @staticmethod
+    def get(id: int):
+        """Returns an appointment with the given id - or None if doesn't exist"""
+        found = Appointment.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
+        if not found:
+            return None
+        return found
+
     class SingleAppointment(Resource):
         def get(self, id):
             found = Appointment.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
@@ -237,6 +245,46 @@ class Appointment(db.Model):
                 return {'message': 'Clashes with existing appointment'}
             return added.json()
 
+        def put(self, id):
+            """
+            Creates appointment for student in next week
+            """
+            # id is id of appointment to modify
+
+            appointment: Appointment = Appointment.get(id)
+            if not appointment:
+                return {'message': 'Appointment does not exist'}
+
+            # TODO: Error checking
+            if request.form.get('student'):
+                appointment.student = request.form.get('student')
+
+            if request.form.get('datetime'):
+                appointment.datetime = request.form.get('datetime')
+
+            if request.form.get('date'):
+                appointment.date = request.form.get('date')
+
+            if request.form.get('time'):
+                appointment.time = request.form.get('time')
+
+            if request.form.get('attended'):
+                if request.form.get('attended').lower() == 'true':
+                    appointment.attended = True
+                else:
+                    appointment.attended = False
+
+            if request.form.get('payed'):
+                if request.form.get('payed').lower() == 'true':
+                    appointment.payed = True
+                else:
+                    appointment.payed = False
+
+            print(request.form.get('attended'))
+            db.session.commit()
+
+            return appointment.json()
+
         def delete(self, id):
             found = Appointment.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
             if not found:
@@ -250,8 +298,9 @@ class Appointment(db.Model):
         @staticmethod
         def get():
             appointments = []
-            for a in Appointment.query.all():
+            for a in Appointment.query.order_by(Appointment.datetime):
                 appointments.append(a.json())
+
             return {'appointments': appointments}
 
     class DailyAppointments(Resource):
@@ -276,6 +325,7 @@ class Appointment(db.Model):
                 appointments.append(Appointment.DailyAppointments.get(day)['appointments'])
 
             return appointments
+
 
 api.add_resource(Student.SingleStudent, '/student/<id>')
 api.add_resource(Student.AllStudents, '/student')

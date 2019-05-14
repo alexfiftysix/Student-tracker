@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import DailyView from './components/DailyView'
 import WeeklyView from './components/WeeklyView'
 
 function App() {

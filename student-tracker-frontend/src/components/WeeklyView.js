@@ -5,7 +5,6 @@ import './WeeklyView.css'
 
 function get_all_days_in_week(day) {
     let date = new Date(Date.parse(day));
-    let weekday = date.getDay();
     let sunday = new Date();
     sunday.setDate(new Date(date).getDate() - new Date(date).getDay());
 

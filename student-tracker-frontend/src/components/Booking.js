@@ -1,22 +1,101 @@
 import React from 'react';
-import PropTypes from 'prop-types'
-import './Booking.css'
+import './Booking.css';
 
-function Booking(props) {
+
+export default class Booking extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+        this.state['id'] = props.id;
+        this.state['name'] = props.name;
+        this.state['time'] = props.time;
+        this.state['address'] = props.address;
+        this.state['attended'] = props.attended;
+        this.state['payed'] = props.payed;
+        console.log(this.state.id);
+
+        this.changeAttended = this.changeAttended.bind(this);
+        this.changePayed = this.changePayed.bind(this);
+    }
+
+    changePayed() {
+        let url = 'http://localhost:5000/appointment/' + this.state['id'];
+        let options = {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+            },
+            credentials: 'same-origin',
+            body: new FormData
+        };
+
+        options.body.append('payed', String(!this.state.payed));
+
+        fetch(url, options)
+            .then(response => response.json())
+            .then(data => data);
+
+
+        this.setState({'payed': !this.state.payed});
+    }
+
+    changeAttended() {
+        let url = 'http://localhost:5000/appointment/' + this.state['id'];
+        let options = {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+            },
+            credentials: 'same-origin',
+            body: new FormData
+        };
+
+        options.body.append('attended', String(!this.state.attended));
+
+        fetch(url, options)
+            .then(response => response.json())
+            .then(data => data);
+
+        this.setState({'attended': !this.state.attended});
+    }
+
+
+    render() {
+        return (
+            <div className={'booking'}>
+                <h3>{this.state.name}</h3>
+                <p className={'time'}>{this.state.time}</p>
+                <p className={'address'}>{this.state.address}</p>
+                <div onClick={this.changeAttended}
+                     className={'attended ' + (this.state.attended ? 'success' : 'failure')}>Attended
+                </div>
+                <div onClick={this.changePayed}
+                     className={'payed ' + (this.state.payed ? 'success' : 'failure')}>Paid
+                </div>
+            </div>
+        );
+    }
+}
+
+/*function Booking(props) {
+    const [attended, setAttended] = React.useState(props.attended);
+    const [payed, setPayed] = React.useState(props.payed);
+
+
     return (
         <div className={'booking'}>
             <h3>{props.name}</h3>
             <p className={'time'}>{props.time}</p>
             <p className={'address'}>{props.address}</p>
             <div className={'attended ' + (props.attended ? 'success' : 'failure')}>Attended</div>
-            <div className={'payed ' + (props.payed ? 'success' : 'failure')}>Payed</div>
+            <div onClick={changePayed} className={'payed ' + (props.payed ? 'success' : 'failure')}>Paid</div>
         </div>
     );
 }
 
 Booking.propTypes = {
     name: PropTypes.string.isRequired
-};
+};*/
 
 
-export default Booking
+// export default Booking
