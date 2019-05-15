@@ -46,7 +46,10 @@ export default class NewStudentForm extends React.Component {
 
         fetch(url, options)
             .then(response => response.json())
-            .then(data => alert(data));
+            .then(data => {
+                console.log(data);
+                window.location = window.location;
+            });
     }
 
     render() {

@@ -8,7 +8,7 @@
 
     text-align: left;
 
-    width: 600px;
+    max-width: 100vw;
     height: 100px;
 
     display: grid;
@@ -18,7 +18,7 @@
     column-gap: 5px;
     grid-template-areas:
         'nm nm nm attended payed'
-        'tm tm addr addr addr';
+        'tm addr addr addr price';
 }
 
 .booking > * {
@@ -59,4 +59,12 @@
 
 .failure {
     background: orangered;
+}
+
+.price {
+    grid-area: price;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

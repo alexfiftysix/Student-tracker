@@ -116,6 +116,8 @@ class Student(db.Model):
         to_add = Student(name=name, lesson_day=lesson_day, lesson_time=lesson_time, address=address, price=price)
         db.session.add(to_add)
         db.session.commit()
+
+        Appointment.SingleAppointment.post(to_add.id)
         return to_add
 
     @staticmethod
@@ -232,7 +234,8 @@ class Appointment(db.Model):
             else:
                 return found.json()
 
-        def post(self, id):
+        @staticmethod
+        def post(id):
             """
             Creates appointment for student in next week
             """
@@ -245,7 +248,8 @@ class Appointment(db.Model):
                 return {'message': 'Clashes with existing appointment'}
             return added.json()
 
-        def put(self, id):
+        @staticmethod
+        def put(id):
             """
             Creates appointment for student in next week
             """

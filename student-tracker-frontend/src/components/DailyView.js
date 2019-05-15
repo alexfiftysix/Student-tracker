@@ -16,12 +16,25 @@ function DailyView(props) {
             });
     }, []);
 
+    let day = new Date(Date.parse(date)).getDay();
+    const weekdays = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+    ];
+    day = weekdays[day];
+
     return (
         <div className={'booking-list'}>
-            <header>{date}</header>
+            <h2>{day}</h2>
+            <h5>{date}</h5>
             {!bookings ? 'Loading...' : bookings.map(b =>
                 <Booking key={b.id} name={b.student.name} time={b.time} attended={b.attended} payed={b.payed}
-                         address={b.student.address} id={b.id}/>
+                         address={b.student.address} id={b.id} price={b.student.price}/>
             )}
         </div>
     );

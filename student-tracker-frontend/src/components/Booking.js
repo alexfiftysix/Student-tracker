@@ -12,6 +12,7 @@ export default class Booking extends React.Component {
         this.state['address'] = props.address;
         this.state['attended'] = props.attended;
         this.state['payed'] = props.payed;
+        this.state['price'] = props.price;
         console.log(this.state.id);
 
         this.changeAttended = this.changeAttended.bind(this);
@@ -72,6 +73,7 @@ export default class Booking extends React.Component {
                 <div onClick={this.changePayed}
                      className={'payed ' + (this.state.payed ? 'success' : 'failure')}>Paid
                 </div>
+                <p className={'price'}>${this.state.price}</p>
             </div>
         );
     }
