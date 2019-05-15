@@ -9,6 +9,7 @@ export default class Booking extends React.Component {
         this.state['id'] = props.id;
         this.state['name'] = props.name;
         this.state['time'] = props.time;
+        this.state['duration'] = props.duration;
         this.state['address'] = props.address;
         this.state['attended'] = props.attended;
         this.state['payed'] = props.payed;
@@ -62,10 +63,11 @@ export default class Booking extends React.Component {
 
 
     render() {
+        console.log(this.state.duration);
         return (
             <div className={'booking'}>
                 <h3>{this.state.name}</h3>
-                <p className={'time'}>{this.state.time}</p>
+                <p className={'time'}>{String(this.state.time).substr(0, 5)}</p>
                 <p className={'address'}>{this.state.address}</p>
                 <div onClick={this.changeAttended}
                      className={'attended ' + (this.state.attended ? 'success' : 'failure')}>Attended

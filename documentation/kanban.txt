@@ -1,5 +1,7 @@
 ### backlog
 
+As a dev, I want my RESTful API to follow standard responses. (response codes (201 for delete success, etc)
+
 As a teacher I want to set student bookings to different lengths to cater to their needs (30 min, 15 min, 45 min, etc)
 
 As a teacher I want students to be automatically added to my weekly schedule so I don't have to do it myself

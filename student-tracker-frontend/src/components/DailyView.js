@@ -34,7 +34,7 @@ function DailyView(props) {
             <h5>{date}</h5>
             {!bookings ? 'Loading...' : bookings.map(b =>
                 <Booking key={b.id} name={b.student.name} time={b.time} attended={b.attended} payed={b.payed}
-                         address={b.student.address} id={b.id} price={b.student.price}/>
+                         address={b.student.address} id={b.id} price={b.student.price} duration={b.student.lesson_duration}/>
             )}
         </div>
     );

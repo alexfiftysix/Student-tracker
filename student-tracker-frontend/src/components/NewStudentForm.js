@@ -8,6 +8,7 @@ export default class NewStudentForm extends React.Component {
             name: '',
             lesson_day: '',
             lesson_time: '',
+            lesson_duration: '',
             address: '',
             price: ''
         };
@@ -27,6 +28,7 @@ export default class NewStudentForm extends React.Component {
     }
 
     handleSubmit(event) {
+        // TODO: Allow users to press enter instead of clicking
         event.preventDefault();
         let url = 'http://localhost:5000/student/0';
         let options = {
@@ -68,6 +70,11 @@ export default class NewStudentForm extends React.Component {
                 <label>
                     <div>Lesson time:</div>
                     <input name={'lesson_time'} type={'text'} value={this.state.lesson_time}
+                           onChange={this.handleChange}/>
+                </label>
+                <label>
+                    <div>Lesson duration (minutes):</div>
+                    <input name={'lesson_duration'} type={'text'} value={this.state.lesson_duration}
                            onChange={this.handleChange}/>
                 </label>
                 <label>

@@ -93,11 +93,19 @@ class Student(db.Model):
         return self.__repr__()
 
     def json(self):
+
+        lesson_end = datetime.strptime(self.lesson_time, "%H:%M")  # + timedelta(minutes=self.lesson_length_minutes)
+        lesson_end += timedelta(minutes=self.lesson_length_minutes)
+        lesson_end = lesson_end.time()
+
+        lesson_end = str(lesson_end.hour) + ':' + str(lesson_end.minute)
+
         student = {'id': self.id,
                    'name': self.name,
                    'lesson_day': self.lesson_day,
                    'lesson_time': str(self.lesson_time),
                    'lesson_length_minutes': str(self.lesson_length_minutes),
+                   'lesson_end': str(lesson_end),
                    'address': self.address,
                    'price': str(self.price)}
 
@@ -115,10 +123,10 @@ class Student(db.Model):
     @staticmethod
     def add(name, lesson_day, lesson_time, lesson_length_minutes, address, price):
         # TODO: error checking
-        # clash = Student.query.filter_by(lesson_day=lesson_day).filter_by(lesson_time=lesson_time).first()
-        # if clash:
-        #     return {'message': 'clashes with student',
-        #             'student': clash.json()}
+        clash = Student.query.filter_by(lesson_day=lesson_day).filter_by(lesson_time=lesson_time).first()
+        if clash:
+            return {'message': 'clashes with student',
+                    'student': clash.json()}
 
         to_add = Student(name=name, lesson_day=lesson_day, lesson_time=lesson_time,
                          lesson_length_minutes=lesson_length_minutes, address=address, price=price)
@@ -173,7 +181,12 @@ class Student(db.Model):
             price = request.form['price']
 
             added = Student.add(name, lesson_day, lesson_time, lesson_length_minutes, address, price)
-            return added.json()
+            if added is Student:
+                return added.json()
+            else:
+                # There has been an error (clash probably) and the student was not added
+                # TODO: Should return non-200 status (not sure which one right now)
+                return added
 
         def delete(self, id):
             return Student.delete(id)
