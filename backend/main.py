@@ -82,6 +82,7 @@ class Student(db.Model):
     name = db.Column('name', db.String(200), nullable=False)
     lesson_day = db.Column('lesson_day', db.String(10), nullable=False)
     lesson_time = db.Column('lesson_time', db.String(10), nullable=False)
+    lesson_length_minutes = db.Column('lesson_length_minutes', db.Integer, nullable=False, default=30)
     address = db.Column('address', db.String(200), nullable=False)
     price = db.Column('price', db.DECIMAL, nullable=False)
 
@@ -96,6 +97,7 @@ class Student(db.Model):
                    'name': self.name,
                    'lesson_day': self.lesson_day,
                    'lesson_time': str(self.lesson_time),
+                   'lesson_length_minutes': str(self.lesson_length_minutes),
                    'address': self.address,
                    'price': str(self.price)}
 
@@ -111,9 +113,15 @@ class Student(db.Model):
         return {'message': 'student deleted successfully'}
 
     @staticmethod
-    def add(name, lesson_day, lesson_time, address, price):
+    def add(name, lesson_day, lesson_time, lesson_length_minutes, address, price):
         # TODO: error checking
-        to_add = Student(name=name, lesson_day=lesson_day, lesson_time=lesson_time, address=address, price=price)
+        # clash = Student.query.filter_by(lesson_day=lesson_day).filter_by(lesson_time=lesson_time).first()
+        # if clash:
+        #     return {'message': 'clashes with student',
+        #             'student': clash.json()}
+
+        to_add = Student(name=name, lesson_day=lesson_day, lesson_time=lesson_time,
+                         lesson_length_minutes=lesson_length_minutes, address=address, price=price)
         db.session.add(to_add)
         db.session.commit()
 
@@ -153,16 +161,18 @@ class Student(db.Model):
                     return {'message': 'lesson day must be a day Eg. Monday'}
                 lesson_day = weekdays_abbreviated[lesson_day]
 
-            lesson_time = request.form['lesson_time']
+            lesson_time = request.form.get('lesson_time')
             try:
                 time.strptime(lesson_time, "%H:%M")
             except ValueError:
                 return {'message': 'lesson_time must be in format HH:MM (24 hour time)'}
 
+            lesson_length_minutes = request.form.get('lesson_length_minutes')
+
             address = request.form['address']
             price = request.form['price']
 
-            added = Student.add(name, lesson_day, lesson_time, address, price)
+            added = Student.add(name, lesson_day, lesson_time, lesson_length_minutes, address, price)
             return added.json()
 
         def delete(self, id):
@@ -199,8 +209,11 @@ class Appointment(db.Model):
     @staticmethod
     def add_for_next_available_date(student: Student):
         # TODO: Run this every monday? Every time they sign on for every student?
-        hour = int(student.lesson_time.strftime('%H'))
-        minute = int(student.lesson_time.strftime('%M'))
+
+        lesson_time = time.strptime(student.lesson_time, "%H:%M")
+
+        hour = int(lesson_time.tm_hour)
+        minute = int(lesson_time.tm_min)
         weekday = student.lesson_day
         now = datetime.now().replace(hour=hour, minute=minute, second=0, microsecond=0)
         next_lesson_datetime = next_weekday(now, weekday)
@@ -216,7 +229,7 @@ class Appointment(db.Model):
 
         db.session.add(to_add)
         db.session.commit()
-        return to_add
+        return to_add.json()
 
     @staticmethod
     def get(id: int):
