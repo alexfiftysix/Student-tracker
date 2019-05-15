@@ -27,9 +27,26 @@ export default class NewStudentForm extends React.Component {
     }
 
     handleSubmit(event) {
-        console.log('Submitted!');
-        console.log(this.state);
         event.preventDefault();
+        let url = 'http://localhost:5000/student/0';
+        let options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            credentials: 'same-origin',
+            body: new FormData()
+        };
+
+        options.body.append('name', this.state.name);
+        options.body.append('lesson_day', this.state.lesson_day);
+        options.body.append('lesson_time', this.state.lesson_time);
+        options.body.append('address', this.state.address);
+        options.body.append('price', this.state.price);
+
+        fetch(url, options)
+            .then(response => response.json())
+            .then(data => alert(data));
     }
 
     render() {

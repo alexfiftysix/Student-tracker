@@ -26,7 +26,7 @@ export default class Booking extends React.Component {
                 'Accept': 'application/json',
             },
             credentials: 'same-origin',
-            body: new FormData
+            body: new FormData()
         };
 
         options.body.append('payed', String(!this.state.payed));
@@ -47,7 +47,7 @@ export default class Booking extends React.Component {
                 'Accept': 'application/json',
             },
             credentials: 'same-origin',
-            body: new FormData
+            body: new FormData()
         };
 
         options.body.append('attended', String(!this.state.attended));
