@@ -6,11 +6,11 @@ import Student from './components/student'
 
 function App() {
     return (
-        <div className="App">
+        <main className="App">
             <WeeklyView/>
             <NewStudentForm/>
             <Student id={24}/>
-        </div>
+        </main>
     );
 }
 

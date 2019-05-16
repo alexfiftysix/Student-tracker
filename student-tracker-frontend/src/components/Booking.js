@@ -9,7 +9,7 @@ export default class Booking extends React.Component {
         this.state['id'] = props.id;
         this.state['name'] = props.name;
         this.state['time'] = props.time;
-        this.state['duration'] = props.duration;
+        this.state['end_time'] = props.end_time;
         this.state['address'] = props.address;
         this.state['attended'] = props.attended;
         this.state['payed'] = props.payed;
@@ -67,13 +67,13 @@ export default class Booking extends React.Component {
         return (
             <div className={'booking'}>
                 <h3>{this.state.name}</h3>
-                <p className={'time'}>{String(this.state.time).substr(0, 5)}</p>
+                <p className={'time'}>{String(this.state.time).substr(0, 5)}-{String(this.state.end_time).substr(0, 5)}</p>
                 <p className={'address'}>{this.state.address}</p>
                 <div onClick={this.changeAttended}
-                     className={'attended ' + (this.state.attended ? 'success' : 'failure')}>Attended
+                     className={'attended ' + (this.state.attended ? 'success' : 'failure')}>{this.state.attended ? '' : 'Not '}Attended
                 </div>
                 <div onClick={this.changePayed}
-                     className={'payed ' + (this.state.payed ? 'success' : 'failure')}>Paid
+                     className={'payed ' + (this.state.payed ? 'success' : 'failure')}>{this.state.payed ? '' : 'Not '}Paid
                 </div>
                 <p className={'price'}>${this.state.price}</p>
             </div>
