@@ -1,16 +1,10 @@
 ### backlog
 
-As a dev, I want my RESTful API to follow standard responses. (response codes (201 for delete success, etc)
-
-As a teacher I want to set student bookings to different lengths to cater to their needs (30 min, 15 min, 45 min, etc)
-
 As a teacher I want students to be automatically added to my weekly schedule so I don't have to do it myself
 
 As a teacher I want to be able to remove students from the system when they leave so I don't have their appointments anymore
 
 As a teacher I want to view students on a monthly view so I can understand my schedule
-
-As a teacher I want to be able to view all of my students records to keep track of their personal details
 
 As a teacher I want to be warned if adding two students to the same time slot so I don't double-book
 
@@ -38,12 +32,16 @@ As a teacher I want to be able to book one-off and short term lessons to support
 
 ### todo
 
-As a teacher I want to view students on a daily view so I can understand my schedule
+As a dev, I want my RESTful API to follow standard responses. (response codes (201 for delete success, etc)
 
 ### doing
 
+As a teacher I want to be able to view all of my students records to keep track of their personal details
+
 ### done
+As a teacher I want to set student bookings to different lengths to cater to their needs (30 min, 15 min, 45 min, etc)
 As a teacher I want to view students on a weekly view so I can understand my schedule
+As a teacher I want to view students on a daily view so I can understand my schedule
 As a teacher I want the daily view to show the current day by default so I don't have to navigate to the correct day
 As a teacher I want to be able to tick off when students have payed for their lessons so I know who's up-to-date
 As a teacher I want to be able to tick off when students have attended their lessons so I can keep track of who attended when

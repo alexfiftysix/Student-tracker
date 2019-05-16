@@ -97,7 +97,6 @@ class Student(db.Model):
         lesson_end = datetime.strptime(self.lesson_time, "%H:%M")  # + timedelta(minutes=self.lesson_length_minutes)
         lesson_end += timedelta(minutes=self.lesson_length_minutes)
         lesson_end = lesson_end.time()
-
         lesson_end = str(lesson_end.hour) + ':' + str(lesson_end.minute)
 
         student = {'id': self.id,

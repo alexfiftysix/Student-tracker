@@ -1,0 +1,31 @@
+.student {
+    width: 400px;
+    background: white;
+    color: black;
+    padding: 10px 30px;
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+.student * {
+    color: black;
+
+}
+
+.student ul {
+    list-style: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.student ul li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.student ul li > * {
+    margin-bottom: 0;
+}
