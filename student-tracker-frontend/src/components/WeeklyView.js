@@ -38,7 +38,7 @@ function WeeklyView() {
     return (
         <div className={'weekly-view'}>
             {dates.map(d =>
-            <DailyView date={d}/>
+            <DailyView key={d} date={d}/>
             )}
         </div>
     )

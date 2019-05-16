@@ -1,5 +1,11 @@
 ### backlog
 
+Routing for weekly view and student view.
+
+Link from student name on booking to student details view.
+
+Don't allow two students into the same timeslot
+
 As a teacher I want students to be automatically added to my weekly schedule so I don't have to do it myself
 
 As a teacher I want to be able to remove students from the system when they leave so I don't have their appointments anymore

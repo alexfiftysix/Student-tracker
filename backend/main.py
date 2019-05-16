@@ -122,6 +122,8 @@ class Student(db.Model):
     @staticmethod
     def add(name, lesson_day, lesson_time, lesson_length_minutes, address, price):
         # TODO: error checking
+        # TODO: New lesson start time greater than or equal to lesson is bad
+        #   New lesson start less than existing lesson time bad
         clash = Student.query.filter_by(lesson_day=lesson_day).filter_by(lesson_time=lesson_time).first()
         if clash:
             return {'message': 'clashes with student',
