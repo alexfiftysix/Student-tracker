@@ -6,6 +6,7 @@ import time
 import json
 import requests
 from flask_cors import CORS
+import _sha256
 
 from .utilities.weekdays import next_weekday, all_days_in_week, weekdays, weekdays_abbreviated
 
@@ -15,6 +16,57 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:password@loc
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
 db = SQLAlchemy(app)
+
+
+class Teacher(db.Model):
+    __tablename__ = 'teacher'
+    email = db.Column('email', db.String(250), primary_key=True)
+    password = db.Column('password', db.String(200), nullable=False)  # sha256 encryption here plz
+    standard_rate = db.Column('standard_rate', db.DECIMAL, nullable=False)
+    address = db.Column('address', db.String, nullable=True)  # for price calculations if we want to go there
+
+    def json(self):
+        # Avoid releasing sensitive information here
+        return {
+            'email': self.email
+        }
+
+    class SingleTeacher(Resource):
+        @staticmethod
+        def get(email):
+            found = Teacher.get(email)
+            if not found:
+                return None
+            else:
+                return found.json()
+
+    class AllTeachers(Resource):
+        def post(self):
+            email = request.form.get('email')
+            password = request.form.get('password')
+            standard_rate = request.form.get('standard_rate')
+            address = request.form.get('address')
+
+            # TODO: Not such accurate messages - invites bad actors
+            #   Could be better to be vague. As is a hacker can follow the steps provided to create an account
+            #   (Is this bad though? It's account creation)
+            if not email:
+                return {'message': '"email" must be provided when adding new teacher'}
+            # Check if another teacher uses this email
+            if Teacher.SingleTeacher.get(email):
+                return {'message': 'Account already exists'}
+
+            if not password:
+                return {'message': '"password" must be provided'}
+            if not standard_rate:
+                return {'message': '"standard_rate" must be provided'}
+
+            # TODO: SHA encryption for passwords before add teacher
+
+
+
+
+
 
 
 class Student(db.Model):
