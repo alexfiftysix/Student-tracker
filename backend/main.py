@@ -207,7 +207,8 @@ class StudentNote(db.Model):
 
     def json(self):
         return {
-            'student': self.student,
+            'id': self.id,
+            'student': Student.get(self.student).json(),
             'date_and_time': str(self.date_and_time),
             'notes': self.notes
         }

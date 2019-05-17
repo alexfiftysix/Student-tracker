@@ -1,5 +1,7 @@
 import React from 'react';
 import './Booking.css';
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import student from "./student";
 
 
 export default class Booking extends React.Component {
@@ -14,6 +16,7 @@ export default class Booking extends React.Component {
         this.state['attended'] = props.attended;
         this.state['payed'] = props.payed;
         this.state['price'] = props.price;
+        this.state['student_id'] = props.student_id;
         console.log(this.state.id);
 
         this.changeAttended = this.changeAttended.bind(this);
@@ -66,7 +69,9 @@ export default class Booking extends React.Component {
         console.log(this.state.duration);
         return (
             <div className={'booking'}>
-                <h3>{this.state.name}</h3>
+                <Link to={'/student/' + this.state.student_id} className={'link'}>
+                    <h3>{this.state.name}</h3>
+                </Link>
                 <p className={'time'}>{String(this.state.time).substr(0, 5)}-{String(this.state.end_time).substr(0, 5)}</p>
                 <p className={'address'}>{this.state.address}</p>
                 <div onClick={this.changeAttended}

@@ -1,16 +1,17 @@
 import React, {useEffect} from 'react'
 import './student.css'
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 export default function Student(props) {
     const [student, setStudent] = React.useState(null);
-    const student_id = props.id;
+    const student_id = props.id ? props.id : props.match.params.student_id;
 
     // TODO: get student_id from url
     useEffect(() => {
         fetch('http://localhost:5000/student/' + student_id)
             .then(results => results.json())
             .then(data => {
-                console.log(data)
+                console.log(data);
                 setStudent(data);
             });
     }, []);
@@ -40,7 +41,13 @@ export default function Student(props) {
                     <h4>Price:</h4>
                     <p>${student.price}</p>
                 </li>
+                <li>
+                    <Link to={'/student_notes/' + student.id}>
+                        <p>Notes</p>
+                    </Link>
+                </li>
             </ul>
+
         </div>
     );
 }

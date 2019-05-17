@@ -1,0 +1,25 @@
+
+
+.fake-header {
+    margin-bottom: 60px;
+}
+
+header {
+    height: 40px;
+
+    position: fixed;
+    background-color: white;
+    color: black;
+    width: 100%;
+    left: 0;
+    top: 0;
+
+    margin: 0;
+}
+
+header ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    list-style: none;
+}
