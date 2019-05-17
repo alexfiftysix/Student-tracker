@@ -198,7 +198,7 @@ class Student(db.Model):
             return Student.delete(id)
 
 
-class StudentNotes(db.Model):
+class StudentNote(db.Model):
     __tablename__ = 'student_notes'
     id = db.Column('id', db.Integer, primary_key=True)
     student = db.Column('student', db.Integer, db.ForeignKey(Student.id, onupdate="CASCADE", ondelete="CASCADE"))
@@ -215,41 +215,51 @@ class StudentNotes(db.Model):
     class SingleNote(Resource):
         @staticmethod
         def get(id):
-            retrieved_note = StudentNotes.query.filter_by(id=id).first()
+            retrieved_note = StudentNote.query.filter_by(id=id).first()
             if not retrieved_note:
                 return {'message': 'note does not exist'}
             return retrieved_note.json()
 
         @staticmethod
         def delete(id):
-            retrieved_note = StudentNotes.query.filter_by(id=id).first()
+            retrieved_note = StudentNote.query.filter_by(id=id).first()
             if not retrieved_note:
                 return {'message': 'note does not exist'}
             db.session.remove(retrieved_note)
             db.session.commit()
             return {'message': 'note deleted successfully'}
 
+    class AllNotesPerStudent(Resource):
+        def get(self, student_id):
+            retrieved_notes = StudentNote.query.filter_by(student=student_id).order_by(StudentNote.date_and_time)
+            notes = []
+            for note in retrieved_notes:
+                notes.append(note.json())
+            return notes
+
     class AllNotes(Resource):
         @staticmethod
         def post():
             now = datetime.now()
 
-            student_id = request.form.get('student')
+            student_id = request.form.get('student_id')
             notes = request.form.get('notes')
 
             if not student_id:
                 return {'message': 'please provide "student_id"'}
 
-            student_record = Student.get(student_id)
+            student_record = Student.get(int(student_id))
             if not student_record:
                 return {'message': 'student does not exist'}
 
             if not notes:
                 return {'message': 'please provide "notes"'}
 
-            to_add = StudentNotes(student=student_id, date_and_time=now, notes=notes)
+            to_add = StudentNote(student=int(student_id), date_and_time=now, notes=notes)
             db.session.add(to_add)
             db.session.commit()
+
+            return {'message': 'Note aded successfully'}
 
 
 class Appointment(db.Model):
@@ -420,8 +430,9 @@ class Appointment(db.Model):
 api.add_resource(Student.SingleStudent, '/student/<id>')
 api.add_resource(Student.AllStudents, '/student')
 
-api.add_resource(StudentNotes.SingleNote, '/student/note/<id>')
-api.add_resource(StudentNotes.AllNotes, '/student/note/')
+api.add_resource(StudentNote.SingleNote, '/student/note/<id>')
+api.add_resource(StudentNote.AllNotes, '/student/note')
+api.add_resource(StudentNote.AllNotesPerStudent, '/student/notes/<student_id>')
 
 api.add_resource(Appointment.SingleAppointment, '/appointment/<id>')
 api.add_resource(Appointment.AllAppointments, '/appointment')
