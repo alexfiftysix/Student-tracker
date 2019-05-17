@@ -7,6 +7,7 @@ import json
 import requests
 from flask_cors import CORS
 import _sha256
+from passlib.hash import sha256_crypt
 
 from .utilities.weekdays import next_weekday, all_days_in_week, weekdays, weekdays_abbreviated
 
@@ -25,6 +26,15 @@ class Teacher(db.Model):
     standard_rate = db.Column('standard_rate', db.DECIMAL, nullable=False)
     address = db.Column('address', db.String, nullable=True)  # for price calculations if we want to go there
 
+    def log_in(self, email, password_candidate):
+        teacher = Teacher.SingleTeacher.get(email)
+        if teacher:
+            if sha256_crypt.verify(password_candidate, teacher.password):
+                #TODO: is logged in
+                return {'message': 'logged in successfully'}
+        return {"message": "Wrong username or password"}
+        # TODO: Some auth ideas here https://stackoverflow.com/questions/13916620/rest-api-login-pattern
+
     def json(self):
         # Avoid releasing sensitive information here
         return {
@@ -41,7 +51,8 @@ class Teacher(db.Model):
                 return found.json()
 
     class AllTeachers(Resource):
-        def post(self):
+        @staticmethod
+        def post():
             email = request.form.get('email')
             password = request.form.get('password')
             standard_rate = request.form.get('standard_rate')
@@ -63,8 +74,11 @@ class Teacher(db.Model):
 
             # TODO: SHA encryption for passwords before add teacher
 
+            password_encrypted = sha256_crypt.encrypt(password)
 
-
+            to_add = Teacher(email=email, password=password_encrypted, standard_rate=standard_rate, address=address)
+            db.session.add(to_add)
+            db.session.commit()
 
 
 
