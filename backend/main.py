@@ -30,7 +30,7 @@ class Teacher(db.Model):
         teacher = Teacher.SingleTeacher.get(email)
         if teacher:
             if sha256_crypt.verify(password_candidate, teacher.password):
-                #TODO: is logged in
+                # TODO: is logged in
                 return {'message': 'logged in successfully'}
         return {"message": "Wrong username or password"}
         # TODO: Some auth ideas here https://stackoverflow.com/questions/13916620/rest-api-login-pattern
@@ -79,8 +79,6 @@ class Teacher(db.Model):
             to_add = Teacher(email=email, password=password_encrypted, standard_rate=standard_rate, address=address)
             db.session.add(to_add)
             db.session.commit()
-
-
 
 
 class Student(db.Model):
@@ -250,8 +248,8 @@ class StudentNotes(db.Model):
                 return {'message': 'please provide "notes"'}
 
             to_add = StudentNotes(student=student_id, date_and_time=now, notes=notes)
-
-
+            db.session.add(to_add)
+            db.session.commit()
 
 
 class Appointment(db.Model):
