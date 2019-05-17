@@ -200,6 +200,51 @@ class Student(db.Model):
             return Student.delete(id)
 
 
+class StudentNotes(db.Model):
+    __tablename__ = 'student_notes'
+    id = db.Column('id', db.Integer, primary_key=True)
+    student = db.Column('student', db.Integer, db.ForeignKey(Student.id, onupdate="CASCADE", ondelete="CASCADE"))
+    date_and_time = db.Column('datetime', db.DateTime, nullable=False)
+    notes = db.Column('notes', db.String(1000), nullable=False)
+
+    def json(self):
+        return {
+            'student': self.student,
+            'date_and_time': str(self.date_and_time),
+            'notes': self.notes
+        }
+
+    class singleNote(Resource):
+        @staticmethod
+        def get(id):
+            retrieved_note = StudentNotes.query.filter_by(id=id).first()
+            if not retrieved_note:
+                return {'message': 'note does not exist'}
+            return retrieved_note.json()
+
+    class AllNotes(Resource):
+        @staticmethod
+        def post():
+            now = datetime.now()
+
+            student_id = request.form.get('student')
+            notes = request.form.get('notes')
+
+            if not student_id:
+                return {'message': 'please provide "student_id"'}
+
+            student_record = Student.get(student_id)
+            if not student_record:
+                return {'message': 'student does not exist'}
+
+            if not notes:
+                return {'message': 'please provide "notes"'}
+
+            to_add = StudentNotes(student=student_id, date_and_time=now, notes=notes)
+
+
+
+
 class Appointment(db.Model):
     __tablename__ = 'appointment'
     id = db.Column('id', db.Integer, primary_key=True)
