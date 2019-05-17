@@ -214,13 +214,22 @@ class StudentNotes(db.Model):
             'notes': self.notes
         }
 
-    class singleNote(Resource):
+    class SingleNote(Resource):
         @staticmethod
         def get(id):
             retrieved_note = StudentNotes.query.filter_by(id=id).first()
             if not retrieved_note:
                 return {'message': 'note does not exist'}
             return retrieved_note.json()
+
+        @staticmethod
+        def delete(id):
+            retrieved_note = StudentNotes.query.filter_by(id=id).first()
+            if not retrieved_note:
+                return {'message': 'note does not exist'}
+            db.session.remove(retrieved_note)
+            db.session.commit()
+            return {'message': 'note deleted successfully'}
 
     class AllNotes(Resource):
         @staticmethod
@@ -412,6 +421,9 @@ class Appointment(db.Model):
 
 api.add_resource(Student.SingleStudent, '/student/<id>')
 api.add_resource(Student.AllStudents, '/student')
+
+api.add_resource(StudentNotes.SingleNote, '/student/note/<id>')
+api.add_resource(StudentNotes.AllNotes, '/student/note/')
 
 api.add_resource(Appointment.SingleAppointment, '/appointment/<id>')
 api.add_resource(Appointment.AllAppointments, '/appointment')
