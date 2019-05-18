@@ -29,7 +29,8 @@ export default function Note(props) {
             <Link to={'/student/' + note_data.student.id}>
                 <h2>{note_data.student.name}</h2>
             </Link>
-            <p>{note_data.notes}</p>
+            <p className={"datetime"}>{note_data.date_and_time.substr(0, 16)}</p>
+            <p className={"note_body"}>{note_data.notes}</p>
         </div>
     );
 }

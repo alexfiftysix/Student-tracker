@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import Note from './note'
+import './allNotesPerStudent.css'
 
 export default function AllNotesPerStudent(props) {
     const [notes_data, setNotesData] = React.useState(null);
