@@ -31,9 +31,10 @@ function get_all_days_in_week(day) {
 }
 
 function WeeklyView() {
-    let date = '2019-05-14';
-    let datedate = Date(date);
-    let dates = get_all_days_in_week(datedate);
+    // TODO: Don't add a day - just for testing
+    let current_date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+    console.log(current_date);
+    let dates = get_all_days_in_week(current_date);
 
     return (
         <div className={'weekly-view'}>

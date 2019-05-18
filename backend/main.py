@@ -21,15 +21,17 @@ db = SQLAlchemy(app)
 
 class Teacher(db.Model):
     __tablename__ = 'teacher'
-    email = db.Column('email', db.String(250), primary_key=True)
+    id = db.Column('id', db.Integer, primary_key=True)
+    email = db.Column('email', db.String(250), unique=True)
     password = db.Column('password', db.String(200), nullable=False)  # sha256 encryption here plz
     standard_rate = db.Column('standard_rate', db.DECIMAL, nullable=False)
     address = db.Column('address', db.String, nullable=True)  # for price calculations if we want to go there
 
     def log_in(self, email, password_candidate):
+        # TODO: Send hashed password from front-end to avoid MIM attacks.
         teacher = Teacher.SingleTeacher.get(email)
         if teacher:
-            if sha256_crypt.verify(password_candidate, teacher.password):
+            if sha256_crypt.verify(password_candidate, teacher.get('password')):
                 # TODO: is logged in
                 return {'message': 'logged in successfully'}
         return {"message": "Wrong username or password"}
@@ -38,13 +40,22 @@ class Teacher(db.Model):
     def json(self):
         # Avoid releasing sensitive information here
         return {
-            'email': self.email
+            'id': str(self.id),
+            'email': self.email,
+            'standard_rate': str(self.standard_rate)
         }
+
+    @staticmethod
+    def get(id):
+        found = Teacher.query.filter_by(id=id).first()
+        if not found:
+            return {'message': 'Teacher does not exist'}
+        return found
 
     class SingleTeacher(Resource):
         @staticmethod
-        def get(email):
-            found = Teacher.get(email)
+        def get(id):
+            found: Teacher = Teacher.get(id)
             if not found:
                 return None
             else:
@@ -64,8 +75,8 @@ class Teacher(db.Model):
             if not email:
                 return {'message': '"email" must be provided when adding new teacher'}
             # Check if another teacher uses this email
-            if Teacher.SingleTeacher.get(email):
-                return {'message': 'Account already exists'}
+            # if Teacher.SingleTeacher.get(email):
+            #     return {'message': 'Account already exists'}
 
             if not password:
                 return {'message': '"password" must be provided'}
@@ -80,10 +91,18 @@ class Teacher(db.Model):
             db.session.add(to_add)
             db.session.commit()
 
+        def get(self):
+            teachers = Teacher.query.all()
+            output = []
+            for t in teachers:
+                output.append(t.json())
+            return output
+
 
 class Student(db.Model):
     __tablename__ = 'student'
     id = db.Column('id', db.Integer, primary_key=True)
+    teacher = db.Column('teacher', db.Integer, db.ForeignKey(Teacher.id, onupdate="CASCADE", ondelete="CASCADE"))
     name = db.Column('name', db.String(200), nullable=False)
     lesson_day = db.Column('lesson_day', db.String(10), nullable=False)
     lesson_time = db.Column('lesson_time', db.String(10), nullable=False)
@@ -144,11 +163,47 @@ class Student(db.Model):
 
     @staticmethod
     def get(id: int):
+        # Gets all teachers
         found = Student.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
         if not found:
             return None
-        # return found.json()
         return found
+
+    class AllStudentsPerTeacher(Resource):
+        def get(self, teacher_id):
+            students = []
+            for student in Student.query.filter_by(teacher=teacher_id):
+                students.append(student.json())
+            return students
+
+        def post(self, teacher_id):
+            # id is not used to add new student
+            name = request.form.get('name')
+
+            lesson_day = request.form.get('lesson_day').lower()
+            if not lesson_day or lesson_day not in weekdays:
+                if lesson_day not in weekdays_abbreviated:
+                    return {'message': 'lesson day must be a day Eg. Monday'}
+                lesson_day = weekdays_abbreviated[lesson_day]
+
+            lesson_time = request.form.get('lesson_time')
+            try:
+                time.strptime(lesson_time, "%H:%M")
+            except ValueError:
+                return {'message': 'lesson_time must be in format HH:MM (24 hour time)'}
+
+            lesson_length_minutes = request.form.get('lesson_length_minutes')
+
+            address = request.form['address']
+            price = request.form['price']
+
+            to_add = Student(name=name, lesson_day=lesson_day, lesson_time=lesson_time, teacher=int(teacher_id),
+                             lesson_length_minutes=lesson_length_minutes, address=address, price=price)
+            db.session.add(to_add)
+            db.session.commit()
+
+            Appointment.SingleAppointment.post(to_add.id)
+            return to_add.json()
 
     class AllStudents(Resource):
         def get(self):
@@ -198,8 +253,8 @@ class Student(db.Model):
             return Student.delete(id)
 
 
-class StudentNote(db.Model):
-    __tablename__ = 'student_notes'
+class Note(db.Model):
+    __tablename__ = 'student_note'
     id = db.Column('id', db.Integer, primary_key=True)
     student = db.Column('student', db.Integer, db.ForeignKey(Student.id, onupdate="CASCADE", ondelete="CASCADE"))
     date_and_time = db.Column('datetime', db.DateTime, nullable=False)
@@ -216,14 +271,14 @@ class StudentNote(db.Model):
     class SingleNote(Resource):
         @staticmethod
         def get(id):
-            retrieved_note = StudentNote.query.filter_by(id=id).first()
+            retrieved_note = Note.query.filter_by(id=id).first()
             if not retrieved_note:
                 return {'message': 'note does not exist'}
             return retrieved_note.json()
 
         @staticmethod
         def delete(id):
-            retrieved_note = StudentNote.query.filter_by(id=id).first()
+            retrieved_note = Note.query.filter_by(id=id).first()
             if not retrieved_note:
                 return {'message': 'note does not exist'}
             db.session.remove(retrieved_note)
@@ -232,7 +287,7 @@ class StudentNote(db.Model):
 
     class AllNotesPerStudent(Resource):
         def get(self, student_id):
-            retrieved_notes = StudentNote.query.filter_by(student=student_id).order_by(StudentNote.date_and_time)
+            retrieved_notes = Note.query.filter_by(student=student_id).order_by(Note.date_and_time.desc())
             notes = []
             for note in retrieved_notes:
                 notes.append(note.json())
@@ -257,7 +312,7 @@ class StudentNote(db.Model):
             if not notes:
                 return {'message': 'please provide "notes"'}
 
-            to_add = StudentNote(student=int(student_id), date_and_time=now, notes=notes)
+            to_add = Note(student=int(student_id), date_and_time=now, notes=notes)
             db.session.add(to_add)
             db.session.commit()
 
@@ -314,7 +369,7 @@ class Appointment(db.Model):
 
         db.session.add(to_add)
         db.session.commit()
-        return to_add.json()
+        return to_add
 
     @staticmethod
     def get(id: int):
@@ -429,28 +484,18 @@ class Appointment(db.Model):
             return appointments
 
 
+api.add_resource(Teacher.SingleTeacher, '/teacher/<id>')
+api.add_resource(Teacher.AllTeachers, '/teacher')
+
 api.add_resource(Student.SingleStudent, '/student/<id>')
 api.add_resource(Student.AllStudents, '/student')
+api.add_resource(Student.AllStudentsPerTeacher, '/my_students/<teacher_id>')
 
-api.add_resource(StudentNote.SingleNote, '/student/note/<id>')
-api.add_resource(StudentNote.AllNotes, '/student/note')
-api.add_resource(StudentNote.AllNotesPerStudent, '/student/notes/<student_id>')
+api.add_resource(Note.SingleNote, '/student/note/<id>')
+api.add_resource(Note.AllNotes, '/student/note')
+api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
 
 api.add_resource(Appointment.SingleAppointment, '/appointment/<id>')
 api.add_resource(Appointment.AllAppointments, '/appointment')
 api.add_resource(Appointment.DailyAppointments, '/daily_appointments/<date>')
 api.add_resource(Appointment.WeeklyAppointments, '/weekly_appointments/<day>')
-
-
-# TODO: Add weekly view. input any day from that week (Sun-Mon) and get the whole week of bookings
-
-@app.route('/')
-def daily_view():
-    today = datetime.now().date() + timedelta(days=1)
-    appointments = requests.get(f'http://localhost:5000/daily_appointments/{today}')
-    appointments = json.loads(appointments.text)
-    print(appointments)
-    for a in appointments['appointments']:
-        print(a)
-
-    return render_template('daily_view.html', appointments=appointments['appointments'])
