@@ -6,7 +6,6 @@ export default function Student(props) {
     const [student, setStudent] = React.useState(null);
     const student_id = props.id ? props.id : props.match.params.student_id;
 
-    // TODO: get student_id from url
     useEffect(() => {
         fetch('http://localhost:5000/student/' + student_id)
             .then(results => results.json())

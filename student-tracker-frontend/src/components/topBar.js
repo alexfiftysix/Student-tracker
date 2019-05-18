@@ -19,7 +19,7 @@ export default function TopBar(props) {
             <header>
                 <ul>
                     <li>
-                        <Link to={'/'}>home</Link>
+                        <Link to={'/weekly/1'}>home</Link>
                     </li>
                     <li>Hello, {data ? data.email : '__'}</li>
                     <li>

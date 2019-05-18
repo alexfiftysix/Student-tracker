@@ -36,7 +36,7 @@ export default class NewNoteForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        let url = 'http://localhost:5000/student/note';
+        let url = 'http://localhost:5000/student/notes/' + this.state.student_id;
         let options = {
             method: 'POST',
             headers: {

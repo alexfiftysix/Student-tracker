@@ -6,7 +6,6 @@ export default function AllNotesPerStudent(props) {
     const [notes_data, setNotesData] = React.useState(null);
     const student_id = props.student_id ? props.student_id : props.match.params.student_id;
 
-    // TODO: get date from url
     useEffect(() => {
         fetch('http://localhost:5000/student/notes/' + student_id)
             .then(results => results.json())

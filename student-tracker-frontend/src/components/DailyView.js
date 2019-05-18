@@ -5,7 +5,7 @@ import './DailyView.css'
 export default function DailyView(props) {
     const [bookings, setBookings] = React.useState(null);
     const date = props.date ? props.date : '2019-05-14';
-    const teacher_id = props.teacher_id ? props.teacher_id : 1; // TODO: Get from URL
+    const teacher_id = props.teacher_id ? props.teacher_id : 1;
 
     // TODO: get date from url
     useEffect(() => {
