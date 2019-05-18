@@ -87,9 +87,11 @@ class Teacher(db.Model):
 
             password_encrypted = sha256_crypt.encrypt(password)
 
+            # TODO: Handle duplicate email somehow
             to_add = Teacher(email=email, password=password_encrypted, standard_rate=standard_rate, address=address)
             db.session.add(to_add)
             db.session.commit()
+            return {'message': 'Teacher added successfully'}
 
         def get(self):
             teachers = Teacher.query.all()
@@ -123,14 +125,17 @@ class Student(db.Model):
         lesson_end = lesson_end.time()
         lesson_end = str(lesson_end.hour) + ':' + str(lesson_end.minute)
 
-        student = {'id': self.id,
-                   'name': self.name,
-                   'lesson_day': self.lesson_day,
-                   'lesson_time': str(self.lesson_time),
-                   'lesson_length_minutes': str(self.lesson_length_minutes),
-                   'lesson_end': str(lesson_end),
-                   'address': self.address,
-                   'price': str(self.price)}
+        student = {
+            'id': self.id,
+            'name': self.name,
+            'lesson_day': self.lesson_day,
+            'lesson_time': str(self.lesson_time),
+            'lesson_length_minutes': str(self.lesson_length_minutes),
+            'lesson_end': str(lesson_end),
+            'address': self.address,
+            'price': str(self.price),
+            'teacher_id': str(Teacher.get(self.teacher).id)
+        }
 
         return student
 
@@ -179,7 +184,7 @@ class Student(db.Model):
 
         @staticmethod
         def post(teacher_id):
-            # id is not used to add new student
+            # TODO: Use teacher default rate if none specified
             name = request.form.get('name')
 
             lesson_day = request.form.get('lesson_day').lower()
@@ -300,8 +305,8 @@ class Appointment(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     student = db.Column('student', db.Integer, db.ForeignKey(Student.id, onupdate="CASCADE", ondelete="CASCADE"))
     datetime = db.Column('datetime', db.DateTime)
-    date = db.Column('date', db.Date)
-    time = db.Column('time', db.Time)
+    date = db.Column('date', db.Date)  # TODO: Don't store this, infer it from datetime
+    time = db.Column('time', db.Time)  # TODO: Don't store this, infer it from datetime
     attended = db.Column('attended', db.Boolean)
     payed = db.Column('payed', db.Boolean)
 
@@ -334,9 +339,10 @@ class Appointment(db.Model):
         now = datetime.now().replace(hour=hour, minute=minute, second=0, microsecond=0)
         next_lesson_datetime = next_weekday(now, weekday)
 
-        clash = Appointment.query.filter_by(datetime=next_lesson_datetime).first()
-        if clash:
-            return None
+        # TODO: Only clashes if same teacher has same timeslot
+        # clash = Appointment.query.filter_by(datetime=next_lesson_datetime).first()
+        # if clash:
+        #     return None
 
         next_lesson_date = next_lesson_datetime.date()
         next_lesson_time = next_lesson_datetime.time()
@@ -442,14 +448,62 @@ class Appointment(db.Model):
                       .filter(Teacher.id == teacher_id)
                       .filter(Student.teacher == Teacher.id)
                       .filter(Student.id == Appointment.student)
+                      .order_by(Appointment.time)
                       .all())
 
             output = []
             for row in result:
                 output.append(row[2].json())
             return output
-        
+
+    class DailyAppointmentsPerTeacher(Resource):
+        @staticmethod
+        def get(teacher_id, date):
+            """
+            Gets all appointments for a given date
+            """
+
+            result = (db.session.query(Teacher, Student, Appointment)
+                      .filter(Teacher.id == teacher_id)
+                      .filter(Student.teacher == Teacher.id)
+                      .filter(Student.id == Appointment.student)
+                      .filter(Appointment.date == date)
+                      .order_by(Appointment.time)
+                      .all())
+
+            output = []
+            for r in result:
+                print(r[2])
+                output.append(r[2].json())
+
+            return output
+
+    class WeeklyAppointmentsPerTeacher(Resource):
+        @staticmethod
+        def get(teacher_id, date):
+            """
+            Gets all appointments for a given date
+            """
+            date = datetime.strptime(date, '%Y-%m-%d')
+
+            result = (db.session.query(Teacher, Student, Appointment)
+                      .filter(Teacher.id == teacher_id)
+                      .filter(Student.teacher == Teacher.id)
+                      .filter(Student.id == Appointment.student)
+                      .filter(Appointment.date >= date)
+                      .filter(Appointment.date <= date + timedelta(days=7))
+                      .order_by(Appointment.time)
+                      .all())
+
+            output = []
+            for r in result:
+                print(r[2])
+                output.append(r[2].json())
+
+            return output
+
     class DailyAppointments(Resource):
+        # TODO: Remove
         @staticmethod
         def get(date):
             """
@@ -461,6 +515,7 @@ class Appointment(db.Model):
             return {'appointments': appointments}
 
     class WeeklyAppointments(Resource):
+        # TODO: Convert to per-teacher
         @staticmethod
         def get(day):
             day = datetime.strptime(day, '%Y-%m-%d')
@@ -488,4 +543,7 @@ api.add_resource(Appointment.SingleAppointment, '/appointment/<id>')
 api.add_resource(Appointment.AllAppointments, '/appointment')
 api.add_resource(Appointment.DailyAppointments, '/daily_appointments/<date>')
 api.add_resource(Appointment.WeeklyAppointments, '/weekly_appointments/<day>')
+
 api.add_resource(Appointment.AllAppointmentsPerTeacher, '/my_appointments/<teacher_id>')
+api.add_resource(Appointment.DailyAppointmentsPerTeacher, '/my_appointments/daily/<teacher_id>/<date>')
+api.add_resource(Appointment.WeeklyAppointmentsPerTeacher, '/my_appointments/weekly/<teacher_id>/<date>')
