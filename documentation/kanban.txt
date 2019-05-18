@@ -6,19 +6,13 @@ As a dev I want a bunch of tests so I know if the system is fully working after 
 
 As a dev I want email verification so I don't get spammers in the system
 
-Routing for weekly view and student view.
-
-Link from student name on booking to student details view.
-
-Don't allow two students into the same timeslot
+As a teacher I want to be warned if adding two students to the same time slot so I don't double-book
 
 As a teacher I want students to be automatically added to my weekly schedule so I don't have to do it myself
 
 As a teacher I want to be able to remove students from the system when they leave so I don't have their appointments anymore
 
 As a teacher I want to view students on a monthly view so I can understand my schedule
-
-As a teacher I want to be warned if adding two students to the same time slot so I don't double-book
 
 As a teacher I want to block off holiday periods so I don't have to manually check off all those lessons
 
@@ -29,8 +23,6 @@ As a teacher I want recommended lesson price to be calculated so I know how much
 As a teacher I want public holidays to be highlighted so I can decide to teach or not on these days
 
 As a teacher I want my effective hourly rate to be calculated for each term so I know if my prices are set correctly
-
-As a teacher I want to make/view notes for each lesson so I can keep track of my students' progress
 
 As a teacher I want to be able to generate monthly invoices so I don't have to spend time doing it manually
 
@@ -44,8 +36,7 @@ As a teacher I want to be able to book one-off and short term lessons to support
 
 ### todo
 
-As a dev, I want my RESTful API to follow standard responses. (response codes (201 for delete success, etc)
-
+As a dev, I want my RESTful API to follow standard responses. (Eg. response code (201 for delete success, etc)
 As a teacher I want to be able to edit notes I left so I can remove mistakes from earlier notes.
 
 ### doing
@@ -53,6 +44,9 @@ As a teacher I want to be able to edit notes I left so I can remove mistakes fro
 As a teacher I want to be able to view all of my students records to keep track of their personal details
 
 ### done
+As a teacher I want to make/view notes for each lesson so I can keep track of my students' progress
+Link from student name on booking to student details view.
+Routing for weekly view and student view.
 As a teacher I want to set student bookings to different lengths to cater to their needs (30 min, 15 min, 45 min, etc)
 As a teacher I want to view students on a weekly view so I can understand my schedule
 As a teacher I want to view students on a daily view so I can understand my schedule
