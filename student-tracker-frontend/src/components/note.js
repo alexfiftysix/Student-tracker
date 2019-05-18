@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import './note.css'
+import {Link} from "react-router-dom";
 
 export default function Note(props) {
     const [note_data, setNoteData] = React.useState(null);
@@ -25,7 +26,9 @@ export default function Note(props) {
 
     return (
         <div className={'note'}>
-            <h2>{note_data.student.name}</h2>
+            <Link to={'/student/' + note_data.student.id}>
+                <h2>{note_data.student.name}</h2>
+            </Link>
             <p>{note_data.notes}</p>
         </div>
     );

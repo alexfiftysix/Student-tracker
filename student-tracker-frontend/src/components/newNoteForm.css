@@ -1,0 +1,9 @@
+.new_note_form {
+    background: white;
+    color: black;
+    padding: 20px;
+}
+
+.new_note_form h2 {
+    color: #000;
+}

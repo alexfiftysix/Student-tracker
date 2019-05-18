@@ -241,6 +241,7 @@ class StudentNote(db.Model):
     class AllNotes(Resource):
         @staticmethod
         def post():
+            # TODO: Put this under singleNote, get student_id from url
             now = datetime.now()
 
             student_id = request.form.get('student_id')

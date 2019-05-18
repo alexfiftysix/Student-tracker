@@ -43,7 +43,12 @@ export default function Student(props) {
                 </li>
                 <li>
                     <Link to={'/student_notes/' + student.id}>
-                        <p>Notes</p>
+                        <p>View notes</p>
+                    </Link>
+                </li>
+                <li>
+                    <Link to={'/student_add_notes/' + student.id}>
+                        <p>Add notes</p>
                     </Link>
                 </li>
             </ul>

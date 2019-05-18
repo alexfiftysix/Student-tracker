@@ -5,6 +5,7 @@ import NewStudentForm from './components/NewStudentForm'
 import Student from './components/student'
 import Note from './components/note'
 import AllNotesPerStudent from './components/allNotesPerStudent'
+import NewNoteForm from './components/newNoteForm'
 import TopBar from './components/topBar'
 
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/student/:student_id" component={Student}/>
                 <Route path="/new_student/" component={NewStudentForm}/>
                 <Route path="/student_notes/:student_id" component={AllNotesPerStudent}/>
+                <Route path="/student_add_notes/:student_id" component={NewNoteForm}/>
             </Router>
         </main>
     );
