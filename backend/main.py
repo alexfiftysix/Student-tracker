@@ -23,6 +23,7 @@ class Teacher(db.Model):
     __tablename__ = 'teacher'
     id = db.Column('id', db.Integer, primary_key=True)
     email = db.Column('email', db.String(250), unique=True)
+    # TODO: Add name
     password = db.Column('password', db.String(200), nullable=False)  # sha256 encryption here plz
     standard_rate = db.Column('standard_rate', db.DECIMAL, nullable=False)
     address = db.Column('address', db.String, nullable=True)  # for price calculations if we want to go there
@@ -519,7 +520,6 @@ class Appointment(db.Model):
         @staticmethod
         def get(day):
             day = datetime.strptime(day, '%Y-%m-%d')
-            print(day)
             week = all_days_in_week(day)
             appointments = []
             for day in week:

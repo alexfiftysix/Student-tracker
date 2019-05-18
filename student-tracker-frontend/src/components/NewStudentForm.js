@@ -10,7 +10,8 @@ export default class NewStudentForm extends React.Component {
             lesson_time: '',
             lesson_duration: '',
             address: '',
-            price: ''
+            price: '',
+            teacher_id: 1 // TODO: Get this dynamically
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -30,7 +31,7 @@ export default class NewStudentForm extends React.Component {
     handleSubmit(event) {
         // TODO: Allow users to press enter instead of clicking
         event.preventDefault();
-        let url = 'http://localhost:5000/student/0';
+        let url = 'http://localhost:5000/my_students/' + this.state.teacher_id;
         let options = {
             method: 'POST',
             headers: {

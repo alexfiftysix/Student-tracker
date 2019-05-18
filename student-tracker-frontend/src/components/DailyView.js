@@ -2,17 +2,17 @@ import React, {useEffect} from 'react'
 import Booking from "./Booking";
 import './DailyView.css'
 
-function DailyView(props) {
+export default function DailyView(props) {
     const [bookings, setBookings] = React.useState(null);
     const date = props.date ? props.date : '2019-05-14';
+    const teacher_id = props.teacher_id ? props.teacher_id : 1; // TODO: Get from URL
 
     // TODO: get date from url
     useEffect(() => {
-        fetch('http://localhost:5000/daily_appointments/' + date)
+        fetch('http://localhost:5000/my_appointments/daily/' + teacher_id + '/' + date)
             .then(results => results.json())
             .then(data => {
-                const bookings = data['appointments'];
-                setBookings(bookings);
+                setBookings(data);
             });
     }, []);
 
@@ -28,6 +28,8 @@ function DailyView(props) {
     ];
     day = weekdays[day];
 
+    console.log(bookings);
+
     return (
         <div className={'booking-list'}>
             <h2>{day}</h2>
@@ -40,5 +42,3 @@ function DailyView(props) {
         </div>
     );
 }
-
-export default DailyView;

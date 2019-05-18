@@ -1,17 +1,16 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import DailyView from './DailyView'
 import './WeeklyView.css'
 
+// TODO: server-optimise this to use the /my_appointments/weekly endpoint
 
-function get_all_days_in_week(day) {
-    let date = new Date(Date.parse(day));
-    let sunday = new Date();
-    sunday.setDate(new Date(date).getDate() - new Date(date).getDay());
+function get_next_seven_days() {
+    let date = new Date(Date());
 
     let weekdays = [];
     for (let i = 0; i < 7; i++) {
         let current = new Date();
-        current.setDate(sunday.getDate() + i);
+        current.setDate(date.getDate() + i);
 
         let year = current.getFullYear();
         let month = String(current.getMonth() + 1);
@@ -30,19 +29,23 @@ function get_all_days_in_week(day) {
     return weekdays;
 }
 
-function WeeklyView() {
-    // TODO: Don't add a day - just for testing
-    let current_date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-    console.log(current_date);
-    let dates = get_all_days_in_week(current_date);
+function WeeklyView(props) {
+    const dates = get_next_seven_days();
+    const teacher_id = props.match.params.teacher_id;
+
+    if (!dates) {
+        return (
+            <div className={'weekly-view'}>Loading...</div>
+        );
+    }
 
     return (
         <div className={'weekly-view'}>
             {dates.map(d =>
-            <DailyView key={d} date={d}/>
+                <DailyView key={d} date={d} teacher_id={teacher_id}/>
             )}
         </div>
-    )
+    );
 }
 
 export default WeeklyView
