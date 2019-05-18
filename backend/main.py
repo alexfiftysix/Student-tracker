@@ -170,13 +170,15 @@ class Student(db.Model):
         return found
 
     class AllStudentsPerTeacher(Resource):
-        def get(self, teacher_id):
+        @staticmethod
+        def get(teacher_id):
             students = []
             for student in Student.query.filter_by(teacher=teacher_id):
                 students.append(student.json())
             return students
 
-        def post(self, teacher_id):
+        @staticmethod
+        def post(teacher_id):
             # id is not used to add new student
             name = request.form.get('name')
 
@@ -206,50 +208,24 @@ class Student(db.Model):
             return to_add.json()
 
     class AllStudents(Resource):
-        def get(self):
+        @staticmethod
+        def get():
             students = []
             for student in Student.query.all():
                 students.append(student.json())
             return {'students': students}
 
     class SingleStudent(Resource):
-        def get(self, id):
+        @staticmethod
+        def get(id):
             to_show = Student.get(id)
             if not to_show:
                 return "Student doesn't exist"
             else:
                 return to_show.json()
 
-        def post(self, id):
-            # id is not used to add new student
-            name = request.form['name']
-
-            lesson_day = request.form['lesson_day'].lower()
-            if lesson_day not in weekdays:
-                if lesson_day not in weekdays_abbreviated:
-                    return {'message': 'lesson day must be a day Eg. Monday'}
-                lesson_day = weekdays_abbreviated[lesson_day]
-
-            lesson_time = request.form.get('lesson_time')
-            try:
-                time.strptime(lesson_time, "%H:%M")
-            except ValueError:
-                return {'message': 'lesson_time must be in format HH:MM (24 hour time)'}
-
-            lesson_length_minutes = request.form.get('lesson_length_minutes')
-
-            address = request.form['address']
-            price = request.form['price']
-
-            added = Student.add(name, lesson_day, lesson_time, lesson_length_minutes, address, price)
-            if added is Student:
-                return added.json()
-            else:
-                # There has been an error (clash probably) and the student was not added
-                # TODO: Should return non-200 status (not sure which one right now)
-                return added
-
-        def delete(self, id):
+        @staticmethod
+        def delete(id):
             return Student.delete(id)
 
 
@@ -330,7 +306,7 @@ class Appointment(db.Model):
     payed = db.Column('payed', db.Boolean)
 
     def __repr__(self):
-        return f'Appointment({self.id}): {self.datetime} | {Student.get(self.student)}'
+        return str(self.json())
 
     def __str__(self):
         return self.__repr__()
@@ -460,6 +436,19 @@ class Appointment(db.Model):
 
             return {'appointments': appointments}
 
+    class AllAppointmentsPerTeacher(Resource):
+        def get(self, teacher_id):
+            result = (db.session.query(Teacher, Student, Appointment)
+                      .filter(Teacher.id == teacher_id)
+                      .filter(Student.teacher == Teacher.id)
+                      .filter(Student.id == Appointment.student)
+                      .all())
+
+            output = []
+            for row in result:
+                output.append(row[2].json())
+            return output
+        
     class DailyAppointments(Resource):
         @staticmethod
         def get(date):
@@ -499,3 +488,4 @@ api.add_resource(Appointment.SingleAppointment, '/appointment/<id>')
 api.add_resource(Appointment.AllAppointments, '/appointment')
 api.add_resource(Appointment.DailyAppointments, '/daily_appointments/<date>')
 api.add_resource(Appointment.WeeklyAppointments, '/weekly_appointments/<day>')
+api.add_resource(Appointment.AllAppointmentsPerTeacher, '/my_appointments/<teacher_id>')
