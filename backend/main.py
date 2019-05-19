@@ -148,6 +148,7 @@ class Teacher(db.Model):
 
 
 class Student(db.Model):
+    # TODO: Route to update all students calendars
     __tablename__ = 'student'
     id = db.Column('id', db.Integer, primary_key=True)
     teacher = db.Column('teacher', db.Integer, db.ForeignKey(Teacher.id, onupdate="CASCADE", ondelete="CASCADE"))
@@ -251,6 +252,21 @@ class Student(db.Model):
 
             Appointment.SingleAppointment.post(to_add.id)
             return to_add.json(), 201
+
+    class UpdateAllStudentsPerTeacher(Resource):
+        @staticmethod
+        @token_required
+        def get(current_user):
+            # TODO: Don't allow double-booking
+            students = []
+            for student in Student.query.filter_by(teacher=current_user.id):
+                students.append(student)
+
+            for student in students:
+                print(student)
+                Appointment.add_for_next_available_date(student)
+
+            return {'message': 'schedule updated'}
 
     class AllStudents(Resource):
         @staticmethod
@@ -386,7 +402,6 @@ class Appointment(db.Model):
     @staticmethod
     def add_for_next_available_date(student: Student):
         # TODO: Run this every monday? Every time they sign on for every student?
-
         lesson_time = time.strptime(student.lesson_time, "%H:%M")
 
         hour = int(lesson_time.tm_hour)
@@ -397,6 +412,11 @@ class Appointment(db.Model):
 
         next_lesson_date = next_lesson_datetime.date()
         next_lesson_time = next_lesson_datetime.time()
+
+        clash = Appointment.query.filter_by(date=next_lesson_date).filter_by(time=next_lesson_time).first()
+        if clash:
+            return {'message': 'clashes with existing appointment'}
+
         to_add = Appointment(student=student.id, datetime=next_lesson_datetime, date=next_lesson_date,
                              time=next_lesson_time, attended=False, payed=False)
 
@@ -475,7 +495,8 @@ class Appointment(db.Model):
 
             return appointment.json()
 
-        def delete(self, id):
+        @staticmethod
+        def delete(id):
             found = Appointment.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
             if not found:
                 return {'message': 'Appointment not found'}
@@ -565,6 +586,7 @@ api.add_resource(Teacher.TeacherLogIn, '/user')
 api.add_resource(Student.SingleStudent, '/student/<id>')
 api.add_resource(Student.AllStudents, '/student')
 api.add_resource(Student.AllStudentsPerTeacher, '/my_students')
+api.add_resource(Student.UpdateAllStudentsPerTeacher, '/my_students/update')
 
 api.add_resource(Note.SingleNote, '/student/note/<id>')
 api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
@@ -575,5 +597,3 @@ api.add_resource(Appointment.AllAppointments, '/appointment')
 api.add_resource(Appointment.AllAppointmentsPerTeacher, '/my_appointments')
 api.add_resource(Appointment.DailyAppointmentsPerTeacher, '/my_appointments/daily/<date>')
 api.add_resource(Appointment.WeeklyAppointmentsPerTeacher, '/my_appointments/weekly')
-
-

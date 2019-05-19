@@ -14,7 +14,6 @@ export default function DailyView(props) {
                     'x-access-token': localStorage.getItem('token')
                 }
             })
-
             .then(results => results.json())
             .then(data => {
                 setBookings(data);

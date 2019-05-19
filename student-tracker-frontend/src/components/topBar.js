@@ -9,6 +9,20 @@ function signOut() {
     window.location.assign(window.location);
 }
 
+function updateSchedule() {
+    fetch('http://localhost:5000/my_students/update',
+        {
+            headers: {
+                'x-access-token': localStorage.getItem('token')
+            }
+        })
+        .then(results => results.json())
+        .then(data => {
+            console.log(data);
+            window.location.assign(window.location);
+        });
+}
+
 export default function TopBar(props) {
     const [data, setData] = React.useState(null);
 
@@ -26,7 +40,11 @@ export default function TopBar(props) {
         }
     }, []);
 
-    let name = <Link to={'/log_in'}>Log In</Link>;
+    let now = new Date(Date());
+    let year = now.getFullYear();
+    let month = ('0' + now.getMonth()).slice(-2);
+    let day = ('0' + now.getDate()).slice(-2);
+    let dateString = year + '-' + month + '-' + day;
 
     if (data && data.name) {
         return (
@@ -39,10 +57,13 @@ export default function TopBar(props) {
                         </li>
                         <li>|</li>
                         <li>
-                            <Link to={'/weekly/1'}>home</Link>
+                            <Link to={'/weekly/' + dateString}>home</Link>
                         </li>
                         <li>
                             <Link to={'/add_student'}>Add a student</Link>
+                        </li>
+                        <li>
+                            <Link onClick={updateSchedule} to={'/weekly'}>Update Schedule</Link>
                         </li>
                     </ul>
                 </header>
