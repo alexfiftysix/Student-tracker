@@ -7,7 +7,12 @@ export default function Student(props) {
     const student_id = props.id ? props.id : props.match.params.student_id;
 
     useEffect(() => {
-        fetch('http://localhost:5000/student/' + student_id)
+        fetch('http://localhost:5000/student/' + student_id,
+            {
+                headers: {
+                    'x-access-token': localStorage.getItem('token')
+                }
+            })
             .then(results => results.json())
             .then(data => {
                 console.log(data);

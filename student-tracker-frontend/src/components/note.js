@@ -8,7 +8,12 @@ export default function Note(props) {
     const note_id = props.note_id ? props.note_id : this.props.match.pararms.note_id;
 
     useEffect(() => {
-        fetch('http://localhost:5000/student/note/' + note_id)
+        fetch('http://localhost:5000/student/note/' + note_id,
+            {
+                headers: {
+                    'x-access-token': localStorage.getItem('token')
+                }
+            })
             .then(results => results.json())
             .then(data => {
                 setNoteData(data);

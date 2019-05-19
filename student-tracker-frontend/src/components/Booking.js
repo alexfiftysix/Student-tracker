@@ -17,7 +17,6 @@ export default class Booking extends React.Component {
         this.state['payed'] = props.payed;
         this.state['price'] = props.price;
         this.state['student_id'] = props.student_id;
-        console.log(this.state.id);
 
         this.changeAttended = this.changeAttended.bind(this);
         this.changePayed = this.changePayed.bind(this);
@@ -66,7 +65,6 @@ export default class Booking extends React.Component {
 
 
     render() {
-        console.log(this.state.duration);
         return (
             <div className={'booking'}>
                 <Link to={'/student/' + this.state.student_id} className={'link'}>

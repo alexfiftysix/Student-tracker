@@ -31,11 +31,12 @@ export default class NewStudentForm extends React.Component {
     handleSubmit(event) {
         // TODO: Allow users to press enter instead of clicking
         event.preventDefault();
-        let url = 'http://localhost:5000/my_students/' + this.state.teacher_id;
+        let url = 'http://localhost:5000/my_students';
         let options = {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
+                'x-access-token': localStorage.getItem('token')
             },
             credentials: 'same-origin',
             body: new FormData()

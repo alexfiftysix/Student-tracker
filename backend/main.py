@@ -256,7 +256,8 @@ class Student(db.Model):
     class AllStudents(Resource):
         @staticmethod
         @token_required
-        def get():
+        def get(current_user):
+            # TODO: Only allow this route for admin users
             students = []
             for student in Student.query.all():
                 students.append(student.json())
@@ -264,12 +265,16 @@ class Student(db.Model):
 
     class SingleStudent(Resource):
         @staticmethod
-        def get(id):
+        @token_required
+        def get(current_user, id):
             to_show = Student.get(id)
-            if not to_show:
-                return "Student doesn't exist"
+            if to_show.teacher == current_user.id:
+                if not to_show:
+                    return "Student doesn't exist"
+                else:
+                    return to_show.json()
             else:
-                return to_show.json()
+                return {'message': 'not your student'}, 401
 
         @staticmethod
         def delete(id):
@@ -293,15 +298,25 @@ class Note(db.Model):
 
     class SingleNote(Resource):
         @staticmethod
-        def get(id):
+        @token_required
+        def get(current_user, id):
             retrieved_note = Note.query.filter_by(id=id).first()
+            student = Student.get(retrieved_note.student)
+            if student.teacher != current_user.id:
+                return {'message': 'not your student'}, 401
+
             if not retrieved_note:
                 return {'message': 'note does not exist'}
             return retrieved_note.json()
 
         @staticmethod
-        def delete(id):
+        @token_required
+        def delete(current_user, id):
             retrieved_note = Note.query.filter_by(id=id).first()
+            student = Student.get(retrieved_note.student)
+            if student.teacher != current_user.id:
+                return {'message': 'not your student'}, 401
+
             if not retrieved_note:
                 return {'message': 'note does not exist'}
             db.session.remove(retrieved_note)
@@ -310,7 +325,12 @@ class Note(db.Model):
 
     class AllNotesPerStudent(Resource):
         @staticmethod
-        def get(student_id):
+        @token_required
+        def get(current_user, student_id):
+            student = Student.get(student_id)
+            if student.teacher != current_user.id:
+                return {'message': 'not your student'}, 4
+
             retrieved_notes = Note.query.filter_by(student=student_id).order_by(Note.date_and_time.desc())
             notes = []
             for note in retrieved_notes:

@@ -9,7 +9,13 @@ export default function DailyView(props) {
 
     // TODO: get date from url
     useEffect(() => {
-        fetch('http://localhost:5000/my_appointments/daily/' + teacher_id + '/' + date)
+        fetch('http://localhost:5000/my_appointments/daily/' + date,
+            {
+                headers: {
+                    'x-access-token': localStorage.getItem('token')
+                }
+            })
+
             .then(results => results.json())
             .then(data => {
                 setBookings(data);
@@ -27,8 +33,6 @@ export default function DailyView(props) {
         'Saturday'
     ];
     day = weekdays[day];
-
-    console.log(bookings);
 
     return (
         <div className={'booking-list'}>

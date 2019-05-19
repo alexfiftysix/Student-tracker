@@ -7,7 +7,12 @@ export default function AllNotesPerStudent(props) {
     const student_id = props.student_id ? props.student_id : props.match.params.student_id;
 
     useEffect(() => {
-        fetch('http://localhost:5000/student/notes/' + student_id)
+        fetch('http://localhost:5000/student/notes/' + student_id,
+            {
+                headers: {
+                    'x-access-token': localStorage.getItem('token')
+                }
+            })
             .then(results => results.json())
             .then(data => {
                 setNotesData(data);
@@ -22,6 +27,8 @@ export default function AllNotesPerStudent(props) {
         );
     }
 
+
+    // TODO: Optimise this to use the all-notes route to build notes rather than making lots of requests
     return (
         <div className={'note_list'}>
             {notes_data.map(note =>
