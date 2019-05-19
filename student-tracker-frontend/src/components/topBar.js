@@ -22,7 +22,6 @@ export default function TopBar(props) {
                 .then(results => results.json())
                 .then(data => {
                     setData(data);
-                    console.log(data);
                 });
         }
     }, []);
@@ -30,7 +29,26 @@ export default function TopBar(props) {
     let name = <Link to={'/log_in'}>Log In</Link>;
 
     if (data && data.name) {
-        name = "Hello, " + data.name;
+        return (
+            <div className={'fake-header'}>
+                <header>
+                    <ul>
+                        <li>Hello, {data.name}</li>
+                        <li>
+                            <Link to={'/'} onClick={signOut}>Log out</Link>
+                        </li>
+                        <li>|</li>
+                        <li>
+                            <Link to={'/weekly/1'}>home</Link>
+                        </li>
+                        <li>
+                            <Link to={data ? '/add_student/' + data.id : ''}>Add a student</Link>
+                        </li>
+                    </ul>
+                </header>
+            </div>
+        )
+
     }
 
     return (
@@ -38,17 +56,11 @@ export default function TopBar(props) {
             <header>
                 <ul>
                     <li>
-                        <Link to={'/weekly/1'}>home</Link>
+                        <Link to={'/log_in'}>Log In</Link>
                     </li>
-                    <li>{name}</li>
+                    <li>|</li>
                     <li>
-                        <Link to={data ? '/add_student/' + data.id : ''}>Add a student</Link>
-                    </li>
-                    <li>
-                        <Link to={'/'} onClick={signOut}>Log out</Link>
-                    </li>
-                    <li>
-                        <Link to={'/sign_up'} >Sign Up</Link>
+                        <Link to={'/sign_up'}>Sign Up</Link>
                     </li>
                 </ul>
             </header>

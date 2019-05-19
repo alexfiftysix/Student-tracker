@@ -12,7 +12,6 @@ import LogIn from './components/logIn'
 import NewTeacherFrom from './components/newTeacherForm'
 
 
-
 function App() {
     return (
         <main className="App">
