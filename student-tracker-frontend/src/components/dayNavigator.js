@@ -18,8 +18,8 @@ export default function DayNavigator(props) {
     return (
         <div className={'day-navigator'}>
             <div className={'top'}>
-                <Link to={'/daily/' + yesterday}>Left</Link>
-                <Link to={'/daily/' + tomorrow}>Right</Link>
+                <Link to={'/daily/' + yesterday}>Yesterday</Link>
+                <Link to={'/daily/' + tomorrow}>Tomorrow</Link>
             </div>
             <DailyView date={date}/>
         </div>
