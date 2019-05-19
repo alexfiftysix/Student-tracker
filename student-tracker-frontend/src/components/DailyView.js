@@ -6,8 +6,6 @@ export default function DailyView(props) {
     const [bookings, setBookings] = React.useState(null);
     const date = props.date ? props.date : props.match.params.start_date;
 
-    console.log(date);
-
     // TODO: get date from url
     useEffect(() => {
         fetch('http://localhost:5000/my_appointments/daily/' + date,
@@ -43,6 +41,7 @@ export default function DailyView(props) {
         return (<div className={'booking-list'}>{bookings['message']}</div>);
     }
 
+     // TODO: Link to daily view from day name
     return (
         <div className={'booking-list'}>
             <h2>{day}</h2>
