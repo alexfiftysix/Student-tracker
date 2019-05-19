@@ -27,6 +27,14 @@ export default function AllNotesPerStudent(props) {
         );
     }
 
+    if (notes_data['message']) {
+        return (
+            <div className={'note_list'}>
+                <p>{notes_data['message']}</p>
+            </div>
+        );
+    }
+
 
     // TODO: Optimise this to use the all-notes route to build notes rather than making lots of requests
     return (
