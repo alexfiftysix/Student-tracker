@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import DailyView from './DailyView'
 import './WeeklyView.css'
 
@@ -29,9 +29,8 @@ function get_next_seven_days() {
     return weekdays;
 }
 
-function WeeklyView(props) {
+export default function WeeklyView(props) {
     const dates = get_next_seven_days();
-    const teacher_id = props.match.params.teacher_id;
 
     if (!dates) {
         return (
@@ -42,10 +41,8 @@ function WeeklyView(props) {
     return (
         <div className={'weekly-view'}>
             {dates.map(d =>
-                <DailyView key={d} date={d} teacher_id={teacher_id}/>
+                <DailyView key={d} date={d}/>
             )}
         </div>
     );
 }
-
-export default WeeklyView

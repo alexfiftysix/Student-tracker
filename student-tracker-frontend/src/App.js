@@ -1,4 +1,6 @@
 import React from 'react';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+
 import './App.css';
 import WeeklyView from './components/WeeklyView'
 import NewStudentForm from './components/NewStudentForm'
@@ -6,12 +8,8 @@ import Student from './components/student'
 import AllNotesPerStudent from './components/allNotesPerStudent'
 import NewNoteForm from './components/newNoteForm'
 import TopBar from './components/topBar'
-import Teacher from './components/teacher'
 import LogIn from './components/logIn'
-
-
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
-
+import NewTeacherFrom from './components/newTeacherForm'
 
 
 
@@ -20,8 +18,9 @@ function App() {
         <main className="App">
             <Router>
                 <TopBar/>
-                <LogIn/>
-                <Route path="/weekly/:teacher_id" component={WeeklyView}/>
+                <Route path="/sign_up" component={NewTeacherFrom}/>
+                <Route path="/log_in" component={LogIn}/>
+                <Route path="/weekly/" component={WeeklyView}/>
                 <Route path="/student/:student_id" component={Student}/>
                 <Route path="/student_notes/:student_id" component={AllNotesPerStudent}/>
                 <Route path="/student_add_notes/:student_id" component={NewNoteForm}/>

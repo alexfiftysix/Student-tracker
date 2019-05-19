@@ -1,13 +1,14 @@
 import React from 'react'
 import history from './history'
 
-export default class LogIn extends React.Component {
-
+export default class NewTeacherForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            name: '',
+            email: '',
             password: '',
+            standard_rate: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -25,24 +26,27 @@ export default class LogIn extends React.Component {
     }
 
     handleSubmit(event) {
-        // TODO: Allow users to press enter instead of clicking
         event.preventDefault();
-
-        let url = 'http://localhost:5000/user';
+        let url = 'http://localhost:5000/teachers';
         let options = {
-            method: 'get',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Authorization': 'Basic '+btoa(this.state.username + ':' + this.state.password),
             },
-            credentials: 'same-origin'
+            credentials: 'same-origin',
+            body: new FormData()
         };
+
+        options.body.append('name', this.state.name);
+        options.body.append('email', this.state.email);
+        options.body.append('password', this.state.password);
+        options.body.append('standard_rate', this.state.standard_rate);
+
 
         fetch(url, options)
             .then(response => response.json())
             .then(data => {
-                localStorage.setItem('token',data['token']);
-                history.push('/weekly/1');
+                history.push('/');
                 window.location.assign(window.location);
             });
     }
@@ -50,20 +54,28 @@ export default class LogIn extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <h2>Log In</h2>
+                <h2>Welcome</h2>
                 <label>
-                    <div>Username:</div>
-                    <input name={'username'} type={'text'} value={this.state.username} onChange={this.handleChange}/>
+                    <div>Email:</div>
+                    <input name={'email'} type={'text'} value={this.state.email} onChange={this.handleChange}/>
+                </label>
+                <label>
+                    <div>Name:</div>
+                    <input name={'name'} type={'text'} value={this.state.name} onChange={this.handleChange}/>
                 </label>
                 <label>
                     <div>Password:</div>
                     <input name={'password'} type={'password'} value={this.state.password}
                            onChange={this.handleChange}/>
                 </label>
+                <label>
+                    <div>Standard Rate:</div>
+                    <input name={'standard_rate'} type={'number'} step={'.01'} value={this.state.standard_rate}
+                           onChange={this.handleChange}/>
+                </label>
                 <input type={'submit'} value={'Submit'}/>
             </form>
         )
     }
-
 
 }

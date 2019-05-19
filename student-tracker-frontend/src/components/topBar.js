@@ -1,6 +1,13 @@
 import React, {useEffect} from 'react'
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import './topBar.css'
+import history from './history'
+
+function signOut() {
+    localStorage.clear();
+    history.push('/');
+    window.location.assign(window.location);
+}
 
 export default function TopBar(props) {
     const [data, setData] = React.useState(null);
@@ -20,6 +27,12 @@ export default function TopBar(props) {
         }
     }, []);
 
+    let name = <Link to={'/log_in'}>Log In</Link>;
+
+    if (data && data.name) {
+        name = "Hello, " + data.name;
+    }
+
     return (
         <div className={'fake-header'}>
             <header>
@@ -27,9 +40,15 @@ export default function TopBar(props) {
                     <li>
                         <Link to={'/weekly/1'}>home</Link>
                     </li>
-                    <li>Hello, {data ? data.name : '__'}</li>
+                    <li>{name}</li>
                     <li>
                         <Link to={data ? '/add_student/' + data.id : ''}>Add a student</Link>
+                    </li>
+                    <li>
+                        <Link to={'/'} onClick={signOut}>Log out</Link>
+                    </li>
+                    <li>
+                        <Link to={'/sign_up'} >Sign Up</Link>
                     </li>
                 </ul>
             </header>

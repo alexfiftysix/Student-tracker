@@ -5,7 +5,6 @@ import './DailyView.css'
 export default function DailyView(props) {
     const [bookings, setBookings] = React.useState(null);
     const date = props.date ? props.date : '2019-05-14';
-    const teacher_id = props.teacher_id ? props.teacher_id : 1;
 
     // TODO: get date from url
     useEffect(() => {
@@ -20,7 +19,7 @@ export default function DailyView(props) {
             .then(data => {
                 setBookings(data);
             });
-    }, []);
+    }, [date]);
 
     let day = new Date(Date.parse(date)).getDay();
     const weekdays = [
@@ -33,6 +32,15 @@ export default function DailyView(props) {
         'Saturday'
     ];
     day = weekdays[day];
+
+    if (!bookings) {
+        return (<div className={'booking-list'}>Loading...</div>);
+    }
+
+
+    if (bookings['message']) {
+        return (<div className={'booking-list'}>{bookings['message']}</div>);
+    }
 
     return (
         <div className={'booking-list'}>

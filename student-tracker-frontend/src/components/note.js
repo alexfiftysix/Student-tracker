@@ -18,7 +18,7 @@ export default function Note(props) {
             .then(data => {
                 setNoteData(data);
             });
-    }, []);
+    }, [note_id]);
 
     if (!note_data) {
         return (

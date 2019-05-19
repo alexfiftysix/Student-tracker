@@ -47,13 +47,12 @@ def token_required(f):
 class Teacher(db.Model):
     __tablename__ = 'teacher'
     id = db.Column('id', db.Integer, primary_key=True)
-    # TODO: Implement public ID to obscure system users - https://www.youtube.com/watch?v=WxGBoY5iNXY
+    public_id = db.Column(db.String(50), unique=True)
     email = db.Column('email', db.String(250), unique=True)
     name = db.Column('name', db.String(200))
     password = db.Column('password', db.String(200), nullable=False)  # sha256 encryption here plz
     standard_rate = db.Column('standard_rate', db.DECIMAL, nullable=False)
     address = db.Column('address', db.String, nullable=True)  # for price calculations if we want to go there
-    public_id = db.Column(db.String(50), unique=True)
 
     def json(self):
         # Avoid releasing sensitive information here
@@ -561,6 +560,7 @@ class Appointment(db.Model):
 
 api.add_resource(Teacher.SingleTeacher, '/teacher')
 api.add_resource(Teacher.AllTeachers, '/teachers')
+api.add_resource(Teacher.TeacherLogIn, '/user')
 
 api.add_resource(Student.SingleStudent, '/student/<id>')
 api.add_resource(Student.AllStudents, '/student')
@@ -574,6 +574,6 @@ api.add_resource(Appointment.AllAppointments, '/appointment')
 
 api.add_resource(Appointment.AllAppointmentsPerTeacher, '/my_appointments')
 api.add_resource(Appointment.DailyAppointmentsPerTeacher, '/my_appointments/daily/<date>')
-api.add_resource(Appointment.WeeklyAppointmentsPerTeacher, '/my_appointments/weekly/<date>')
+api.add_resource(Appointment.WeeklyAppointmentsPerTeacher, '/my_appointments/weekly')
 
-api.add_resource(Teacher.TeacherLogIn, '/user')
+

@@ -1,6 +1,7 @@
 import React from 'react'
 import './newNoteForm.css'
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
+import history from './history'
 
 
 export default class NewNoteForm extends React.Component {
@@ -53,7 +54,8 @@ export default class NewNoteForm extends React.Component {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                window.location = window.location;
+                history.push('/student/' + this.state.student_id);
+                window.location.assign(window.location);
             });
 
     }

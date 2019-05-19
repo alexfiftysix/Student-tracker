@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import './student.css'
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default function Student(props) {
     const [student, setStudent] = React.useState(null);
@@ -18,7 +18,7 @@ export default function Student(props) {
                 console.log(data);
                 setStudent(data);
             });
-    }, []);
+    }, [student_id]);
 
 
     if (!student) {

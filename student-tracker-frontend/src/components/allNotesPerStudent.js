@@ -17,7 +17,7 @@ export default function AllNotesPerStudent(props) {
             .then(data => {
                 setNotesData(data);
             });
-    }, []);
+    }, [student_id]);
 
     if (!notes_data) {
         return (

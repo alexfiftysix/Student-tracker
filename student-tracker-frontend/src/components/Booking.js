@@ -1,8 +1,6 @@
 import React from 'react';
 import './Booking.css';
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
-import student from "./student";
-
+import {Link} from "react-router-dom";
 
 export default class Booking extends React.Component {
     constructor(props) {
@@ -17,6 +15,7 @@ export default class Booking extends React.Component {
         this.state['payed'] = props.payed;
         this.state['price'] = props.price;
         this.state['student_id'] = props.student_id;
+        this.state['message'] = '';
 
         this.changeAttended = this.changeAttended.bind(this);
         this.changePayed = this.changePayed.bind(this);
@@ -65,6 +64,10 @@ export default class Booking extends React.Component {
 
 
     render() {
+        if (this.state['message']) {
+            return <div className={'booking'}>{this.state['message']}</div>
+        }
+
         return (
             <div className={'booking'}>
                 <Link to={'/student/' + this.state.student_id} className={'link'}>

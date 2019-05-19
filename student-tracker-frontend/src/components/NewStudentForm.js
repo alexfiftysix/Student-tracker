@@ -1,5 +1,6 @@
 import React from 'react'
 import './newStudentForm.css'
+import history from './history'
 
 export default class NewStudentForm extends React.Component {
     constructor(props) {
@@ -52,7 +53,8 @@ export default class NewStudentForm extends React.Component {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                window.location = window.location;
+                history.push('/weekly');
+                window.location.assign(window.location);
             });
     }
 
