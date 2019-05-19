@@ -147,7 +147,6 @@ class Teacher(db.Model):
 
 
 class Student(db.Model):
-    # TODO: Route to update all students calendars
     __tablename__ = 'student'
     id = db.Column('id', db.Integer, primary_key=True)
     teacher = db.Column('teacher', db.Integer, db.ForeignKey(Teacher.id, onupdate="CASCADE", ondelete="CASCADE"))
@@ -265,7 +264,7 @@ class Student(db.Model):
 
             for student in students:
                 print(student)
-                Appointment.add_for_next_available_date(student)
+                Appointment.add_month_of_appointments(student, datetime.now())
 
             return {'message': 'schedule updated'}
 
@@ -401,15 +400,22 @@ class Appointment(db.Model):
         }
 
     @staticmethod
-    def add_for_next_available_date(student: Student):
+    def add_month_of_appointments(student: Student, start_date: datetime):
+        for i in range(4):
+            week_start = start_date + timedelta(weeks=i)
+            print(week_start)
+            Appointment.add_for_next_date_from(student, week_start)
+
+    @staticmethod
+    def add_for_next_date_from(student: Student, start_date: datetime):
         # TODO: Run this every monday? Every time they sign on for every student?
         lesson_time = time.strptime(student.lesson_time, "%H:%M")
 
         hour = int(lesson_time.tm_hour)
         minute = int(lesson_time.tm_min)
         weekday = student.lesson_day
-        now = datetime.now().replace(hour=hour, minute=minute, second=0, microsecond=0)
-        next_lesson_datetime = next_weekday(now, weekday)
+        start_date = start_date.replace(hour=hour, minute=minute, second=0, microsecond=0)
+        next_lesson_datetime = next_weekday(start_date, weekday)
 
         next_lesson_date = next_lesson_datetime.date()
         next_lesson_time = next_lesson_datetime.time()
@@ -424,6 +430,12 @@ class Appointment(db.Model):
         db.session.add(to_add)
         db.session.commit()
         return to_add
+
+# TODO: Month not ticking over on front-end
+
+    @staticmethod
+    def add_for_next_available_date(student: Student):
+        return Appointment.add_for_next_date_from(student, datetime.now())
 
     @staticmethod
     def get(id: int):
