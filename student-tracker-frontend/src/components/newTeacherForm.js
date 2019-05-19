@@ -8,6 +8,7 @@ export default class NewTeacherForm extends React.Component {
             name: '',
             email: '',
             password: '',
+            password_confirm: '',
             standard_rate: ''
         };
 
@@ -27,6 +28,11 @@ export default class NewTeacherForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        if (this.state.password !== this.state.password_confirm) {
+            alert("Passwords don't match");
+            return;
+        }
+
         let url = 'http://localhost:5000/teachers';
         let options = {
             method: 'POST',
@@ -42,11 +48,10 @@ export default class NewTeacherForm extends React.Component {
         options.body.append('password', this.state.password);
         options.body.append('standard_rate', this.state.standard_rate);
 
-
         fetch(url, options)
             .then(response => response.json())
             .then(data => {
-                history.push('/');
+                history.push('/log_in');
                 window.location.assign(window.location);
             });
     }
@@ -69,7 +74,12 @@ export default class NewTeacherForm extends React.Component {
                            onChange={this.handleChange}/>
                 </label>
                 <label>
-                    <div>Standard Rate:</div>
+                    <div>Confirm password:</div>
+                    <input name={'password_confirm'} type={'password'} value={this.state.password_confirm}
+                           onChange={this.handleChange}/>
+                </label>
+                <label>
+                    <div>Standard rate:</div>
                     <input name={'standard_rate'} type={'number'} step={'.01'} value={this.state.standard_rate}
                            onChange={this.handleChange}/>
                 </label>

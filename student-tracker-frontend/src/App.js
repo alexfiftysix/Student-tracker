@@ -19,11 +19,11 @@ function App() {
                 <TopBar/>
                 <Route path="/sign_up" component={NewTeacherFrom}/>
                 <Route path="/log_in" component={LogIn}/>
-                <Route path="/weekly/" component={WeeklyView}/>
+                <Route path="/weekly" component={WeeklyView}/>
                 <Route path="/student/:student_id" component={Student}/>
                 <Route path="/student_notes/:student_id" component={AllNotesPerStudent}/>
                 <Route path="/student_add_notes/:student_id" component={NewNoteForm}/>
-                <Route path="/add_student/:teacher_id" component={NewStudentForm}/>
+                <Route path="/add_student" component={NewStudentForm}/>
             </Router>
         </main>
     );

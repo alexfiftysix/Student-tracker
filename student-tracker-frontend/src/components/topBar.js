@@ -42,13 +42,12 @@ export default function TopBar(props) {
                             <Link to={'/weekly/1'}>home</Link>
                         </li>
                         <li>
-                            <Link to={data ? '/add_student/' + data.id : ''}>Add a student</Link>
+                            <Link to={'/add_student'}>Add a student</Link>
                         </li>
                     </ul>
                 </header>
             </div>
         )
-
     }
 
     return (
