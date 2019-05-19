@@ -2,6 +2,8 @@ import React, {useEffect} from 'react'
 import {Link} from "react-router-dom";
 import './topBar.css'
 import history from './history'
+import currentDateAsString from '../utilities/dates'
+
 
 function signOut() {
     localStorage.clear();
@@ -46,6 +48,8 @@ export default function TopBar(props) {
     let day = ('0' + now.getDate()).slice(-2);
     let dateString = year + '-' + month + '-' + day;
 
+    const today = currentDateAsString();
+
     if (data && data.name) {
         return (
             <div className={'fake-header'}>
@@ -66,7 +70,10 @@ export default function TopBar(props) {
                             <Link to={'/add_student'}>Add a student</Link>
                         </li>
                         <li>
-                            <Link onClick={updateSchedule} to={'/weekly'}>Update Schedule</Link>
+                            <Link onClick={updateSchedule} to={'/weekly/' + today}>Update Schedule</Link>
+                        </li>
+                        <li>
+                            <Link to={'/me'}>Me</Link>
                         </li>
                     </ul>
                 </header>

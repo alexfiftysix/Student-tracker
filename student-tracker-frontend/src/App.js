@@ -2,9 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
 import './App.css';
-import WeeklyView from './components/WeeklyView'
 import WeekNavigator from './components/weekNavigator'
-import DailyView from './components/DailyView'
 import DayNavigator from './components/dayNavigator'
 import NewStudentForm from './components/NewStudentForm'
 import Student from './components/student'
@@ -13,6 +11,7 @@ import NewNoteForm from './components/newNoteForm'
 import TopBar from './components/topBar'
 import LogIn from './components/logIn'
 import NewTeacherFrom from './components/newTeacherForm'
+import Teacher from './components/teacher'
 
 
 function App() {
@@ -28,6 +27,7 @@ function App() {
                 <Route path="/student_notes/:student_id" component={AllNotesPerStudent}/>
                 <Route path="/student_add_notes/:student_id" component={NewNoteForm}/>
                 <Route path="/add_student" component={NewStudentForm}/>
+                <Route path={'/me'} component={Teacher}/>
             </Router>
         </main>
     );

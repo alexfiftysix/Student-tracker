@@ -8,3 +8,8 @@
     align-items: center;
 
 }
+
+.teacher h2 {
+    color: black;
+    text-shadow: none;
+}

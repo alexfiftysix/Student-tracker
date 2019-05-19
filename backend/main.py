@@ -55,13 +55,12 @@ class Teacher(db.Model):
     address = db.Column('address', db.String, nullable=True)  # for price calculations if we want to go there
 
     def json(self):
-        # Avoid releasing sensitive information here
         return {
             'public_id': self.public_id,
             'email': self.email,
             'name': self.name,
             'standard_rate': str(self.standard_rate),
-            'password': self.password
+            'address': str(self.address)
         }
 
     @staticmethod
@@ -158,6 +157,8 @@ class Student(db.Model):
     lesson_length_minutes = db.Column('lesson_length_minutes', db.Integer, nullable=False, default=30)
     address = db.Column('address', db.String(200), nullable=False)
     price = db.Column('price', db.DECIMAL, nullable=False)
+    # TODO: Add start-date and end-date
+    #   end-date is null when end-date has not been explicitly set
 
     def __repr__(self):
         return f'Student: {self.name}.  {self.lesson_day}. {self.lesson_time}. ${self.price}'

@@ -1,5 +1,6 @@
 import React from 'react'
 import history from './history'
+import currentDateAsString from '../utilities/dates'
 
 export default class LogIn extends React.Component {
 
@@ -38,11 +39,13 @@ export default class LogIn extends React.Component {
             credentials: 'same-origin'
         };
 
+        const today = currentDateAsString();
+
         fetch(url, options)
             .then(response => response.json())
             .then(data => {
                 localStorage.setItem('token',data['token']);
-                history.push('/weekly/1');
+                history.push('/weekly/' + today);
                 window.location.assign(window.location);
             });
     }

@@ -2,16 +2,13 @@ import React, {useEffect} from 'react'
 import './teacher.css'
 
 export default function Teacher(props) {
-    let username = 'amiller5656@gmail.com';
-    let password = 'password';
-
     const [data, setData] = React.useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:5000/user', {
+        fetch('http://localhost:5000/teacher', {
             method: 'get',
             headers: {
-                'Authorization': 'Basic '+btoa(username + ':' + password),
+                'x-access-token': localStorage.getItem('token'),
             }
         })
             .then(results => results.json())
@@ -21,9 +18,17 @@ export default function Teacher(props) {
             });
     }, []);
 
+    if (!data) {
+        return (
+            <div className={'teacher'}>Loading...</div>
+        );
+    }
+
     return (
         <div className={'teacher'}>
-            Teacher goes here
+            <h2>{data.name}</h2>
+            <p>{data.email}</p>
+            <p>Standard Rate: ${data.standard_rate}</p>
         </div>
     );
 }
