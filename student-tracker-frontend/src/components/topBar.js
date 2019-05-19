@@ -42,7 +42,7 @@ export default function TopBar(props) {
 
     let now = new Date(Date());
     let year = now.getFullYear();
-    let month = ('0' + now.getMonth()).slice(-2);
+    let month = ('0' + (1 + now.getMonth())).slice(-2);
     let day = ('0' + now.getDate()).slice(-2);
     let dateString = year + '-' + month + '-' + day;
 
@@ -57,7 +57,10 @@ export default function TopBar(props) {
                         </li>
                         <li>|</li>
                         <li>
-                            <Link to={'/weekly/' + dateString}>home</Link>
+                            <Link to={'/weekly/' + dateString}>Weekly View</Link>
+                        </li>
+                        <li>
+                            <Link to={'/daily/' + dateString}>Daily View</Link>
                         </li>
                         <li>
                             <Link to={'/add_student'}>Add a student</Link>

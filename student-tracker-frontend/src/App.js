@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 
 import './App.css';
 import WeeklyView from './components/WeeklyView'
+import DailyView from './components/DailyView'
 import NewStudentForm from './components/NewStudentForm'
 import Student from './components/student'
 import AllNotesPerStudent from './components/allNotesPerStudent'
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/sign_up" component={NewTeacherFrom}/>
                 <Route path="/log_in" component={LogIn}/>
                 <Route path="/weekly/:start_date" component={WeeklyView}/>
+                <Route path="/daily/:start_date" component={DailyView}/>
                 <Route path="/student/:student_id" component={Student}/>
                 <Route path="/student_notes/:student_id" component={AllNotesPerStudent}/>
                 <Route path="/student_add_notes/:student_id" component={NewNoteForm}/>
