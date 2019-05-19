@@ -27,36 +27,21 @@ db = SQLAlchemy(app)
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        token = request.args.get('token')  # http://localhost:5000/route?token=xxx
+        if not request.headers['x-access-token']:
+            return {'message': 'Please provide token to access this resource'}, 401
 
-        for x in request.args.listvalues():
-            print(x)
-
-        if not token:
-            return {'message': 'Token is missing'}, 403
+        token = request.headers['x-access-token']
 
         try:
-            jwt.decode(token, app.config['SECRET_KEY'])
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            current_user = Teacher.get(data['public_id'])
         except:
-            return {'message': 'Token is invalid'}, 403
-        return f(*args, **kwargs)
+            return {'message': 'Token is invalid'}, 401
+
+        print(current_user)
+        return f(current_user, *args, **kwargs)
 
     return decorated
-
-
-@app.route('/login')
-def log_in():
-    auth = request.authorization
-
-    if auth and auth.password == 'password':
-        token = jwt.encode({
-            'user': auth.username,
-            'exp': datetime.utcnow() + timedelta(minutes=2)},
-            app.config['SECRET_KEY']
-        )  # TODO: Larger expiration time
-
-        return jsonify({'token': token.decode('UTF-8')})
-    return make_response("Could verify!", 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 
 class Teacher(db.Model):
@@ -64,23 +49,25 @@ class Teacher(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     # TODO: Implement public ID to obscure system users - https://www.youtube.com/watch?v=WxGBoY5iNXY
     email = db.Column('email', db.String(250), unique=True)
-    # TODO: Add name name = db.Column('name', db.String(200))
+    name = db.Column('name', db.String(200))
     password = db.Column('password', db.String(200), nullable=False)  # sha256 encryption here plz
     standard_rate = db.Column('standard_rate', db.DECIMAL, nullable=False)
     address = db.Column('address', db.String, nullable=True)  # for price calculations if we want to go there
+    public_id = db.Column(db.String(50), unique=True)
 
     def json(self):
         # Avoid releasing sensitive information here
         return {
-            'id': str(self.id),
+            'public_id': self.public_id,
             'email': self.email,
+            'name': self.name,
             'standard_rate': str(self.standard_rate),
             'password': self.password
         }
 
     @staticmethod
-    def get(id):
-        found = Teacher.query.filter_by(id=id).first()
+    def get(public_id):
+        found = Teacher.query.filter_by(public_id=public_id).first()
         if not found:
             return {'message': 'Teacher does not exist'}, 404
         return found
@@ -88,19 +75,21 @@ class Teacher(db.Model):
     class TeacherLogIn(Resource):
         @staticmethod
         def get():
+            """Teacher logs in here - gets JWT in response"""
             # TODO: Implement auth from here https://www.youtube.com/watch?v=WxGBoY5iNXY
             auth = request.authorization
 
-            if not auth or not auth.username:
+            if not auth or not auth.username or not auth.password:
                 return {'message': "Could not verify"}, 401, {'WWW-Authenticate': 'Basic realm="Login Required"'}
 
             teacher = Teacher.query.filter_by(email=auth.username).first()
             if not teacher:
-                return {'message': "Username or password incorrect"}, 401
+                return {'message': "Username or password incorrect"}, 401  # TODO: Should this be 403?
 
             if check_password_hash(teacher.password, auth.password):
                 token = jwt.encode({
-                    'user': auth.username,
+                    # 'user': auth.username,
+                    'public_id': teacher.public_id,  # TODO: Use public_id
                     'exp': datetime.utcnow() + timedelta(minutes=30)},
                     app.config['SECRET_KEY']
                 )
@@ -110,47 +99,48 @@ class Teacher(db.Model):
 
     class SingleTeacher(Resource):
         @staticmethod
-        def get(id):
-            found: Teacher = Teacher.get(id)
-            if not found:
+        @token_required
+        def get(current_user):
+            """Access a teacher's record"""
+            if not current_user:
                 return None
             else:
-                return found.json()
+                return current_user.json()
 
     class AllTeachers(Resource):
         @staticmethod
         def post():
             """For adding new teachers to the database"""
             email = request.form.get('email')
+            name = request.form.get('name')
+            public_id = str(uuid.uuid4())
             password = request.form.get('password')
             standard_rate = request.form.get('standard_rate')
             address = request.form.get('address')
 
-            # TODO: Not such accurate messages - invites bad actors
-            #   Could be better to be vague. As is a hacker can follow the steps provided to create an account
-            #   (Is this bad though? It's account creation)
+            # TODO: Not such accurate messages - invites bad actors/spam accounts
             if not email:
                 return {'message': '"email" must be provided when adding new teacher'}
-
             if not password:
                 return {'message': '"password" must be provided'}
             if not standard_rate:
                 return {'message': '"standard_rate" must be provided'}
-
-            # TODO: SHA encryption for passwords before add teacher
+            if not name:
+                return {'message': '"name" must be provided'}
 
             password_encrypted = generate_password_hash(password, method='sha256')
-            public_id = uuid.uuid4()  # TODO: Use this
 
             # TODO: Handle duplicate email somehow
-            to_add = Teacher(email=email, password=password_encrypted, standard_rate=standard_rate, address=address)
+            to_add = Teacher(email=email, name=name, public_id=public_id, password=password_encrypted,
+                             standard_rate=standard_rate, address=address)
             db.session.add(to_add)
             db.session.commit()
             return {'message': 'Teacher added successfully'}, 201
 
         @staticmethod
         @token_required
-        def get():
+        def get(current_user):
+            """Get list of all teachers"""
             teachers = Teacher.query.all()
             output = []
             for t in teachers:
@@ -191,7 +181,7 @@ class Student(db.Model):
             'lesson_end': str(lesson_end),
             'address': self.address,
             'price': str(self.price),
-            'teacher_id': str(Teacher.get(self.teacher).id)
+            'teacher': Teacher.query.filter_by(id=self.teacher).first().public_id
         }
 
         return student
@@ -216,21 +206,25 @@ class Student(db.Model):
     class AllStudentsPerTeacher(Resource):
         @staticmethod
         @token_required
-        def get(teacher_id):
+        def get(current_user):
             students = []
-            for student in Student.query.filter_by(teacher=teacher_id):
+            for student in Student.query.filter_by(teacher=current_user.id):
                 students.append(student.json())
             return students
 
         @staticmethod
         @token_required
-        def post(teacher_id):
+        def post(current_user):
             # TODO: Check for schedule clash when adding new student
-
             name = request.form.get('name')
+            if not name:
+                return {'message': 'name must be provided'}
 
-            lesson_day = request.form.get('lesson_day').lower()
-            if not lesson_day or lesson_day not in weekdays:
+            lesson_day = request.form.get('lesson_day')
+            if not lesson_day:
+                return {'message': 'lesson_day must be provided'}
+            lesson_day = lesson_day.lower()
+            if lesson_day not in weekdays:
                 if lesson_day not in weekdays_abbreviated:
                     return {'message': 'lesson day must be a day Eg. Monday'}
                 lesson_day = weekdays_abbreviated[lesson_day]
@@ -238,18 +232,20 @@ class Student(db.Model):
             lesson_time = request.form.get('lesson_time')
             try:
                 time.strptime(lesson_time, "%H:%M")
-            except ValueError:
+            except (TypeError, ValueError):
                 return {'message': 'lesson_time must be in format HH:MM (24 hour time)'}
 
             lesson_length_minutes = request.form.get('lesson_length_minutes')
 
             address = request.form.get('address')
+            if not address:
+                return {'message': 'address must be provided'}
+
             price = request.form.get('price')
-
             if not price:
-                price = Teacher.get(teacher_id).standard_rate
+                price = current_user.standard_rate
 
-            to_add = Student(name=name, lesson_day=lesson_day, lesson_time=lesson_time, teacher=int(teacher_id),
+            to_add = Student(name=name, lesson_day=lesson_day, lesson_time=lesson_time, teacher=current_user.id,
                              lesson_length_minutes=lesson_length_minutes, address=address, price=price)
             db.session.add(to_add)
             db.session.commit()
@@ -281,7 +277,7 @@ class Student(db.Model):
 
 
 class Note(db.Model):
-    __tablename__ = 'student_note'
+    __tablename__ = 'note'
     id = db.Column('id', db.Integer, primary_key=True)
     student = db.Column('student', db.Integer, db.ForeignKey(Student.id, onupdate="CASCADE", ondelete="CASCADE"))
     date_and_time = db.Column('datetime', db.DateTime, nullable=False)
@@ -479,9 +475,11 @@ class Appointment(db.Model):
             return {'appointments': appointments}
 
     class AllAppointmentsPerTeacher(Resource):
-        def get(self, teacher_id):
+        @staticmethod
+        @token_required
+        def get(current_user):
             result = (db.session.query(Teacher, Student, Appointment)
-                      .filter(Teacher.id == teacher_id)
+                      .filter(Teacher.id == current_user.id)
                       .filter(Student.teacher == Teacher.id)
                       .filter(Student.id == Appointment.student)
                       .order_by(Appointment.time)
@@ -494,13 +492,14 @@ class Appointment(db.Model):
 
     class DailyAppointmentsPerTeacher(Resource):
         @staticmethod
-        def get(teacher_id, date):
+        @token_required
+        def get(current_user, date):
             """
             Gets all appointments for a given date
             """
 
             result = (db.session.query(Teacher, Student, Appointment)
-                      .filter(Teacher.id == teacher_id)
+                      .filter(Teacher.id == current_user.id)
                       .filter(Student.teacher == Teacher.id)
                       .filter(Student.id == Appointment.student)
                       .filter(Appointment.date == date)
@@ -516,14 +515,15 @@ class Appointment(db.Model):
 
     class WeeklyAppointmentsPerTeacher(Resource):
         @staticmethod
-        def get(teacher_id, date):
+        @token_required
+        def get(current_user, date):
             """
             Gets all appointments for a given date
             """
             date = datetime.strptime(date, '%Y-%m-%d')
 
             result = (db.session.query(Teacher, Student, Appointment)
-                      .filter(Teacher.id == teacher_id)
+                      .filter(Teacher.id == current_user.id)
                       .filter(Student.teacher == Teacher.id)
                       .filter(Student.id == Appointment.student)
                       .filter(Appointment.date >= date)
@@ -539,12 +539,12 @@ class Appointment(db.Model):
             return output
 
 
-api.add_resource(Teacher.SingleTeacher, '/teacher/<id>')
-api.add_resource(Teacher.AllTeachers, '/teacher')
+api.add_resource(Teacher.SingleTeacher, '/teacher')
+api.add_resource(Teacher.AllTeachers, '/teachers')
 
 api.add_resource(Student.SingleStudent, '/student/<id>')
 api.add_resource(Student.AllStudents, '/student')
-api.add_resource(Student.AllStudentsPerTeacher, '/my_students/<teacher_id>')
+api.add_resource(Student.AllStudentsPerTeacher, '/my_students')
 
 api.add_resource(Note.SingleNote, '/student/note/<id>')
 api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
@@ -552,8 +552,8 @@ api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
 api.add_resource(Appointment.SingleAppointment, '/appointment/<id>')
 api.add_resource(Appointment.AllAppointments, '/appointment')
 
-api.add_resource(Appointment.AllAppointmentsPerTeacher, '/my_appointments/<teacher_id>')
-api.add_resource(Appointment.DailyAppointmentsPerTeacher, '/my_appointments/daily/<teacher_id>/<date>')
-api.add_resource(Appointment.WeeklyAppointmentsPerTeacher, '/my_appointments/weekly/<teacher_id>/<date>')
+api.add_resource(Appointment.AllAppointmentsPerTeacher, '/my_appointments')
+api.add_resource(Appointment.DailyAppointmentsPerTeacher, '/my_appointments/daily/<date>')
+api.add_resource(Appointment.WeeklyAppointmentsPerTeacher, '/my_appointments/weekly/<date>')
 
 api.add_resource(Teacher.TeacherLogIn, '/user')
