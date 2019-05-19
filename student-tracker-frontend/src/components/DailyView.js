@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import {Link} from "react-router-dom";
 import Booking from "./Booking";
 import './DailyView.css'
 
@@ -44,7 +45,7 @@ export default function DailyView(props) {
      // TODO: Link to daily view from day name
     return (
         <div className={'booking-list'}>
-            <h2>{day}</h2>
+            <h2><Link to={'/daily/' + date}>{day}</Link></h2>
             <h5>{date}</h5>
             {!bookings ? 'Loading...' : bookings.map(b =>
                 <Booking key={b.id} name={b.student.name} time={b.time} attended={b.attended} payed={b.payed}
