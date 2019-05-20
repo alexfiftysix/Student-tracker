@@ -7,12 +7,11 @@ export default function DayNavigator(props) {
     const date = props.match.params.date;
     let as_date = new Date(date);
 
-    let tomorrow = new Date();
-    tomorrow.setDate(as_date.getDate() + 1);
+    let tomorrow = new Date(as_date.getTime() + 24 * 60 * 60 * 1000);
     tomorrow = tomorrow.getFullYear() + '-' + ('0' + (1 + tomorrow.getMonth())).slice(-2) + '-' + tomorrow.getDate();
+    console.log(tomorrow);
 
-    let yesterday = new Date();
-    yesterday.setDate(as_date.getDate() - 1);
+    let yesterday = new Date(as_date.getTime() - 24 * 60 * 60 * 1000);
     yesterday = yesterday.getFullYear() + '-' + ('0' + (1 + yesterday.getMonth())).slice(-2) + '-' + yesterday.getDate();
 
     return (
