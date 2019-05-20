@@ -1,6 +1,7 @@
 import React from 'react'
 import './newStudentForm.css'
 import history from './history'
+import currentDateAsString from '../utilities/dates'
 
 export default class NewStudentForm extends React.Component {
     constructor(props) {
@@ -11,8 +12,7 @@ export default class NewStudentForm extends React.Component {
             lesson_time: '',
             lesson_duration: '',
             address: '',
-            price: '',
-            teacher_id: 1 // TODO: Get this dynamically
+            price: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -30,7 +30,6 @@ export default class NewStudentForm extends React.Component {
     }
 
     handleSubmit(event) {
-        // TODO: Allow users to press enter instead of clicking
         event.preventDefault();
         let url = 'http://localhost:5000/my_students';
         let options = {
@@ -53,7 +52,7 @@ export default class NewStudentForm extends React.Component {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                history.push('/weekly');
+                history.push('/weekly/' + currentDateAsString());
                 window.location.assign(window.location);
             });
     }

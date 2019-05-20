@@ -26,8 +26,7 @@ export default class LogIn extends React.Component {
     }
 
     handleSubmit(event) {
-        // TODO: Allow users to press enter instead of clicking
-        event.preventDefault();
+            event.preventDefault();
 
         let url = 'http://localhost:5000/user';
         let options = {

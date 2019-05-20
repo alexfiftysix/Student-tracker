@@ -4,8 +4,10 @@ import uuid
 import jwt
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
 from datetime import datetime, date, timedelta
 import time
+import psycopg2
 import json
 import requests
 from flask_cors import CORS
@@ -74,26 +76,26 @@ class Teacher(db.Model):
         @staticmethod
         def get():
             """Teacher logs in here - gets JWT in response"""
-            # TODO: Implement auth from here https://www.youtube.com/watch?v=WxGBoY5iNXY
+            # Auth idea from here https://www.youtube.com/watch?v=WxGBoY5iNXY
             auth = request.authorization
 
             if not auth or not auth.username or not auth.password:
-                return {'message': "Could not verify"}, 401, {'WWW-Authenticate': 'Basic realm="Login Required"'}
+                return {'message': "Must provide username and password"}, 401, {'WWW-Authenticate': 'Basic realm="Login Required"'}
 
             teacher = Teacher.query.filter_by(email=auth.username).first()
             if not teacher:
-                return {'message': "Username or password incorrect"}, 401  # TODO: Should this be 403?
+                return {'message': "Username or password incorrect"}, 401, {'WWW-Authenticate': 'Basic realm="Login Required"'}
 
             if check_password_hash(teacher.password, auth.password):
                 token = jwt.encode({
                     # 'user': auth.username,
-                    'public_id': teacher.public_id,  # TODO: Use public_id
+                    'public_id': teacher.public_id,
                     'exp': datetime.utcnow() + timedelta(minutes=30)},
                     app.config['SECRET_KEY']
                 )
 
                 return {'token': token.decode('UTF-8')}
-            return {'message': "Username or password incorrect"}, 401
+            return {'message': "Username or password incorrect"}, 401, {'WWW-Authenticate': 'Basic realm="Login Required"'}
 
     class SingleTeacher(Resource):
         @staticmethod
@@ -116,24 +118,27 @@ class Teacher(db.Model):
             standard_rate = request.form.get('standard_rate')
             address = request.form.get('address')
 
-            # TODO: Not such accurate messages - invites bad actors/spam accounts
+            # Is having accurate messages inviting spammers/bad actors creating accounts?
             if not email:
-                return {'message': '"email" must be provided when adding new teacher'}
+                return {'message': '"email" must be provided when adding new teacher'}, 400
             if not password:
-                return {'message': '"password" must be provided'}
+                return {'message': '"password" must be provided'}, 400
             if not standard_rate:
-                return {'message': '"standard_rate" must be provided'}
+                return {'message': '"standard_rate" must be provided'}, 400
             if not name:
-                return {'message': '"name" must be provided'}
+                return {'message': '"name" must be provided'}, 400
 
             password_encrypted = generate_password_hash(password, method='sha256')
 
-            # TODO: Handle duplicate email somehow
-            to_add = Teacher(email=email, name=name, public_id=public_id, password=password_encrypted,
-                             standard_rate=standard_rate, address=address)
-            db.session.add(to_add)
-            db.session.commit()
-            return {'message': 'Teacher added successfully'}, 201
+            try:
+                to_add = Teacher(email=email, name=name, public_id=public_id, password=password_encrypted,
+                                 standard_rate=standard_rate, address=address)
+                db.session.add(to_add)
+                db.session.commit()
+                return {'message': 'Teacher added successfully'}, 201
+            except IntegrityError as e:
+                print('duplicate email provided from new user')
+                return {'message': 'Please provide a unique email'}, 409
 
         @staticmethod
         @token_required
@@ -147,6 +152,8 @@ class Teacher(db.Model):
 
 
 class Student(db.Model):
+    # TODO: Add start-date and end-date
+    #   end-date is null when end-date has not been explicitly set
     __tablename__ = 'student'
     id = db.Column('id', db.Integer, primary_key=True)
     teacher = db.Column('teacher', db.Integer, db.ForeignKey(Teacher.id, onupdate="CASCADE", ondelete="CASCADE"))
@@ -156,8 +163,6 @@ class Student(db.Model):
     lesson_length_minutes = db.Column('lesson_length_minutes', db.Integer, nullable=False, default=30)
     address = db.Column('address', db.String(200), nullable=False)
     price = db.Column('price', db.DECIMAL, nullable=False)
-    # TODO: Add start-date and end-date
-    #   end-date is null when end-date has not been explicitly set
 
     def __repr__(self):
         return f'Student: {self.name}.  {self.lesson_day}. {self.lesson_time}. ${self.price}'
@@ -257,6 +262,7 @@ class Student(db.Model):
         @staticmethod
         @token_required
         def get(current_user):
+            """Updates all students scheduls for the next month"""
             # TODO: Don't allow double-booking
             students = []
             for student in Student.query.filter_by(teacher=current_user.id):
@@ -431,8 +437,6 @@ class Appointment(db.Model):
         db.session.commit()
         return to_add
 
-# TODO: Month not ticking over on front-end
-
     @staticmethod
     def add_for_next_available_date(student: Student):
         return Appointment.add_for_next_date_from(student, datetime.now())
@@ -470,9 +474,9 @@ class Appointment(db.Model):
         @staticmethod
         def put(id):
             """
-            Creates appointment for student in next week
+            Updates appointment instance
             """
-            # id is id of appointment to modify
+            # TODO: Only allow this appointment's owner to update
 
             appointment: Appointment = Appointment.get(id)
             if not appointment:
@@ -510,6 +514,10 @@ class Appointment(db.Model):
 
         @staticmethod
         def delete(id):
+            """
+            delete an appointment
+            """
+            # TODO: Only allow this appointment's owner to delete
             found = Appointment.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
             if not found:
                 return {'message': 'Appointment not found'}

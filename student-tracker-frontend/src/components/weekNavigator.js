@@ -16,8 +16,8 @@ export default function WeekNavigator(props) {
     return (
         <div className={'week-navigator'}>
             <div className={'top'}>
-                <Link to={'/weekly/' + last_week}>Left</Link>
-                <Link to={'/weekly/' + next_week}>Right</Link>
+                <Link to={'/weekly/' + last_week}>Back one week</Link>
+                <Link to={'/weekly/' + next_week}>Forwards one week</Link>
             </div>
             <WeeklyView start_date={start_date}/>
         </div>

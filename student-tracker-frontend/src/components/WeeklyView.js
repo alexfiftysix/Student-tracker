@@ -32,7 +32,6 @@ function get_next_seven_days(start_date) {
 export default function WeeklyView(props) {
     let start_date = props.start_date || props.match.params.start_date;
     const dates = get_next_seven_days(start_date);
-    // TODO: Allow weekly view to go forwards/backwards a week
 
     if (!dates) {
         return (
