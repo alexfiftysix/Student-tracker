@@ -5,15 +5,12 @@ import './WeeklyView.css'
 // TODO: server-optimise this to use the /my_appointments/weekly endpoint
 
 function get_next_seven_days(start_date) {
+    console.log(start_date);
     let date = new Date(Date.parse(start_date));
-
-    let today = new Date(Date());
-    console.log(today);
 
     let weekdays = [];
     for (let i = 0; i < 7; i++) {
-        let current = new Date();
-        current.setDate(date.getDate() + i);
+        let current = new Date(date.getTime() + i * 24 * 60 * 60 * 1000);
 
         let year = current.getFullYear();
         let month = String(current.getMonth() + 1);
