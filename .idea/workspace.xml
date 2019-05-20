@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="20cfc609-3330-477e-9691-15a11792953d" name="Default Changelist" comment="Weekly view now handles month boundaries correctly">
+    <list default="true" id="20cfc609-3330-477e-9691-15a11792953d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/DailyView.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/DailyView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/weekNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/weekNavigator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/kanban.txt" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/kanban.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,88 +16,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="721">
-              <caret line="252" column="103" lean-forward="true" selection-start-line="252" selection-start-column="103" selection-end-line="252" selection-end-column="103" />
-              <folding>
-                <element signature="e#822#1358#0" />
-                <element signature="e#876#1336#0" />
-                <element signature="e#1079#1187#0" />
-                <element signature="e#1390#5447#0" />
-                <element signature="e#1943#2161#0" />
-                <element signature="e#1950#2161#0" />
-                <element signature="e#2213#2378#0" />
-                <element signature="e#2422#3592#0" />
-                <element signature="e#2467#3592#0" />
-                <element signature="e#3122#3453#0" />
-                <element signature="e#3141#3332#0" />
-                <element signature="e#3568#3802#0" />
-                <element signature="e#3649#3802#0" />
-                <element signature="e#3845#5447#0" />
-                <element signature="e#4012#5574#0" />
-                <element signature="e#5025#5339#0" />
-                <element signature="e#5454#5574#0" />
-                <element signature="e#5253#5447#0" />
-                <element signature="e#5479#5514#0" />
-                <element signature="e#6250#6335#0" />
-                <element signature="e#6368#6390#0" />
-                <element signature="e#6421#7185#0" />
-                <element signature="e#6729#7161#0" />
-                <element signature="e#7238#7471#0" />
-                <element signature="e#7521#7714#0" />
-                <element signature="e#7848#8014#0" />
-                <element signature="e#8549#8731#0" />
-                <element signature="e#9778#10237#0" />
-                <element signature="e#9872#10250#0" />
-                <element signature="e#10092#10185#0" />
-                <element signature="e#10280#10570#0" />
-                <element signature="e#10361#10570#0" />
-                <element signature="e#10615#11086#0" />
-                <element signature="e#10700#11001#0" />
-                <element signature="e#10793#10923#0" />
-                <element signature="e#11061#11086#0" />
-                <element signature="e#11115#13808#0" />
-                <element signature="e#11471#11659#0" />
-                <element signature="e#11478#11659#0" />
-                <element signature="e#11701#12693#0" />
-                <element signature="e#11786#12142#0" />
-                <element signature="e#12240#12693#0" />
-                <element signature="e#12743#13808#0" />
-                <element signature="e#12836#13217#0" />
-                <element signature="e#13283#13808#0" />
-                <element signature="e#13844#21781#0" />
-                <element signature="e#14394#14417#0" />
-                <element signature="e#14450#14472#0" />
-                <element signature="e#14502#14792#0" />
-                <element signature="e#14509#14792#0" />
-                <element signature="e#14895#15068#0" />
-                <element signature="e#14926#15068#0" />
-                <element signature="e#15168#16155#0" />
-                <element signature="e#16283#16349#0" />
-                <element signature="e#16399#16650#0" />
-                <element signature="e#16699#19259#0" />
-                <element signature="e#16730#16972#0" />
-                <element signature="e#17030#17471#0" />
-                <element signature="e#17030#17106#1" />
-                <element signature="e#17528#18845#0" />
-                <element signature="e#17862#17940#1" />
-                <element signature="e#18336#18505#0" />
-                <element signature="e#18565#18725#0" />
-                <element signature="e#19254#19674#0" />
-                <element signature="e#19241#19319#1" />
-                <element signature="e#19128#19259#0" />
-                <element signature="e#19306#19536#0" />
-                <element signature="e#19351#19536#0" />
-                <element signature="e#19593#20125#0" />
-                <element signature="e#19674#20125#0" />
-                <element signature="e#20184#20887#0" />
-                <element signature="e#20271#20887#0" />
-                <element signature="e#20271#20341#1" />
-                <element signature="e#20806#20860#0" />
-                <element signature="e#20947#21781#0" />
-                <element signature="e#21034#21781#0" />
-                <element signature="e#21034#21104#1" />
-                <element signature="e#21700#21754#0" />
-              </folding>
+            <state relative-caret-position="4935">
+              <caret line="252" column="103" selection-start-line="252" selection-start-column="103" selection-end-line="252" selection-end-column="103" />
             </state>
           </provider>
         </entry>
@@ -109,7 +25,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
+            <state relative-caret-position="609">
               <caret line="32" selection-start-line="32" selection-end-line="32" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
@@ -121,8 +37,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="28" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="378">
+              <caret line="45" column="41" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -131,9 +47,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/documentation/kanban.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="16" column="43" lean-forward="true" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/WeeklyView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
+            <state relative-caret-position="672">
               <caret line="34" selection-start-line="34" selection-end-line="34" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
@@ -232,7 +157,6 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/documentation/data_model.md" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/topBar.css" />
-        <option value="$PROJECT_DIR$/documentation/kanban.txt" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/history.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/newNoteForm.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.js" />
@@ -253,8 +177,9 @@
         <option value="$PROJECT_DIR$/backend/main.py" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/DailyView.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js" />
-        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/WeeklyView.js" />
+        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" />
+        <option value="$PROJECT_DIR$/documentation/kanban.txt" />
       </list>
     </option>
   </component>
@@ -276,7 +201,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -323,6 +247,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -488,14 +413,8 @@
       <workItem from="1558247130651" duration="3425000" />
       <workItem from="1558260530253" duration="5818000" />
       <workItem from="1558308173018" duration="788000" />
-      <workItem from="1558310096370" duration="3257000" />
-    </task>
-    <task id="LOCAL-00005" summary="Add_next_appointment now works and is tested">
-      <created>1557722024136</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1557722024136</updated>
+      <workItem from="1558310096370" duration="3332000" />
+      <workItem from="1558314658792" duration="492000" />
     </task>
     <task id="LOCAL-00006" summary="next_weekday can handle bad input">
       <created>1557724241294</created>
@@ -833,7 +752,14 @@
       <option name="project" value="LOCAL" />
       <updated>1558311369244</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Cleared up some todo's. Made UX slightly nicer - login and new student form now redirect to current weekly view">
+      <created>1558314087939</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1558314087939</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -869,7 +795,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104337000" />
+    <option name="totallyTimeSpent" value="104904000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -882,9 +808,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-30" width="1920" height="1110" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17929563" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1814301" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -893,12 +818,12 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.28185746" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="TODO" order="6" visible="true" weight="0.4087737" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.13758723" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.31804585" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.22632104" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.22632104" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="bottom" id="Messages" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -975,7 +900,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Can now add notes to students." />
     <MESSAGE value="Styling improvements to notes" />
     <MESSAGE value="readme and kanban updated" />
     <MESSAGE value="Can add students per teacher, and get all students per teacher through API" />
@@ -1000,7 +924,8 @@
     <MESSAGE value="Can add next month of appointments on back-end" />
     <MESSAGE value="Daily view navigator now respects month boundaries" />
     <MESSAGE value="Weekly view now handles month boundaries correctly" />
-    <option name="LAST_COMMIT_MESSAGE" value="Weekly view now handles month boundaries correctly" />
+    <MESSAGE value="Cleared up some todo's. Made UX slightly nicer - login and new student form now redirect to current weekly view" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleared up some todo's. Made UX slightly nicer - login and new student form now redirect to current weekly view" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1014,7 +939,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Student_tracker$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1558312240378" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Student_tracker$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1558314797935" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Student_tracker$run.coverage" NAME="run Coverage Results" MODIFIED="1557623662434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Student_tracker$Unittests_for_weekday_TestWeekday.coverage" NAME="Tests Coverage Results" MODIFIED="1557739602400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Student_tracker$main.coverage" NAME="main Coverage Results" MODIFIED="1557721959796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -1185,13 +1110,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/documentation/kanban.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="61" selection-start-line="2" selection-start-column="61" selection-end-line="2" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/history.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -1349,87 +1267,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="721">
-          <caret line="252" column="103" lean-forward="true" selection-start-line="252" selection-start-column="103" selection-end-line="252" selection-end-column="103" />
+        <state relative-caret-position="4935">
+          <caret line="252" column="103" selection-start-line="252" selection-start-column="103" selection-end-line="252" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
           <folding>
-            <element signature="e#822#1358#0" />
-            <element signature="e#876#1336#0" />
-            <element signature="e#1079#1187#0" />
-            <element signature="e#1390#5447#0" />
-            <element signature="e#1943#2161#0" />
-            <element signature="e#1950#2161#0" />
-            <element signature="e#2213#2378#0" />
-            <element signature="e#2422#3592#0" />
-            <element signature="e#2467#3592#0" />
-            <element signature="e#3122#3453#0" />
-            <element signature="e#3141#3332#0" />
-            <element signature="e#3568#3802#0" />
-            <element signature="e#3649#3802#0" />
-            <element signature="e#3845#5447#0" />
-            <element signature="e#4012#5574#0" />
-            <element signature="e#5025#5339#0" />
-            <element signature="e#5454#5574#0" />
-            <element signature="e#5253#5447#0" />
-            <element signature="e#5479#5514#0" />
-            <element signature="e#6250#6335#0" />
-            <element signature="e#6368#6390#0" />
-            <element signature="e#6421#7185#0" />
-            <element signature="e#6729#7161#0" />
-            <element signature="e#7238#7471#0" />
-            <element signature="e#7521#7714#0" />
-            <element signature="e#7848#8014#0" />
-            <element signature="e#8549#8731#0" />
-            <element signature="e#9778#10237#0" />
-            <element signature="e#9872#10250#0" />
-            <element signature="e#10092#10185#0" />
-            <element signature="e#10280#10570#0" />
-            <element signature="e#10361#10570#0" />
-            <element signature="e#10615#11086#0" />
-            <element signature="e#10700#11001#0" />
-            <element signature="e#10793#10923#0" />
-            <element signature="e#11061#11086#0" />
-            <element signature="e#11115#13808#0" />
-            <element signature="e#11471#11659#0" />
-            <element signature="e#11478#11659#0" />
-            <element signature="e#11701#12693#0" />
-            <element signature="e#11786#12142#0" />
-            <element signature="e#12240#12693#0" />
-            <element signature="e#12743#13808#0" />
-            <element signature="e#12836#13217#0" />
-            <element signature="e#13283#13808#0" />
-            <element signature="e#13844#21781#0" />
-            <element signature="e#14394#14417#0" />
-            <element signature="e#14450#14472#0" />
-            <element signature="e#14502#14792#0" />
-            <element signature="e#14509#14792#0" />
-            <element signature="e#14895#15068#0" />
-            <element signature="e#14926#15068#0" />
-            <element signature="e#15168#16155#0" />
-            <element signature="e#16283#16349#0" />
-            <element signature="e#16399#16650#0" />
-            <element signature="e#16699#19259#0" />
-            <element signature="e#16730#16972#0" />
-            <element signature="e#17030#17471#0" />
-            <element signature="e#17030#17106#1" />
-            <element signature="e#17528#18845#0" />
-            <element signature="e#17862#17940#1" />
-            <element signature="e#18336#18505#0" />
-            <element signature="e#18565#18725#0" />
-            <element signature="e#19254#19674#0" />
-            <element signature="e#19241#19319#1" />
-            <element signature="e#19128#19259#0" />
-            <element signature="e#19306#19536#0" />
-            <element signature="e#19351#19536#0" />
-            <element signature="e#19593#20125#0" />
-            <element signature="e#19674#20125#0" />
-            <element signature="e#20184#20887#0" />
-            <element signature="e#20271#20887#0" />
-            <element signature="e#20271#20341#1" />
-            <element signature="e#20806#20860#0" />
-            <element signature="e#20947#21781#0" />
-            <element signature="e#21034#21781#0" />
-            <element signature="e#21034#21104#1" />
-            <element signature="e#21700#21754#0" />
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/WeeklyView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1441,33 +1299,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="378">
+          <caret line="45" column="41" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/WeeklyView.js">
+    <entry file="file://$PROJECT_DIR$/documentation/kanban.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="330">
+          <caret line="16" column="43" lean-forward="true" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
         </state>
       </provider>
     </entry>

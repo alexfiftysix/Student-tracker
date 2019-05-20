@@ -1,5 +1,13 @@
 ### backlog
 
+Generate report - who attended, who payed in monthly view
+
+Invoices:
+    generate invoices: invoices are displayed in browser and have print-styling for simple b+w print.
+    Teachers have Company name field for nice invoicing.
+    Teachers have ABN field for nice invoicing.
+    Appointments have late-cancellation option - to make pricing more clear on invoice.
+
 As a teacher I want to set students to weekly or fortnightly
 
 As a dev I want a bunch of tests so I know if the system is fully working after making changes
