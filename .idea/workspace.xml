@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20cfc609-3330-477e-9691-15a11792953d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/tests/Student.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main.py" afterDir="false" />
     </list>
@@ -16,52 +17,99 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="417" column="80" selection-start-line="417" selection-start-column="80" selection-end-line="417" selection-end-column="80" />
+            <state relative-caret-position="175">
+              <caret line="233" column="17" lean-forward="true" selection-start-line="233" selection-start-column="17" selection-end-line="233" selection-end-column="17" />
               <folding>
-                <element signature="e#880#1416#0" />
-                <element signature="e#934#1394#0" />
-                <element signature="e#1137#1245#0" />
-                <element signature="e#2001#2219#0" />
-                <element signature="e#2008#2219#0" />
-                <element signature="e#2271#2436#0" />
-                <element signature="e#2480#3644#0" />
-                <element signature="e#2525#3644#0" />
-                <element signature="e#3212#3520#0" />
-                <element signature="e#3231#3399#0" />
-                <element signature="e#3689#3923#0" />
-                <element signature="e#3770#3923#0" />
-                <element signature="e#3966#5759#0" />
-                <element signature="e#4012#5474#0" />
-                <element signature="e#4983#5297#0" />
-                <element signature="e#5354#5474#0" />
-                <element signature="e#5565#5759#0" />
-                <element signature="e#5791#5826#0" />
-                <element signature="e#6562#6647#0" />
-                <element signature="e#6680#6702#0" />
-                <element signature="e#6733#7497#0" />
-                <element signature="e#7041#7473#0" />
-                <element signature="e#7550#7783#0" />
-                <element signature="e#7833#8026#0" />
-                <element signature="e#8079#10031#0" />
-                <element signature="e#8160#8326#0" />
-                <element signature="e#8861#9043#0" />
-                <element signature="e#10659#10949#0" />
-                <element signature="e#10740#10949#0" />
-                <element signature="e#10994#11465#0" />
-                <element signature="e#11079#11380#0" />
-                <element signature="e#11172#11302#0" />
-                <element signature="e#11440#11465#0" />
-                <element signature="e#11494#14187#0" />
-                <element signature="e#11850#12038#0" />
-                <element signature="e#11857#12038#0" />
-                <element signature="e#12080#13072#0" />
-                <element signature="e#12165#12521#0" />
-                <element signature="e#12619#13072#0" />
-                <element signature="e#13122#14187#0" />
-                <element signature="e#13215#13596#0" />
-                <element signature="e#13662#14187#0" />
+                <element signature="e#0#56#0" expanded="true" />
+                <element signature="e#882#1418#0" />
+                <element signature="e#936#1396#0" />
+                <element signature="e#1139#1247#0" />
+                <element signature="e#1450#6054#0" />
+                <element signature="e#2003#2221#0" />
+                <element signature="e#2010#2221#0" />
+                <element signature="e#2273#2438#0" />
+                <element signature="e#2491#2670#0" />
+                <element signature="e#2491#2640#1" />
+                <element signature="e#2716#3939#0" />
+                <element signature="e#2761#3939#0" />
+                <element signature="e#3014#3150#0" />
+                <element signature="e#3021#3150#0" />
+                <element signature="e#3077#3150#0" />
+                <element signature="e#3271#3403#0" />
+                <element signature="e#3278#3403#0" />
+                <element signature="e#3330#3403#0" />
+                <element signature="e#3490#3798#0" />
+                <element signature="e#3509#3677#0" />
+                <element signature="e#3818#3939#0" />
+                <element signature="e#3870#3939#0" />
+                <element signature="e#3984#4218#0" />
+                <element signature="e#4065#4218#0" />
+                <element signature="e#4261#6054#0" />
+                <element signature="e#4307#5769#0" />
+                <element signature="e#5278#5592#0" />
+                <element signature="e#5649#5769#0" />
+                <element signature="e#5860#6054#0" />
+                <element signature="e#6086#6121#0" />
+                <element signature="e#6906#6991#0" />
+                <element signature="e#7024#7046#0" />
+                <element signature="e#7077#7841#0" />
+                <element signature="e#7385#7817#0" />
+                <element signature="e#7874#8032#0" />
+                <element signature="e#7874#8002#1" />
+                <element signature="e#8141#8179#2" />
+                <element signature="e#8085#8318#0" />
+                <element signature="e#8368#8561#0" />
+                <element signature="e#8614#10507#0" />
+                <element signature="e#8695#8861#0" />
+                <element signature="e#8953#10507#0" />
+                <element signature="e#9396#9578#0" />
+                <element signature="e#10550#10840#0" />
+                <element signature="e#10631#10840#0" />
+                <element signature="e#10885#11356#0" />
+                <element signature="e#10970#11271#0" />
+                <element signature="e#11063#11193#0" />
+                <element signature="e#11331#11356#0" />
+                <element signature="e#11391#11944#0" />
+                <element signature="e#11789#11944#0" />
+                <element signature="e#11796#11944#0" />
+                <element signature="e#11980#12426#0" />
+                <element signature="e#12278#12426#0" />
+                <element signature="e#12285#12426#0" />
+                <element signature="e#12455#15148#0" />
+                <element signature="e#12811#12999#0" />
+                <element signature="e#12818#12999#0" />
+                <element signature="e#13041#14033#0" />
+                <element signature="e#13126#13482#0" />
+                <element signature="e#13580#14033#0" />
+                <element signature="e#14083#15148#0" />
+                <element signature="e#14176#14557#0" />
+                <element signature="e#14623#15148#0" />
+                <element signature="e#15183#15797#0" />
+                <element signature="e#15601#15797#0" />
+                <element signature="e#15608#15797#0" />
+                <element signature="e#16298#16445#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/tests/Student.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#6#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/tests/weekday.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -84,9 +132,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Python Script" />
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -99,7 +147,6 @@
       <find>height</find>
       <find>Foreign</find>
       <find>foreign</find>
-      <find>filter_by</find>
       <find>match.params</find>
       <find>post</find>
       <find>return</find>
@@ -119,6 +166,10 @@
       <find>db.session.commit</find>
       <find>console</find>
       <find>youtube</find>
+      <find>ForeignKey</find>
+      <find>query</find>
+      <find>query.</find>
+      <find>filter_by</find>
     </findStrings>
     <replaceStrings>
       <replace>window.location.assign(window.location);</replace>
@@ -138,7 +189,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Appointment.py" />
         <option value="$PROJECT_DIR$/models/Student.py" />
         <option value="$PROJECT_DIR$/models/Appointment.py" />
         <option value="$PROJECT_DIR$/models/appointment.py" />
@@ -188,6 +238,7 @@
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" />
         <option value="$PROJECT_DIR$/documentation/kanban.txt" />
         <option value="$PROJECT_DIR$/documentation/Rostera back-end redesign.md" />
+        <option value="$PROJECT_DIR$/backend/tests/Student.py" />
         <option value="$PROJECT_DIR$/backend/main.py" />
       </list>
     </option>
@@ -210,7 +261,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -221,12 +271,24 @@
             <path>
               <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
               <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
               <item name="documentation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -322,6 +384,51 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Unittests for Student.TestStudent" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="Student-tracker" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;Student.TestStudent&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for Student.TestStudent.test_account" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="Student-tracker" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;Student.TestStudent.test_account&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for backend.tests.Student.TestStudent" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="Student-tracker" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;backend.tests.Student.TestStudent&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="Unittests in tests" type="tests" factoryName="Unittests" nameIsGenerated="true">
       <module name="Student-tracker" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -342,7 +449,17 @@
       <item itemvalue="Python.run" />
       <item itemvalue="Python tests.Tests" />
       <item itemvalue="Python tests.Unittests in tests" />
+      <item itemvalue="Python tests.Unittests for backend.tests.Student.TestStudent" />
+      <item itemvalue="Python tests.Unittests for Student.TestStudent" />
+      <item itemvalue="Python tests.Unittests for Student.TestStudent.test_account" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Unittests for Student.TestStudent.test_account" />
+        <item itemvalue="Python tests.Unittests for Student.TestStudent" />
+        <item itemvalue="Python tests.Unittests for backend.tests.Student.TestStudent" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -398,14 +515,8 @@
       <workItem from="1558332391545" duration="620000" />
       <workItem from="1558503841942" duration="336000" />
       <workItem from="1558505338731" duration="270000" />
-      <workItem from="1558581098584" duration="1412000" />
-    </task>
-    <task id="LOCAL-00007" summary="Simple Daily view implemented">
-      <created>1557751549831</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1557751549831</updated>
+      <workItem from="1558581098584" duration="1437000" />
+      <workItem from="1558603062722" duration="2998000" />
     </task>
     <task id="LOCAL-00008" summary="Restructured project&#10;Added React front-end">
       <created>1557756668587</created>
@@ -743,43 +854,50 @@
       <option name="project" value="LOCAL" />
       <updated>1558315201325</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Class prototypes written. Some function prototypes in">
+      <created>1558582533515</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1558582533516</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_for_weekday_TestWeekday - 2019.05.13 at 13h 22m 30s.xml">
-      <configuration name="Unittests for weekday.TestWeekday" configurationId="tests" />
+    <history-entry file="Unittests_for_Student_TestStudent_test_account - 2019.05.23 at 19h 37m 23s.xml">
+      <configuration name="Unittests for Student.TestStudent.test_account" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_weekday_TestWeekday - 2019.05.13 at 13h 22m 46s.xml">
-      <configuration name="Unittests for weekday.TestWeekday" configurationId="tests" />
+    <history-entry file="Unittests_for_Student_TestStudent_test_account - 2019.05.23 at 19h 56m 05s.xml">
+      <configuration name="Unittests for Student.TestStudent.test_account" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_weekday_TestWeekday - 2019.05.13 at 13h 24m 17s.xml">
-      <configuration name="Unittests for weekday.TestWeekday" configurationId="tests" />
+    <history-entry file="Unittests_for_Student_TestStudent_test_account - 2019.05.23 at 19h 56m 58s.xml">
+      <configuration name="Unittests for Student.TestStudent.test_account" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_weekday_TestWeekday - 2019.05.13 at 14h 26m 45s.xml">
-      <configuration name="Unittests for weekday.TestWeekday" configurationId="tests" />
+    <history-entry file="Unittests_for_Student_TestStudent_test_account - 2019.05.23 at 19h 58m 09s.xml">
+      <configuration name="Unittests for Student.TestStudent.test_account" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_weekday_TestWeekday - 2019.05.13 at 14h 34m 24s.xml">
-      <configuration name="Unittests for weekday.TestWeekday" configurationId="tests" />
+    <history-entry file="Unittests_for_Student_TestStudent_test_account - 2019.05.23 at 19h 58m 10s.xml">
+      <configuration name="Unittests for Student.TestStudent.test_account" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_weekday_TestWeekday - 2019.05.13 at 14h 35m 08s.xml">
-      <configuration name="Unittests for weekday.TestWeekday" configurationId="tests" />
+    <history-entry file="Unittests_for_Student_TestStudent_test_account - 2019.05.23 at 19h 58m 28s.xml">
+      <configuration name="Unittests for Student.TestStudent.test_account" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_weekday_TestWeekday - 2019.05.13 at 19h 25m 25s.xml">
-      <configuration name="Unittests for weekday.TestWeekday" configurationId="tests" />
+    <history-entry file="Unittests_for_Student_TestStudent_test_account - 2019.05.23 at 19h 58m 44s.xml">
+      <configuration name="Unittests for Student.TestStudent.test_account" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_tests - 2019.05.13 at 19h 25m 48s.xml">
+    <history-entry file="Unittests_for_Student_TestStudent_test_account - 2019.05.23 at 20h 04m 50s.xml">
+      <configuration name="Unittests for Student.TestStudent.test_account" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_tests - 2019.05.23 at 20h 05m 34s.xml">
       <configuration name="Unittests in tests" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_weekday_TestWeekday - 2019.05.13 at 19h 26m 12s.xml">
-      <configuration name="Unittests for weekday.TestWeekday" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Tests - 2019.05.13 at 19h 26m 42s.xml">
-      <configuration name="Tests" configurationId="tests" />
+    <history-entry file="Unittests_in_tests - 2019.05.23 at 20h 05m 39s.xml">
+      <configuration name="Unittests in tests" configurationId="tests" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="108191000" />
+    <option name="totallyTimeSpent" value="111214000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -794,13 +912,13 @@
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19922523" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20143884" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32937366" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.34210527" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.28185746" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32894737" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34210527" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39144737" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.13758723" />
@@ -808,7 +926,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.31804585" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.032894738" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.30592105" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="bottom" id="Messages" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -885,7 +1003,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="readme and kanban updated" />
     <MESSAGE value="Can add students per teacher, and get all students per teacher through API" />
     <MESSAGE value="Can get all appointments by teacher through API" />
     <MESSAGE value="Added daily and weekly appointments per teacher routes." />
@@ -910,7 +1027,8 @@
     <MESSAGE value="Weekly view now handles month boundaries correctly" />
     <MESSAGE value="Cleared up some todo's. Made UX slightly nicer - login and new student form now redirect to current weekly view" />
     <MESSAGE value="Added some notes on invoices to KanBan" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added some notes on invoices to KanBan" />
+    <MESSAGE value="Class prototypes written. Some function prototypes in" />
+    <option name="LAST_COMMIT_MESSAGE" value="Class prototypes written. Some function prototypes in" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -924,27 +1042,20 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Student_tracker$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1558505340707" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Student_tracker$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1558606563965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Student_tracker$run.coverage" NAME="run Coverage Results" MODIFIED="1557623662434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Student_tracker$Unittests_for_weekday_TestWeekday.coverage" NAME="Tests Coverage Results" MODIFIED="1557739602400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Student_tracker$main.coverage" NAME="main Coverage Results" MODIFIED="1557721959796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Student_tracker$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1557739548556" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Student_tracker$Unittests_for_Student_TestStudent_test_account.coverage" NAME="Unittests for Student.TestStudent.test_account Coverage Results" MODIFIED="1558605890142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/tests" />
+    <SUITE FILE_PATH="coverage/Student_tracker$Unittests_for_Student_TestStudent.coverage" NAME="Unittests for Student.TestStudent Coverage Results" MODIFIED="1558604109528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/tests" />
+    <SUITE FILE_PATH="coverage/Student_tracker$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1558605939811" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/tests" />
+    <SUITE FILE_PATH="coverage/Student_tracker$Unittests_for_backend_tests_Student_TestStudent.coverage" NAME="Unittests for backend.tests.Student.TestStudent Coverage Results" MODIFIED="1558603645953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/717366985/time.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="552">
           <caret line="211" column="4" selection-start-line="211" selection-start-column="4" selection-end-line="211" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/tests/weekday.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="25" column="57" selection-start-line="25" selection-start-column="57" selection-end-line="25" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1304,53 +1415,103 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/lib/python3.6/unittest/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="753">
+          <caret line="93" selection-start-line="93" selection-end-line="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/tests/weekday.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/tests/Student.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#6#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/backend/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="417" column="80" selection-start-line="417" selection-start-column="80" selection-end-line="417" selection-end-column="80" />
+        <state relative-caret-position="175">
+          <caret line="233" column="17" lean-forward="true" selection-start-line="233" selection-start-column="17" selection-end-line="233" selection-end-column="17" />
           <folding>
-            <element signature="e#880#1416#0" />
-            <element signature="e#934#1394#0" />
-            <element signature="e#1137#1245#0" />
-            <element signature="e#2001#2219#0" />
-            <element signature="e#2008#2219#0" />
-            <element signature="e#2271#2436#0" />
-            <element signature="e#2480#3644#0" />
-            <element signature="e#2525#3644#0" />
-            <element signature="e#3212#3520#0" />
-            <element signature="e#3231#3399#0" />
-            <element signature="e#3689#3923#0" />
-            <element signature="e#3770#3923#0" />
-            <element signature="e#3966#5759#0" />
-            <element signature="e#4012#5474#0" />
-            <element signature="e#4983#5297#0" />
-            <element signature="e#5354#5474#0" />
-            <element signature="e#5565#5759#0" />
-            <element signature="e#5791#5826#0" />
-            <element signature="e#6562#6647#0" />
-            <element signature="e#6680#6702#0" />
-            <element signature="e#6733#7497#0" />
-            <element signature="e#7041#7473#0" />
-            <element signature="e#7550#7783#0" />
-            <element signature="e#7833#8026#0" />
-            <element signature="e#8079#10031#0" />
-            <element signature="e#8160#8326#0" />
-            <element signature="e#8861#9043#0" />
-            <element signature="e#10659#10949#0" />
-            <element signature="e#10740#10949#0" />
-            <element signature="e#10994#11465#0" />
-            <element signature="e#11079#11380#0" />
-            <element signature="e#11172#11302#0" />
-            <element signature="e#11440#11465#0" />
-            <element signature="e#11494#14187#0" />
-            <element signature="e#11850#12038#0" />
-            <element signature="e#11857#12038#0" />
-            <element signature="e#12080#13072#0" />
-            <element signature="e#12165#12521#0" />
-            <element signature="e#12619#13072#0" />
-            <element signature="e#13122#14187#0" />
-            <element signature="e#13215#13596#0" />
-            <element signature="e#13662#14187#0" />
+            <element signature="e#0#56#0" expanded="true" />
+            <element signature="e#882#1418#0" />
+            <element signature="e#936#1396#0" />
+            <element signature="e#1139#1247#0" />
+            <element signature="e#1450#6054#0" />
+            <element signature="e#2003#2221#0" />
+            <element signature="e#2010#2221#0" />
+            <element signature="e#2273#2438#0" />
+            <element signature="e#2491#2670#0" />
+            <element signature="e#2491#2640#1" />
+            <element signature="e#2716#3939#0" />
+            <element signature="e#2761#3939#0" />
+            <element signature="e#3014#3150#0" />
+            <element signature="e#3021#3150#0" />
+            <element signature="e#3077#3150#0" />
+            <element signature="e#3271#3403#0" />
+            <element signature="e#3278#3403#0" />
+            <element signature="e#3330#3403#0" />
+            <element signature="e#3490#3798#0" />
+            <element signature="e#3509#3677#0" />
+            <element signature="e#3818#3939#0" />
+            <element signature="e#3870#3939#0" />
+            <element signature="e#3984#4218#0" />
+            <element signature="e#4065#4218#0" />
+            <element signature="e#4261#6054#0" />
+            <element signature="e#4307#5769#0" />
+            <element signature="e#5278#5592#0" />
+            <element signature="e#5649#5769#0" />
+            <element signature="e#5860#6054#0" />
+            <element signature="e#6086#6121#0" />
+            <element signature="e#6906#6991#0" />
+            <element signature="e#7024#7046#0" />
+            <element signature="e#7077#7841#0" />
+            <element signature="e#7385#7817#0" />
+            <element signature="e#7874#8032#0" />
+            <element signature="e#7874#8002#1" />
+            <element signature="e#8141#8179#2" />
+            <element signature="e#8085#8318#0" />
+            <element signature="e#8368#8561#0" />
+            <element signature="e#8614#10507#0" />
+            <element signature="e#8695#8861#0" />
+            <element signature="e#8953#10507#0" />
+            <element signature="e#9396#9578#0" />
+            <element signature="e#10550#10840#0" />
+            <element signature="e#10631#10840#0" />
+            <element signature="e#10885#11356#0" />
+            <element signature="e#10970#11271#0" />
+            <element signature="e#11063#11193#0" />
+            <element signature="e#11331#11356#0" />
+            <element signature="e#11391#11944#0" />
+            <element signature="e#11789#11944#0" />
+            <element signature="e#11796#11944#0" />
+            <element signature="e#11980#12426#0" />
+            <element signature="e#12278#12426#0" />
+            <element signature="e#12285#12426#0" />
+            <element signature="e#12455#15148#0" />
+            <element signature="e#12811#12999#0" />
+            <element signature="e#12818#12999#0" />
+            <element signature="e#13041#14033#0" />
+            <element signature="e#13126#13482#0" />
+            <element signature="e#13580#14033#0" />
+            <element signature="e#14083#15148#0" />
+            <element signature="e#14176#14557#0" />
+            <element signature="e#14623#15148#0" />
+            <element signature="e#15183#15797#0" />
+            <element signature="e#15601#15797#0" />
+            <element signature="e#15608#15797#0" />
+            <element signature="e#16298#16445#0" />
           </folding>
         </state>
       </provider>

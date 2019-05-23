@@ -19,7 +19,7 @@ from .utilities.weekdays import next_weekday, all_days_in_week, weekdays, weekda
 
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:password@localhost/student-tracker-2'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:password@localhost/student-tracker'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'myBigSecret'
 api = Api(app)
@@ -78,8 +78,6 @@ class Teacher(db.Model):
         Gives 7 days, can start at any day of the week
         """
         return NotImplemented
-
-
 
     class TeacherLogIn(Resource):
         @staticmethod
@@ -209,7 +207,20 @@ class Student(db.Model):
         Gets account balance of student.
         Looks at all payment and attendance objects to figure this out.
         """
+        payments = Payment.query.filter_by(student=self.id)
+
         return NotImplemented
+
+    def payment_total(self):
+        """
+        returns total amount student has payed
+        """
+        total = 0
+        for x in Payment.query.all():
+            print(x.amount)
+            total += x.amount
+
+        return total
 
     @staticmethod
     def delete(id: int):
@@ -227,6 +238,11 @@ class Student(db.Model):
         if not found:
             return None
         return found
+
+    class StudentPayments(Resource):
+        def get(self, id):
+            s: Student = Student.query.filter_by(id=int(id)).first()
+            return {'total': str(s.payment_total())}
 
     class AllStudentsPerTeacher(Resource):
         @staticmethod
@@ -306,7 +322,8 @@ class Student(db.Model):
 
 class LessonTime(db.Model):
     __tablename__ = 'lesson_time'
-    student = db.Column(db.ForeignKey(Student, onupdate='CASCADE', ondelete='CASCADE'))
+    id = db.Column(db.Integer, primary_key=True)
+    student = db.Column(db.ForeignKey(Student.id, onupdate='CASCADE', ondelete='CASCADE'))
     start_date = db.Column(db.DateTime, nullable=False)  # When the student starts using this lesson time
     lesson_time = db.Column(db.Time, nullable=False)
     lesson_day = db.Column(db.String, nullable=False)  # Only days of the week allowed here
@@ -321,7 +338,8 @@ class LessonTime(db.Model):
 
 class LessonPrice(db.Model):
     __tablename__ = 'lesson_price'
-    student = db.Column(db.ForeignKey(Student, onupdate='CASCADE', ondelete='CASCADE'))
+    id = db.Column(db.Integer, primary_key=True)
+    student = db.Column(db.ForeignKey(Student.id, onupdate='CASCADE', ondelete='CASCADE'))
     start_date = db.Column(db.DateTime, nullable=False)  # When the student starts using this price
     price = db.Column(db.DECIMAL, nullable=False)
 
@@ -411,11 +429,12 @@ class Note(db.Model):
 
 class Attendance(db.Model):
     __tablename__ = 'attendance'
-    student = db.Column(db.ForeignKey(Student, onupdate='CASCADE', ondelete='CASCADE'))
+    id = db.Column(db.Integer, primary_key=True)
+    student = db.Column(db.ForeignKey(Student.id, onupdate='CASCADE', ondelete='CASCADE'))
     datetime = db.Column(db.DateTime, nullable=False)
     attended = db.Column(db.Boolean, default=False, nullable=False)
     cancelled = db.Column(db.Boolean, default=False, nullable=False)
-    price = db.Column(db.DECIMAL, nullable=False) # Price of the lesson attended
+    price = db.Column(db.DECIMAL, nullable=False)  # Price of the lesson attended/cancelled
 
     def json(self):
         return {
@@ -428,13 +447,14 @@ class Attendance(db.Model):
 
 class Payment(db.Model):
     __tablename__ = 'payment'
-    student = db.Column(db.ForeignKey(Student, onupdate='CASCADE', ondelete='CASCADE'))
+    id = db.Column(db.Integer, primary_key=True)
+    student = db.Column(db.ForeignKey(Student.id, onupdate='CASCADE', ondelete='CASCADE'))
     datetime = db.Column(db.DateTime, nullable=False)
     amount = db.Column(db.DECIMAL, nullable=False)
 
     def json(self):
         return {
-            'student': str(self.student.id),
+            'student': str(self.student),
             'datetime': str(self.datetime),
             'amount': str(self.amount)
         }
@@ -446,6 +466,17 @@ class Payment(db.Model):
         db.Session.add(payment)
         return payment
 
+    class PaymentResource(Resource):
+        def post(self, id):
+            date_and_time = datetime.now()
+            amount = request.form.get('amount')
+
+            to_add = Payment(student=id, datetime=date_and_time, amount=amount)
+            db.session.add(to_add)
+            db.session.commit()
+
+            return to_add.json()
+
 
 api.add_resource(Teacher.SingleTeacher, '/teacher')
 api.add_resource(Teacher.AllTeachers, '/teachers')
@@ -454,7 +485,10 @@ api.add_resource(Teacher.TeacherLogIn, '/user')
 api.add_resource(Student.SingleStudent, '/student/<id>')
 api.add_resource(Student.AllStudents, '/student')
 api.add_resource(Student.AllStudentsPerTeacher, '/my_students')
-api.add_resource(Student.UpdateAllStudentsPerTeacher, '/my_students/update')
+api.add_resource(Student.StudentPayments, '/my_students/payments/<id>')
+# api.add_resource(Student.UpdateAllStudentsPerTeacher, '/my_students/update')
 
 api.add_resource(Note.SingleNote, '/student/note/<id>')
 api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
+
+api.add_resource(Payment.PaymentResource, '/payment/<id>')
