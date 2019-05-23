@@ -19,7 +19,7 @@ from .utilities.weekdays import next_weekday, all_days_in_week, weekdays, weekda
 
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:password@localhost/student-tracker'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:password@localhost/student-tracker-2'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'myBigSecret'
 api = Api(app)
@@ -72,6 +72,15 @@ class Teacher(db.Model):
             return {'message': 'Teacher does not exist'}, 404
         return found
 
+    def weekly_schedule(self, start_date):
+        """
+        gets a view of the teacher's weekly schedule for the given start date.
+        Gives 7 days, can start at any day of the week
+        """
+        return NotImplemented
+
+
+
     class TeacherLogIn(Resource):
         @staticmethod
         def get():
@@ -80,11 +89,13 @@ class Teacher(db.Model):
             auth = request.authorization
 
             if not auth or not auth.username or not auth.password:
-                return {'message': "Must provide username and password"}, 401, {'WWW-Authenticate': 'Basic realm="Login Required"'}
+                return {'message': "Must provide username and password"}, 401, {
+                    'WWW-Authenticate': 'Basic realm="Login Required"'}
 
             teacher = Teacher.query.filter_by(email=auth.username).first()
             if not teacher:
-                return {'message': "Username or password incorrect"}, 401, {'WWW-Authenticate': 'Basic realm="Login Required"'}
+                return {'message': "Username or password incorrect"}, 401, {
+                    'WWW-Authenticate': 'Basic realm="Login Required"'}
 
             if check_password_hash(teacher.password, auth.password):
                 token = jwt.encode({
@@ -95,7 +106,8 @@ class Teacher(db.Model):
                 )
 
                 return {'token': token.decode('UTF-8')}
-            return {'message': "Username or password incorrect"}, 401, {'WWW-Authenticate': 'Basic realm="Login Required"'}
+            return {'message': "Username or password incorrect"}, 401, {
+                'WWW-Authenticate': 'Basic realm="Login Required"'}
 
     class SingleTeacher(Resource):
         @staticmethod
@@ -163,6 +175,7 @@ class Student(db.Model):
     lesson_length_minutes = db.Column('lesson_length_minutes', db.Integer, nullable=False, default=30)
     address = db.Column('address', db.String(200), nullable=False)
     price = db.Column('price', db.DECIMAL, nullable=False)
+    end_date = db.Column(db.Date, nullable=True)
 
     def __repr__(self):
         return f'Student: {self.name}.  {self.lesson_day}. {self.lesson_time}. ${self.price}'
@@ -190,6 +203,13 @@ class Student(db.Model):
         }
 
         return student
+
+    def account(self):
+        """
+        Gets account balance of student.
+        Looks at all payment and attendance objects to figure this out.
+        """
+        return NotImplemented
 
     @staticmethod
     def delete(id: int):
@@ -254,25 +274,7 @@ class Student(db.Model):
                              lesson_length_minutes=lesson_length_minutes, address=address, price=price)
             db.session.add(to_add)
             db.session.commit()
-
-            Appointment.SingleAppointment.post(to_add.id)
             return to_add.json(), 201
-
-    class UpdateAllStudentsPerTeacher(Resource):
-        @staticmethod
-        @token_required
-        def get(current_user):
-            """Updates all students scheduls for the next month"""
-            # TODO: Don't allow double-booking
-            students = []
-            for student in Student.query.filter_by(teacher=current_user.id):
-                students.append(student)
-
-            for student in students:
-                print(student)
-                Appointment.add_month_of_appointments(student, datetime.now())
-
-            return {'message': 'schedule updated'}
 
     class AllStudents(Resource):
         @staticmethod
@@ -300,6 +302,35 @@ class Student(db.Model):
         @staticmethod
         def delete(id):
             return Student.delete(id)
+
+
+class LessonTime(db.Model):
+    __tablename__ = 'lesson_time'
+    student = db.Column(db.ForeignKey(Student, onupdate='CASCADE', ondelete='CASCADE'))
+    start_date = db.Column(db.DateTime, nullable=False)  # When the student starts using this lesson time
+    lesson_time = db.Column(db.Time, nullable=False)
+    lesson_day = db.Column(db.String, nullable=False)  # Only days of the week allowed here
+
+    def json(self):
+        return {
+            'student': str(self.student.id),
+            'lesson_time': str(self.lesson_time),
+            'lesson_day': self.lesson_day
+        }
+
+
+class LessonPrice(db.Model):
+    __tablename__ = 'lesson_price'
+    student = db.Column(db.ForeignKey(Student, onupdate='CASCADE', ondelete='CASCADE'))
+    start_date = db.Column(db.DateTime, nullable=False)  # When the student starts using this price
+    price = db.Column(db.DECIMAL, nullable=False)
+
+    def json(self):
+        return {
+            'student': str(self.student.id),
+            'start_date': str(self.start_date),
+            'price': str(self.price)
+        }
 
 
 class Note(db.Model):
@@ -378,226 +409,42 @@ class Note(db.Model):
             return {'message': 'Note added successfully'}, 201
 
 
-class Appointment(db.Model):
-    __tablename__ = 'appointment'
-    id = db.Column('id', db.Integer, primary_key=True)
-    student = db.Column('student', db.Integer, db.ForeignKey(Student.id, onupdate="CASCADE", ondelete="CASCADE"))
-    datetime = db.Column('datetime', db.DateTime)
-    date = db.Column('date', db.Date)  # TODO: Don't store this, infer it from datetime
-    time = db.Column('time', db.Time)  # TODO: Don't store this, infer it from datetime
-    attended = db.Column('attended', db.Boolean)
-    payed = db.Column('payed', db.Boolean)
-
-    def __repr__(self):
-        return str(self.json())
-
-    def __str__(self):
-        return self.__repr__()
+class Attendance(db.Model):
+    __tablename__ = 'attendance'
+    student = db.Column(db.ForeignKey(Student, onupdate='CASCADE', ondelete='CASCADE'))
+    datetime = db.Column(db.DateTime, nullable=False)
+    attended = db.Column(db.Boolean, default=False, nullable=False)
+    cancelled = db.Column(db.Boolean, default=False, nullable=False)
+    price = db.Column(db.DECIMAL, nullable=False) # Price of the lesson attended
 
     def json(self):
         return {
-            'id': self.id,
-            'student': Student.get(self.student).json(),
+            'student': str(self.student.id),
             'datetime': str(self.datetime),
-            'date': str(self.date),
-            'time': str(self.time),
-            'attended': self.attended,
-            'payed': self.payed,
+            'attended': str(self.attended),
+            'cancelled': str(self.cancelled)
+        }
+
+
+class Payment(db.Model):
+    __tablename__ = 'payment'
+    student = db.Column(db.ForeignKey(Student, onupdate='CASCADE', ondelete='CASCADE'))
+    datetime = db.Column(db.DateTime, nullable=False)
+    amount = db.Column(db.DECIMAL, nullable=False)
+
+    def json(self):
+        return {
+            'student': str(self.student.id),
+            'datetime': str(self.datetime),
+            'amount': str(self.amount)
         }
 
     @staticmethod
-    def add_month_of_appointments(student: Student, start_date: datetime):
-        for i in range(4):
-            week_start = start_date + timedelta(weeks=i)
-            print(week_start)
-            Appointment.add_for_next_date_from(student, week_start)
-
-    @staticmethod
-    def add_for_next_date_from(student: Student, start_date: datetime):
-        # TODO: Run this every monday? Every time they sign on for every student?
-        lesson_time = time.strptime(student.lesson_time, "%H:%M")
-
-        hour = int(lesson_time.tm_hour)
-        minute = int(lesson_time.tm_min)
-        weekday = student.lesson_day
-        start_date = start_date.replace(hour=hour, minute=minute, second=0, microsecond=0)
-        next_lesson_datetime = next_weekday(start_date, weekday)
-
-        next_lesson_date = next_lesson_datetime.date()
-        next_lesson_time = next_lesson_datetime.time()
-
-        clash = Appointment.query.filter_by(date=next_lesson_date).filter_by(time=next_lesson_time).first()
-        if clash:
-            return {'message': 'clashes with existing appointment'}
-
-        to_add = Appointment(student=student.id, datetime=next_lesson_datetime, date=next_lesson_date,
-                             time=next_lesson_time, attended=False, payed=False)
-
-        db.session.add(to_add)
-        db.session.commit()
-        return to_add
-
-    @staticmethod
-    def add_for_next_available_date(student: Student):
-        return Appointment.add_for_next_date_from(student, datetime.now())
-
-    @staticmethod
-    def get(id: int):
-        """Returns an appointment with the given id - or None if doesn't exist"""
-        found = Appointment.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
-        if not found:
-            return None
-        return found
-
-    class SingleAppointment(Resource):
-        def get(self, id):
-            found = Appointment.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
-            if not found:
-                return {'message': 'Appointment not found'}
-            else:
-                return found.json()
-
-        @staticmethod
-        def post(id):
-            """
-            Creates appointment for student in next week
-            """
-            # id is id of student
-            student = Student.get(id)
-            if not student:
-                return {'message': 'Student does not exist'}
-            added = Appointment.add_for_next_available_date(student)
-            if not added:
-                return {'message': 'Clashes with existing appointment'}
-            return added.json(), 201
-
-        @staticmethod
-        def put(id):
-            """
-            Updates appointment instance
-            """
-            # TODO: Only allow this appointment's owner to update
-
-            appointment: Appointment = Appointment.get(id)
-            if not appointment:
-                return {'message': 'Appointment does not exist'}
-
-            # TODO: Error checking
-            if request.form.get('student'):
-                appointment.student = request.form.get('student')
-
-            if request.form.get('datetime'):
-                appointment.datetime = request.form.get('datetime')
-
-            if request.form.get('date'):
-                appointment.date = request.form.get('date')
-
-            if request.form.get('time'):
-                appointment.time = request.form.get('time')
-
-            if request.form.get('attended'):
-                if request.form.get('attended').lower() == 'true':
-                    appointment.attended = True
-                else:
-                    appointment.attended = False
-
-            if request.form.get('payed'):
-                if request.form.get('payed').lower() == 'true':
-                    appointment.payed = True
-                else:
-                    appointment.payed = False
-
-            print(request.form.get('attended'))
-            db.session.commit()
-
-            return appointment.json()
-
-        @staticmethod
-        def delete(id):
-            """
-            delete an appointment
-            """
-            # TODO: Only allow this appointment's owner to delete
-            found = Appointment.query.filter_by(id=id).first()  # Can only be one, but don't want full list object
-            if not found:
-                return {'message': 'Appointment not found'}
-            else:
-                db.session.delete(found)
-                db.session.commit()
-                return {'message': 'Appointment deleted successfully'}
-
-    class AllAppointments(Resource):
-        @staticmethod
-        def get():
-            appointments = []
-            for a in Appointment.query.order_by(Appointment.datetime):
-                appointments.append(a.json())
-
-            return {'appointments': appointments}
-
-    class AllAppointmentsPerTeacher(Resource):
-        @staticmethod
-        @token_required
-        def get(current_user):
-            result = (db.session.query(Teacher, Student, Appointment)
-                      .filter(Teacher.id == current_user.id)
-                      .filter(Student.teacher == Teacher.id)
-                      .filter(Student.id == Appointment.student)
-                      .order_by(Appointment.time)
-                      .all())
-
-            output = []
-            for row in result:
-                output.append(row[2].json())
-            return output
-
-    class DailyAppointmentsPerTeacher(Resource):
-        @staticmethod
-        @token_required
-        def get(current_user, date):
-            """
-            Gets all appointments for a given date
-            """
-
-            result = (db.session.query(Teacher, Student, Appointment)
-                      .filter(Teacher.id == current_user.id)
-                      .filter(Student.teacher == Teacher.id)
-                      .filter(Student.id == Appointment.student)
-                      .filter(Appointment.date == date)
-                      .order_by(Appointment.time)
-                      .all())
-
-            output = []
-            for r in result:
-                print(r[2])
-                output.append(r[2].json())
-
-            return output
-
-    class WeeklyAppointmentsPerTeacher(Resource):
-        @staticmethod
-        @token_required
-        def get(current_user, date):
-            """
-            Gets all appointments for a given date
-            """
-            date = datetime.strptime(date, '%Y-%m-%d')
-
-            result = (db.session.query(Teacher, Student, Appointment)
-                      .filter(Teacher.id == current_user.id)
-                      .filter(Student.teacher == Teacher.id)
-                      .filter(Student.id == Appointment.student)
-                      .filter(Appointment.date >= date)
-                      .filter(Appointment.date <= date + timedelta(days=7))
-                      .order_by(Appointment.time)
-                      .all())
-
-            output = []
-            for r in result:
-                print(r[2])
-                output.append(r[2].json())
-
-            return output
+    def add_payment(student: Student, amount):
+        now = datetime.now()
+        payment = Payment(student=student, datetime=now, amount=amount)
+        db.Session.add(payment)
+        return payment
 
 
 api.add_resource(Teacher.SingleTeacher, '/teacher')
@@ -611,10 +458,3 @@ api.add_resource(Student.UpdateAllStudentsPerTeacher, '/my_students/update')
 
 api.add_resource(Note.SingleNote, '/student/note/<id>')
 api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
-
-api.add_resource(Appointment.SingleAppointment, '/appointment/<id>')
-api.add_resource(Appointment.AllAppointments, '/appointment')
-
-api.add_resource(Appointment.AllAppointmentsPerTeacher, '/my_appointments')
-api.add_resource(Appointment.DailyAppointmentsPerTeacher, '/my_appointments/daily/<date>')
-api.add_resource(Appointment.WeeklyAppointmentsPerTeacher, '/my_appointments/weekly')
