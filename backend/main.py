@@ -168,8 +168,6 @@ class Student(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     teacher = db.Column('teacher', db.Integer, db.ForeignKey(Teacher.id, onupdate="CASCADE", ondelete="CASCADE"))
     name = db.Column('name', db.String(200), nullable=False)
-    lesson_day = db.Column('lesson_day', db.String(10), nullable=False)
-    lesson_time = db.Column('lesson_time', db.String(10), nullable=False)
     lesson_length_minutes = db.Column('lesson_length_minutes', db.Integer, nullable=False, default=30)
     address = db.Column('address', db.String(200), nullable=False)
     price = db.Column('price', db.DECIMAL, nullable=False)
@@ -182,8 +180,11 @@ class Student(db.Model):
         return self.__repr__()
 
     def json(self):
+        lesson_day_time: LessonTime = LessonTime.get_current_lesson_time(self)
+        lesson_day = lesson_day_time.lesson_day
+        lesson_time = lesson_day_time.lesson_time
 
-        lesson_end = datetime.strptime(self.lesson_time, "%H:%M")  # + timedelta(minutes=self.lesson_length_minutes)
+        lesson_end = datetime.strptime(lesson_time, "%H:%M")  # + timedelta(minutes=self.lesson_length_minutes)
         lesson_end += timedelta(minutes=self.lesson_length_minutes)
         lesson_end = lesson_end.time()
         lesson_end = str(lesson_end.hour) + ':' + str(lesson_end.minute)
@@ -191,8 +192,8 @@ class Student(db.Model):
         student = {
             'id': self.id,
             'name': self.name,
-            'lesson_day': self.lesson_day,
-            'lesson_time': str(self.lesson_time),
+            'lesson_day': lesson_day,
+            'lesson_time': str(lesson_time),
             'lesson_length_minutes': str(self.lesson_length_minutes),
             'lesson_end': str(lesson_end),
             'address': self.address,
@@ -324,7 +325,7 @@ class LessonTime(db.Model):
     __tablename__ = 'lesson_time'
     id = db.Column(db.Integer, primary_key=True)
     student = db.Column(db.ForeignKey(Student.id, onupdate='CASCADE', ondelete='CASCADE'))
-    start_date = db.Column(db.DateTime, nullable=False)  # When the student starts using this lesson time
+    start_date = db.Column(db.Date, nullable=False)  # When the student starts using this lesson time
     lesson_time = db.Column(db.Time, nullable=False)
     lesson_day = db.Column(db.String, nullable=False)  # Only days of the week allowed here
 
@@ -334,6 +335,31 @@ class LessonTime(db.Model):
             'lesson_time': str(self.lesson_time),
             'lesson_day': self.lesson_day
         }
+
+    @staticmethod
+    def get_current_lesson_time(student: Student):
+        """
+        Get current lesson time for a student - based on now
+        """
+        times = LessonTime.query.filter_by(id=student.id).order_by(LessonTime.start_date)
+        now = datetime.now()
+        for time in times:
+            if now >= time.start_Date:
+                return time
+
+        return None
+
+    class LessonTimeResource(Resource):
+        @staticmethod
+        def post(id):
+            # TODO: Error checking
+            start_date =  request.form.get('start_date')
+            lesson_time = time.strptime(request.form.get('lesson_time'), "%H:%M")
+            lesson_day = request.form.get('lesson_day')
+
+            to_add = LessonTime(student=id, start_date=start_date, lesson_time=lesson_time, lesson_day=lesson_day)
+            db.session.add(to_add)
+            db.session.commit()
 
 
 class LessonPrice(db.Model):
@@ -432,6 +458,7 @@ class Attendance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     student = db.Column(db.ForeignKey(Student.id, onupdate='CASCADE', ondelete='CASCADE'))
     datetime = db.Column(db.DateTime, nullable=False)
+    lesson_length = db.Column(db.Integer, nullable=False)
     attended = db.Column(db.Boolean, default=False, nullable=False)
     cancelled = db.Column(db.Boolean, default=False, nullable=False)
     price = db.Column(db.DECIMAL, nullable=False)  # Price of the lesson attended/cancelled
@@ -492,3 +519,5 @@ api.add_resource(Note.SingleNote, '/student/note/<id>')
 api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
 
 api.add_resource(Payment.PaymentResource, '/payment/<id>')
+
+api.add_resource(LessonTime.LessonTimeResource, '/my_students/lesson_time')
