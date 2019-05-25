@@ -4,6 +4,7 @@
     <list default="true" id="20cfc609-3330-477e-9691-15a11792953d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/utilities/weekdays.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/utilities/weekdays.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="168" column="81" selection-start-line="168" selection-start-column="81" selection-end-line="168" selection-end-column="81" />
+            <state relative-caret-position="471">
+              <caret line="403" column="18" selection-start-line="403" selection-start-column="18" selection-end-line="403" selection-end-column="18" />
               <folding>
                 <element signature="e#880#1416#0" />
                 <element signature="e#934#1394#0" />
@@ -47,57 +48,75 @@
                 <element signature="e#5274#5588#0" />
                 <element signature="e#5645#5765#0" />
                 <element signature="e#5856#6050#0" />
+                <element signature="e#6082#11853#0" />
                 <element signature="e#6082#6117#0" />
-                <element signature="e#6902#6987#0" />
-                <element signature="e#7020#7042#0" />
-                <element signature="e#7073#7837#0" />
-                <element signature="e#7381#7813#0" />
-                <element signature="e#7870#8089#0" />
-                <element signature="e#7870#7998#1" />
-                <element signature="e#8128#8326#0" />
-                <element signature="e#8128#8190#1" />
-                <element signature="e#8259#8304#0" />
-                <element signature="e#8379#8612#0" />
-                <element signature="e#8662#8855#0" />
-                <element signature="e#8902#9042#0" />
-                <element signature="e#8933#9042#0" />
-                <element signature="e#9095#10988#0" />
-                <element signature="e#9176#9342#0" />
-                <element signature="e#9434#10988#0" />
-                <element signature="e#9877#10059#0" />
-                <element signature="e#11031#11321#0" />
-                <element signature="e#11112#11321#0" />
-                <element signature="e#11366#11837#0" />
-                <element signature="e#11451#11752#0" />
-                <element signature="e#11544#11674#0" />
-                <element signature="e#11812#11837#0" />
-                <element signature="e#12322#12477#0" />
-                <element signature="e#12329#12477#0" />
-                <element signature="e#12398#12623#0" />
-                <element signature="e#12401#12477#1" />
-                <element signature="e#12543#12597#0" />
-                <element signature="e#12513#13011#0" />
-                <element signature="e#12863#13011#0" />
-                <element signature="e#12870#13011#0" />
-                <element signature="e#13040#15733#0" />
-                <element signature="e#13396#13584#0" />
-                <element signature="e#13403#13584#0" />
-                <element signature="e#13626#14618#0" />
-                <element signature="e#13711#14067#0" />
-                <element signature="e#14165#14618#0" />
-                <element signature="e#14668#15733#0" />
-                <element signature="e#14761#15142#0" />
-                <element signature="e#15208#15733#0" />
-                <element signature="e#15768#16445#0" />
-                <element signature="e#16249#16445#0" />
-                <element signature="e#16256#16445#0" />
-                <element signature="e#16477#17481#0" />
-                <element signature="e#16777#16920#0" />
-                <element signature="e#16784#16920#0" />
-                <element signature="e#16995#17142#0" />
-                <element signature="e#17189#17481#0" />
-                <element signature="e#17221#17481#0" />
+                <element signature="e#6756#6841#0" />
+                <element signature="e#6874#6896#0" />
+                <element signature="e#6926#7853#0" />
+                <element signature="e#7116#7518#0" />
+                <element signature="e#7538#7965#0" />
+                <element signature="e#7886#8105#0" />
+                <element signature="e#7886#8014#1" />
+                <element signature="e#8144#8342#0" />
+                <element signature="e#8144#8206#1" />
+                <element signature="e#8275#8320#0" />
+                <element signature="e#8395#8628#0" />
+                <element signature="e#8678#8871#0" />
+                <element signature="e#8918#9058#0" />
+                <element signature="e#8949#9058#0" />
+                <element signature="e#9111#11004#0" />
+                <element signature="e#9192#9358#0" />
+                <element signature="e#9450#11004#0" />
+                <element signature="e#9893#10075#0" />
+                <element signature="e#11047#11337#0" />
+                <element signature="e#11128#11337#0" />
+                <element signature="e#11382#11853#0" />
+                <element signature="e#11467#11768#0" />
+                <element signature="e#11560#11690#0" />
+                <element signature="e#11828#11853#0" />
+                <element signature="e#12482#12765#0" />
+                <element signature="e#12545#12765#0" />
+                <element signature="e#12568#12878#0" />
+                <element signature="e#12568#12644#1" />
+                <element signature="e#12803#12857#0" />
+                <element signature="e#13162#14310#0" />
+                <element signature="e#13208#13268#0" />
+                <element signature="e#13132#14186#0" />
+                <element signature="e#13120#13142#0" />
+                <element signature="e#14648#14715#0" />
+                <element signature="e#14792#14945#0" />
+                <element signature="e#13412#13910#0" />
+                <element signature="e#13762#13910#0" />
+                <element signature="e#13769#13910#0" />
+                <element signature="e#13939#16632#0" />
+                <element signature="e#14295#14483#0" />
+                <element signature="e#14302#14483#0" />
+                <element signature="e#14525#15517#0" />
+                <element signature="e#14610#14966#0" />
+                <element signature="e#15064#15517#0" />
+                <element signature="e#15567#16632#0" />
+                <element signature="e#15660#16041#0" />
+                <element signature="e#16107#16632#0" />
+                <element signature="e#16667#17402#0" />
+                <element signature="e#17206#17402#0" />
+                <element signature="e#17213#17402#0" />
+                <element signature="e#17434#18583#0" />
+                <element signature="e#17734#17877#0" />
+                <element signature="e#17741#17877#0" />
+                <element signature="e#17952#18099#0" />
+                <element signature="e#18146#18583#0" />
+                <element signature="e#18194#18454#0" />
+                <element signature="e#18495#18583#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/utilities/weekdays.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="485">
+              <caret line="69" column="41" selection-start-line="69" selection-start-column="41" selection-end-line="69" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -146,7 +165,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>foreign</find>
       <find>match.params</find>
       <find>post</find>
       <find>return</find>
@@ -176,6 +194,7 @@
       <find>to_add</find>
       <find>date.</find>
       <find>date</find>
+      <find>def del</find>
     </findStrings>
     <replaceStrings>
       <replace>window.location.assign(window.location);</replace>
@@ -211,7 +230,6 @@
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/WeeklyView.css" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/newStudentForm.css" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/student.css" />
-        <option value="$PROJECT_DIR$/backend/utilities/weekdays.py" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.css" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/App.css" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/addNote.js" />
@@ -245,6 +263,7 @@
         <option value="$PROJECT_DIR$/documentation/kanban.txt" />
         <option value="$PROJECT_DIR$/documentation/Rostera back-end redesign.md" />
         <option value="$PROJECT_DIR$/backend/tests/Student.py" />
+        <option value="$PROJECT_DIR$/backend/utilities/weekdays.py" />
         <option value="$PROJECT_DIR$/backend/main.py" />
       </list>
     </option>
@@ -285,6 +304,12 @@
               <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="utilities" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
@@ -455,9 +480,9 @@
       <item itemvalue="Python.run" />
       <item itemvalue="Python tests.Tests" />
       <item itemvalue="Python tests.Unittests in tests" />
-      <item itemvalue="Python tests.Unittests for backend.tests.Student.TestStudent" />
       <item itemvalue="Python tests.Unittests for Student.TestStudent" />
       <item itemvalue="Python tests.Unittests for Student.TestStudent.test_account" />
+      <item itemvalue="Python tests.Unittests for backend.tests.Student.TestStudent" />
     </list>
     <recent_temporary>
       <list>
@@ -524,6 +549,7 @@
       <workItem from="1558581098584" duration="1437000" />
       <workItem from="1558603062722" duration="3024000" />
       <workItem from="1558647354689" duration="926000" />
+      <workItem from="1558763164199" duration="2620000" />
     </task>
     <task id="LOCAL-00009" summary="Daily view looks better">
       <created>1557790065625</created>
@@ -904,7 +930,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="112166000" />
+    <option name="totallyTimeSpent" value="114954000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -919,12 +945,12 @@
     <frame x="0" y="-30" width="1920" height="1110" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19637139" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19850586" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32894737" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.1445663" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28614157" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39144737" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1049,7 +1075,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Student_tracker$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1558648183213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Student_tracker$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1558765753209" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Student_tracker$run.coverage" NAME="run Coverage Results" MODIFIED="1557623662434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Student_tracker$Unittests_for_weekday_TestWeekday.coverage" NAME="Tests Coverage Results" MODIFIED="1557739602400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Student_tracker$main.coverage" NAME="main Coverage Results" MODIFIED="1557721959796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -1122,13 +1148,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/utilities/weekdays.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="31" selection-start-column="31" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -1419,10 +1438,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/backend/tests/Student.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/tests/weekday.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documentation/Rostera back-end redesign.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="168">
+            <caret line="8" selection-start-line="8" selection-end-line="8" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/utilities/weekdays.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="69" column="41" selection-start-line="69" selection-start-column="41" selection-end-line="69" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/backend/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="168" column="81" selection-start-line="168" selection-start-column="81" selection-end-line="168" selection-end-column="81" />
+        <state relative-caret-position="471">
+          <caret line="403" column="18" selection-start-line="403" selection-start-column="18" selection-end-line="403" selection-end-column="18" />
           <folding>
             <element signature="e#880#1416#0" />
             <element signature="e#934#1394#0" />
@@ -1452,81 +1502,66 @@
             <element signature="e#5274#5588#0" />
             <element signature="e#5645#5765#0" />
             <element signature="e#5856#6050#0" />
+            <element signature="e#6082#11853#0" />
             <element signature="e#6082#6117#0" />
-            <element signature="e#6902#6987#0" />
-            <element signature="e#7020#7042#0" />
-            <element signature="e#7073#7837#0" />
-            <element signature="e#7381#7813#0" />
-            <element signature="e#7870#8089#0" />
-            <element signature="e#7870#7998#1" />
-            <element signature="e#8128#8326#0" />
-            <element signature="e#8128#8190#1" />
-            <element signature="e#8259#8304#0" />
-            <element signature="e#8379#8612#0" />
-            <element signature="e#8662#8855#0" />
-            <element signature="e#8902#9042#0" />
-            <element signature="e#8933#9042#0" />
-            <element signature="e#9095#10988#0" />
-            <element signature="e#9176#9342#0" />
-            <element signature="e#9434#10988#0" />
-            <element signature="e#9877#10059#0" />
-            <element signature="e#11031#11321#0" />
-            <element signature="e#11112#11321#0" />
-            <element signature="e#11366#11837#0" />
-            <element signature="e#11451#11752#0" />
-            <element signature="e#11544#11674#0" />
-            <element signature="e#11812#11837#0" />
-            <element signature="e#12322#12477#0" />
-            <element signature="e#12329#12477#0" />
-            <element signature="e#12398#12623#0" />
-            <element signature="e#12401#12477#1" />
-            <element signature="e#12543#12597#0" />
-            <element signature="e#12513#13011#0" />
-            <element signature="e#12863#13011#0" />
-            <element signature="e#12870#13011#0" />
-            <element signature="e#13040#15733#0" />
-            <element signature="e#13396#13584#0" />
-            <element signature="e#13403#13584#0" />
-            <element signature="e#13626#14618#0" />
-            <element signature="e#13711#14067#0" />
-            <element signature="e#14165#14618#0" />
-            <element signature="e#14668#15733#0" />
-            <element signature="e#14761#15142#0" />
-            <element signature="e#15208#15733#0" />
-            <element signature="e#15768#16445#0" />
-            <element signature="e#16249#16445#0" />
-            <element signature="e#16256#16445#0" />
-            <element signature="e#16477#17481#0" />
-            <element signature="e#16777#16920#0" />
-            <element signature="e#16784#16920#0" />
-            <element signature="e#16995#17142#0" />
-            <element signature="e#17189#17481#0" />
-            <element signature="e#17221#17481#0" />
+            <element signature="e#6756#6841#0" />
+            <element signature="e#6874#6896#0" />
+            <element signature="e#6926#7853#0" />
+            <element signature="e#7116#7518#0" />
+            <element signature="e#7538#7965#0" />
+            <element signature="e#7886#8105#0" />
+            <element signature="e#7886#8014#1" />
+            <element signature="e#8144#8342#0" />
+            <element signature="e#8144#8206#1" />
+            <element signature="e#8275#8320#0" />
+            <element signature="e#8395#8628#0" />
+            <element signature="e#8678#8871#0" />
+            <element signature="e#8918#9058#0" />
+            <element signature="e#8949#9058#0" />
+            <element signature="e#9111#11004#0" />
+            <element signature="e#9192#9358#0" />
+            <element signature="e#9450#11004#0" />
+            <element signature="e#9893#10075#0" />
+            <element signature="e#11047#11337#0" />
+            <element signature="e#11128#11337#0" />
+            <element signature="e#11382#11853#0" />
+            <element signature="e#11467#11768#0" />
+            <element signature="e#11560#11690#0" />
+            <element signature="e#11828#11853#0" />
+            <element signature="e#12482#12765#0" />
+            <element signature="e#12545#12765#0" />
+            <element signature="e#12568#12878#0" />
+            <element signature="e#12568#12644#1" />
+            <element signature="e#12803#12857#0" />
+            <element signature="e#13162#14310#0" />
+            <element signature="e#13208#13268#0" />
+            <element signature="e#13132#14186#0" />
+            <element signature="e#13120#13142#0" />
+            <element signature="e#14648#14715#0" />
+            <element signature="e#14792#14945#0" />
+            <element signature="e#13412#13910#0" />
+            <element signature="e#13762#13910#0" />
+            <element signature="e#13769#13910#0" />
+            <element signature="e#13939#16632#0" />
+            <element signature="e#14295#14483#0" />
+            <element signature="e#14302#14483#0" />
+            <element signature="e#14525#15517#0" />
+            <element signature="e#14610#14966#0" />
+            <element signature="e#15064#15517#0" />
+            <element signature="e#15567#16632#0" />
+            <element signature="e#15660#16041#0" />
+            <element signature="e#16107#16632#0" />
+            <element signature="e#16667#17402#0" />
+            <element signature="e#17206#17402#0" />
+            <element signature="e#17213#17402#0" />
+            <element signature="e#17434#18583#0" />
+            <element signature="e#17734#17877#0" />
+            <element signature="e#17741#17877#0" />
+            <element signature="e#17952#18099#0" />
+            <element signature="e#18146#18583#0" />
+            <element signature="e#18194#18454#0" />
+            <element signature="e#18495#18583#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/tests/Student.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/tests/weekday.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/documentation/Rostera back-end redesign.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="168">
-            <caret line="8" selection-start-line="8" selection-end-line="8" />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>

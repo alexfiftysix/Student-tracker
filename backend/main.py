@@ -15,7 +15,7 @@ import _sha256
 from passlib.hash import sha256_crypt
 from functools import wraps
 
-from .utilities.weekdays import next_weekday, all_days_in_week, weekdays, weekdays_abbreviated
+from .utilities.weekdays import next_weekday, all_days_in_week, weekdays, weekdays_abbreviated, to_weekday
 
 app = Flask(__name__)
 CORS(app)
@@ -181,18 +181,22 @@ class Student(db.Model):
 
     def json(self):
         lesson_day_time: LessonTime = LessonTime.get_current_lesson_time(self)
-        lesson_day = lesson_day_time.lesson_day
-        lesson_time = lesson_day_time.lesson_time
+        lesson_day = None
+        lesson_time = None
+        lesson_end = None
+        if lesson_day_time:
+            lesson_day = lesson_day_time.lesson_day
+            lesson_time = lesson_day_time.lesson_time
 
-        lesson_end = datetime.strptime(lesson_time, "%H:%M")  # + timedelta(minutes=self.lesson_length_minutes)
-        lesson_end += timedelta(minutes=self.lesson_length_minutes)
-        lesson_end = lesson_end.time()
-        lesson_end = str(lesson_end.hour) + ':' + str(lesson_end.minute)
+            lesson_end = datetime.strptime(lesson_time, "%H:%M")  # + timedelta(minutes=self.lesson_length_minutes)
+            lesson_end += timedelta(minutes=self.lesson_length_minutes)
+            lesson_end = lesson_end.time()
+            lesson_end = str(lesson_end.hour) + ':' + str(lesson_end.minute)
 
         student = {
             'id': self.id,
             'name': self.name,
-            'lesson_day': lesson_day,
+            'lesson_day': str(lesson_day),
             'lesson_time': str(lesson_time),
             'lesson_length_minutes': str(self.lesson_length_minutes),
             'lesson_end': str(lesson_end),
@@ -330,10 +334,13 @@ class LessonTime(db.Model):
     lesson_day = db.Column(db.String, nullable=False)  # Only days of the week allowed here
 
     def json(self):
+        # TODO: Return student in readable format maybe
         return {
-            'student': str(self.student.id),
+            'id': str(self.id),
             'lesson_time': str(self.lesson_time),
-            'lesson_day': self.lesson_day
+            'lesson_day': self.lesson_day,
+            'student': self.student,
+            'start_date': str(self.start_date.date()),
         }
 
     @staticmethod
@@ -341,7 +348,7 @@ class LessonTime(db.Model):
         """
         Get current lesson time for a student - based on now
         """
-        times = LessonTime.query.filter_by(id=student.id).order_by(LessonTime.start_date)
+        times = LessonTime.query.filter_by(student=student.id).order_by(LessonTime.start_date)
         now = datetime.now()
         for time in times:
             if now >= time.start_Date:
@@ -349,17 +356,57 @@ class LessonTime(db.Model):
 
         return None
 
-    class LessonTimeResource(Resource):
+    class StudentLessonTimeResource(Resource):
         @staticmethod
-        def post(id):
+        def get(student_id):
+            return [x.json() for x in LessonTime.query.filter_by(student=student_id)]
+
+
+        @staticmethod
+        def post(student_id):
             # TODO: Error checking
-            start_date =  request.form.get('start_date')
-            lesson_time = time.strptime(request.form.get('lesson_time'), "%H:%M")
+            # TODO: Finish this
+            start_date = request.form.get('start_date')
+            lesson_time = request.form.get('lesson_time')
             lesson_day = request.form.get('lesson_day')
 
-            to_add = LessonTime(student=id, start_date=start_date, lesson_time=lesson_time, lesson_day=lesson_day)
+            if not start_date:
+                start_date = datetime.now().date()
+            elif start_date:
+                start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
+
+            print(start_date)
+            print(str(start_date))
+
+            if not lesson_time:
+                return {'message': '"lesson_time" must be included'}
+            elif lesson_time:
+                lesson_time = datetime.strptime(lesson_time, "%H:%M")
+
+            if not lesson_day:
+                return {'message': '"lesson_day" must be included'}
+            elif lesson_day:
+                lesson_day = to_weekday(lesson_day)
+
+            to_add = LessonTime(student=student_id, start_date=start_date, lesson_time=lesson_time,
+                                lesson_day=lesson_day)
             db.session.add(to_add)
             db.session.commit()
+
+            return to_add.json()
+
+    class lessonTimeResource(Resource):
+        @staticmethod
+        def get(lesson_time_id):
+            return LessonTime.query.filter_by(id=lesson_time_id).first().json()
+
+        @staticmethod
+        def delete(lesson_time_id):
+            lt = LessonTime.query.filter_by(id=lesson_time_id).first().json()
+            db.session.remove(lt)
+            db.session.commit()
+            return {'message': 'Lesson Time deleted successfully'}
+
 
 
 class LessonPrice(db.Model):
@@ -494,7 +541,8 @@ class Payment(db.Model):
         return payment
 
     class PaymentResource(Resource):
-        def post(self, id):
+        @staticmethod
+        def post(id):
             date_and_time = datetime.now()
             amount = request.form.get('amount')
 
@@ -503,6 +551,10 @@ class Payment(db.Model):
             db.session.commit()
 
             return to_add.json()
+
+        def get(self, id):
+            payments = Payment.query.filter_by(student=id)
+            return {'payments': payments}
 
 
 api.add_resource(Teacher.SingleTeacher, '/teacher')
@@ -520,4 +572,4 @@ api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
 
 api.add_resource(Payment.PaymentResource, '/payment/<id>')
 
-api.add_resource(LessonTime.LessonTimeResource, '/my_students/lesson_time')
+api.add_resource(LessonTime.StudentLessonTimeResource, '/my_students/lesson_time/<student_id>')

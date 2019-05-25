@@ -60,3 +60,12 @@ def all_days_in_week(day: date):
         week.append(first_sunday + timedelta(days=i))
 
     return week
+
+
+def to_weekday(s: str):
+    s = s.lower()
+
+    if s in weekdays:
+        return s.lower()
+    elif s in weekdays_abbreviated.keys():
+        return weekdays_abbreviated[s]
