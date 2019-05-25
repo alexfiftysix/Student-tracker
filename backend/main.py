@@ -163,6 +163,21 @@ class Teacher(db.Model):
             return output
 
 
+class DailySchedule(Resource):
+    @staticmethod
+    @token_required
+    def get(current_user, lesson_date):
+        lesson_date = datetime.strptime(lesson_date, "%Y-%m-%d").date()
+        teacher = current_user
+        my_students = [x for x in Student.query.filter_by(teacher=teacher.id)]
+        to_ret = []
+        for student in my_students:
+            if student.get_lesson_time(lesson_date):
+                to_ret.append(student.json())
+
+        return to_ret
+
+
 class Student(db.Model):
     # TODO: Add start-date and end-date
     #   end-date is null when end-date has not been explicitly set
@@ -240,6 +255,29 @@ class Student(db.Model):
                 return plan
 
         return None
+
+    def get_lesson_time(self, requested_date: date):
+        """
+        Gets the lesson time on the given date, or none if no lesson on that date
+        """
+        weekday = weekdays[(requested_date.weekday() + 1) % 7]
+        print(weekday)
+
+        plans = [x for x in LessonPlan.query.filter_by(student=self.id).order_by(LessonPlan.start_date.desc())]
+        current_plan = None
+        for plan in plans:
+            if plan.start_date <= requested_date:
+                current_plan = plan
+                break
+
+        if not current_plan:
+            return None
+
+        if current_plan.lesson_day == weekday:
+            return current_plan.lesson_time
+        else:
+            return None
+
 
     @staticmethod
     def delete(id: int):
@@ -614,11 +652,12 @@ api.add_resource(Teacher.SingleTeacher, '/teacher')
 api.add_resource(Teacher.AllTeachers, '/teachers')
 api.add_resource(Teacher.TeacherLogIn, '/user')
 
+api.add_resource(DailySchedule, '/my_appointments/daily/<lesson_date>')
+
 api.add_resource(Student.SingleStudent, '/student/<id>')
 api.add_resource(Student.AllStudents, '/student')
 api.add_resource(Student.AllStudentsPerTeacher, '/my_students')
 api.add_resource(Student.StudentPayments, '/my_students/payments/<id>')
-# api.add_resource(Student.UpdateAllStudentsPerTeacher, '/my_students/update')
 
 api.add_resource(Note.SingleNote, '/student/note/<id>')
 api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
