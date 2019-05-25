@@ -4,7 +4,7 @@
     <list default="true" id="20cfc609-3330-477e-9691-15a11792953d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/utilities/weekdays.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/utilities/weekdays.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/kanban.txt" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/kanban.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,97 +17,96 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="471">
-              <caret line="403" column="18" selection-start-line="403" selection-start-column="18" selection-end-line="403" selection-end-column="18" />
+            <state relative-caret-position="273">
+              <caret line="175" column="50" selection-start-line="175" selection-start-column="50" selection-end-line="175" selection-end-column="50" />
               <folding>
-                <element signature="e#880#1416#0" />
-                <element signature="e#934#1394#0" />
-                <element signature="e#1137#1245#0" />
-                <element signature="e#1448#6050#0" />
-                <element signature="e#2001#2219#0" />
-                <element signature="e#2008#2219#0" />
-                <element signature="e#2271#2436#0" />
-                <element signature="e#2489#2668#0" />
-                <element signature="e#2489#2638#1" />
-                <element signature="e#2712#3935#0" />
-                <element signature="e#2757#3935#0" />
-                <element signature="e#3010#3146#0" />
-                <element signature="e#3017#3146#0" />
-                <element signature="e#3073#3146#0" />
-                <element signature="e#3267#3399#0" />
-                <element signature="e#3274#3399#0" />
-                <element signature="e#3326#3399#0" />
-                <element signature="e#3486#3794#0" />
-                <element signature="e#3505#3673#0" />
-                <element signature="e#3814#3935#0" />
-                <element signature="e#3866#3935#0" />
-                <element signature="e#3980#4214#0" />
-                <element signature="e#4061#4214#0" />
-                <element signature="e#4257#6050#0" />
-                <element signature="e#4303#5765#0" />
-                <element signature="e#5274#5588#0" />
-                <element signature="e#5645#5765#0" />
-                <element signature="e#5856#6050#0" />
-                <element signature="e#6082#11853#0" />
-                <element signature="e#6082#6117#0" />
-                <element signature="e#6756#6841#0" />
-                <element signature="e#6874#6896#0" />
-                <element signature="e#6926#7853#0" />
-                <element signature="e#7116#7518#0" />
-                <element signature="e#7538#7965#0" />
-                <element signature="e#7886#8105#0" />
-                <element signature="e#7886#8014#1" />
-                <element signature="e#8144#8342#0" />
-                <element signature="e#8144#8206#1" />
-                <element signature="e#8275#8320#0" />
-                <element signature="e#8395#8628#0" />
-                <element signature="e#8678#8871#0" />
-                <element signature="e#8918#9058#0" />
-                <element signature="e#8949#9058#0" />
-                <element signature="e#9111#11004#0" />
-                <element signature="e#9192#9358#0" />
-                <element signature="e#9450#11004#0" />
-                <element signature="e#9893#10075#0" />
-                <element signature="e#11047#11337#0" />
-                <element signature="e#11128#11337#0" />
-                <element signature="e#11382#11853#0" />
-                <element signature="e#11467#11768#0" />
-                <element signature="e#11560#11690#0" />
-                <element signature="e#11828#11853#0" />
-                <element signature="e#12482#12765#0" />
-                <element signature="e#12545#12765#0" />
-                <element signature="e#12568#12878#0" />
-                <element signature="e#12568#12644#1" />
-                <element signature="e#12803#12857#0" />
-                <element signature="e#13162#14310#0" />
-                <element signature="e#13208#13268#0" />
-                <element signature="e#13132#14186#0" />
-                <element signature="e#13120#13142#0" />
-                <element signature="e#14648#14715#0" />
-                <element signature="e#14792#14945#0" />
-                <element signature="e#13412#13910#0" />
-                <element signature="e#13762#13910#0" />
-                <element signature="e#13769#13910#0" />
-                <element signature="e#13939#16632#0" />
-                <element signature="e#14295#14483#0" />
-                <element signature="e#14302#14483#0" />
-                <element signature="e#14525#15517#0" />
-                <element signature="e#14610#14966#0" />
-                <element signature="e#15064#15517#0" />
-                <element signature="e#15567#16632#0" />
-                <element signature="e#15660#16041#0" />
-                <element signature="e#16107#16632#0" />
-                <element signature="e#16667#17402#0" />
-                <element signature="e#17206#17402#0" />
-                <element signature="e#17213#17402#0" />
-                <element signature="e#17434#18583#0" />
-                <element signature="e#17734#17877#0" />
-                <element signature="e#17741#17877#0" />
-                <element signature="e#17952#18099#0" />
-                <element signature="e#18146#18583#0" />
-                <element signature="e#18194#18454#0" />
-                <element signature="e#18495#18583#0" />
+                <element signature="e#907#1443#0" />
+                <element signature="e#961#1421#0" />
+                <element signature="e#1164#1272#0" />
+                <element signature="e#1475#6077#0" />
+                <element signature="e#2028#2246#0" />
+                <element signature="e#2035#2246#0" />
+                <element signature="e#2298#2463#0" />
+                <element signature="e#2516#2695#0" />
+                <element signature="e#2516#2665#1" />
+                <element signature="e#2739#3962#0" />
+                <element signature="e#2784#3962#0" />
+                <element signature="e#3037#3173#0" />
+                <element signature="e#3044#3173#0" />
+                <element signature="e#3100#3173#0" />
+                <element signature="e#3294#3426#0" />
+                <element signature="e#3301#3426#0" />
+                <element signature="e#3353#3426#0" />
+                <element signature="e#3513#3821#0" />
+                <element signature="e#3532#3700#0" />
+                <element signature="e#3841#3962#0" />
+                <element signature="e#3893#3962#0" />
+                <element signature="e#4007#4241#0" />
+                <element signature="e#4088#4241#0" />
+                <element signature="e#4284#6077#0" />
+                <element signature="e#4330#5792#0" />
+                <element signature="e#5301#5615#0" />
+                <element signature="e#5672#5792#0" />
+                <element signature="e#5883#6077#0" />
+                <element signature="e#6109#6144#0" />
+                <element signature="e#6733#6818#0" />
+                <element signature="e#7999#8218#0" />
+                <element signature="e#7999#8127#1" />
+                <element signature="e#8257#8455#0" />
+                <element signature="e#8257#8319#1" />
+                <element signature="e#8388#8433#0" />
+                <element signature="e#8508#8741#0" />
+                <element signature="e#9031#9171#0" />
+                <element signature="e#9062#9171#0" />
+                <element signature="e#9305#9471#0" />
+                <element signature="e#11574#11864#0" />
+                <element signature="e#11655#11864#0" />
+                <element signature="e#11909#12380#0" />
+                <element signature="e#11994#12295#0" />
+                <element signature="e#12087#12217#0" />
+                <element signature="e#12355#12380#0" />
+                <element signature="e#12415#12469#0" />
+                <element signature="e#13184#13499#0" />
+                <element signature="e#13504#13819#0" />
+                <element signature="e#13504#13580#1" />
+                <element signature="e#13744#13798#0" />
+                <element signature="e#13876#15604#0" />
+                <element signature="e#13931#14103#0" />
+                <element signature="e#13931#14017#1" />
+                <element signature="e#14169#15604#0" />
+                <element signature="e#14169#14191#0" />
+                <element signature="e#15465#15519#0" />
+                <element signature="e#15654#16050#0" />
+                <element signature="e#15713#15780#0" />
+                <element signature="e#15852#16050#0" />
+                <element signature="e#16969#17157#0" />
+                <element signature="e#16976#17157#0" />
+                <element signature="e#17199#18191#0" />
+                <element signature="e#17284#17640#0" />
+                <element signature="e#17738#18191#0" />
+                <element signature="e#18781#19306#0" />
+                <element signature="e#19341#20076#0" />
+                <element signature="e#19880#20076#0" />
+                <element signature="e#19887#20076#0" />
+                <element signature="e#20108#21439#0" />
+                <element signature="e#20408#20551#0" />
+                <element signature="e#20415#20551#0" />
+                <element signature="e#20626#20773#0" />
+                <element signature="e#20820#21439#0" />
+                <element signature="e#20876#21216#0" />
+                <element signature="e#20876#20935#1" />
+                <element signature="e#21281#21439#0" />
+                <element signature="e#21281#21356#1" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/run.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="63">
+              <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -115,7 +114,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/utilities/weekdays.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
+            <state relative-caret-position="1449">
               <caret line="69" column="41" selection-start-line="69" selection-start-column="41" selection-end-line="69" selection-end-column="41" />
             </state>
           </provider>
@@ -165,7 +164,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>match.params</find>
       <find>post</find>
       <find>return</find>
       <find>seconds</find>
@@ -187,7 +185,6 @@
       <find>ForeignKey</find>
       <find>query</find>
       <find>query.</find>
-      <find>filter_by</find>
       <find>order_by</find>
       <find>strptime</find>
       <find>toa</find>
@@ -195,6 +192,8 @@
       <find>date.</find>
       <find>date</find>
       <find>def del</find>
+      <find>desc</find>
+      <find>filter_by</find>
     </findStrings>
     <replaceStrings>
       <replace>window.location.assign(window.location);</replace>
@@ -260,10 +259,10 @@
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/WeeklyView.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" />
-        <option value="$PROJECT_DIR$/documentation/kanban.txt" />
         <option value="$PROJECT_DIR$/documentation/Rostera back-end redesign.md" />
         <option value="$PROJECT_DIR$/backend/tests/Student.py" />
         <option value="$PROJECT_DIR$/backend/utilities/weekdays.py" />
+        <option value="$PROJECT_DIR$/documentation/kanban.txt" />
         <option value="$PROJECT_DIR$/backend/main.py" />
       </list>
     </option>
@@ -298,12 +297,6 @@
               <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
               <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
@@ -354,7 +347,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Run Flask App">
+  <component name="RunManager" selected="Python.run">
     <configuration name="Run Flask App" type="PythonConfigurationType" factoryName="Python">
       <module name="Student-tracker" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -397,6 +390,21 @@
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Flask (backend/main.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
+      <module name="Student-tracker" />
+      <option name="target" value="$PROJECT_DIR$/backend/main.py" />
+      <option name="targetType" value="PATH" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
     </configuration>
     <configuration name="Tests" type="tests" factoryName="Unittests">
@@ -476,6 +484,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Flask server.Flask (backend/main.py)" />
       <item itemvalue="Python.Run Flask App" />
       <item itemvalue="Python.run" />
       <item itemvalue="Python tests.Tests" />
@@ -486,6 +495,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Flask server.Flask (backend/main.py)" />
         <item itemvalue="Python tests.Unittests for Student.TestStudent.test_account" />
         <item itemvalue="Python tests.Unittests for Student.TestStudent" />
         <item itemvalue="Python tests.Unittests for backend.tests.Student.TestStudent" />
@@ -549,14 +559,9 @@
       <workItem from="1558581098584" duration="1437000" />
       <workItem from="1558603062722" duration="3024000" />
       <workItem from="1558647354689" duration="926000" />
-      <workItem from="1558763164199" duration="2620000" />
-    </task>
-    <task id="LOCAL-00009" summary="Daily view looks better">
-      <created>1557790065625</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1557790065625</updated>
+      <workItem from="1558763164199" duration="3063000" />
+      <workItem from="1558780725502" duration="3209000" />
+      <workItem from="1558783961373" duration="2633000" />
     </task>
     <task id="LOCAL-00010" summary="Daily view improved some more">
       <created>1557790354922</created>
@@ -894,7 +899,14 @@
       <option name="project" value="LOCAL" />
       <updated>1558606609863</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Added get and post for lesson_time_by_student and del for LessonTime">
+      <created>1558765833583</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1558765833583</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -930,7 +942,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114954000" />
+    <option name="totallyTimeSpent" value="121239000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -945,13 +957,13 @@
     <frame x="0" y="-30" width="1920" height="1110" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19850586" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20277481" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32894737" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28614157" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39144737" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31804585" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.43668994" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.13758723" />
@@ -959,7 +971,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.31804585" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.30592105" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.30508474" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="bottom" id="Messages" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -1036,7 +1048,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Can get all appointments by teacher through API" />
     <MESSAGE value="Added daily and weekly appointments per teacher routes." />
     <MESSAGE value="Front-end support multiple teachers to add/view students, add/view notes and view schedules." />
     <MESSAGE value="Basic authorisation added and implemented on a few routes - notably for getting all teachers and all students" />
@@ -1061,7 +1072,8 @@
     <MESSAGE value="Added some notes on invoices to KanBan" />
     <MESSAGE value="Class prototypes written. Some function prototypes in" />
     <MESSAGE value="Can get student total payments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Can get student total payments" />
+    <MESSAGE value="Added get and post for lesson_time_by_student and del for LessonTime" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added get and post for lesson_time_by_student and del for LessonTime" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1075,11 +1087,12 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Student_tracker$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1558765753209" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Student_tracker$run.coverage" NAME="run Coverage Results" MODIFIED="1557623662434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Student_tracker$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1558781473658" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Student_tracker$run.coverage" NAME="run Coverage Results" MODIFIED="1558786618452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Student_tracker$Unittests_for_weekday_TestWeekday.coverage" NAME="Tests Coverage Results" MODIFIED="1557739602400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Student_tracker$main.coverage" NAME="main Coverage Results" MODIFIED="1557721959796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Student_tracker$Unittests_for_Student_TestStudent_test_account.coverage" NAME="Unittests for Student.TestStudent.test_account Coverage Results" MODIFIED="1558605890142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/tests" />
+    <SUITE FILE_PATH="coverage/Student_tracker$Flask__backend_main_py_.coverage" NAME="Flask (backend/main.py) Coverage Results" MODIFIED="1558783964853" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Student_tracker$Unittests_for_Student_TestStudent.coverage" NAME="Unittests for Student.TestStudent Coverage Results" MODIFIED="1558604109528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/tests" />
     <SUITE FILE_PATH="coverage/Student_tracker$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1558605939811" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/tests" />
     <SUITE FILE_PATH="coverage/Student_tracker$Unittests_for_backend_tests_Student_TestStudent.coverage" NAME="Unittests for backend.tests.Student.TestStudent Coverage Results" MODIFIED="1558603645953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -1102,13 +1115,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/daily_bookings.js" />
     <entry file="file://$PROJECT_DIR$/backend/classes/appointment.py" />
-    <entry file="file://$PROJECT_DIR$/backend/run.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.virtualenvs/Student-tracker/lib/python3.6/site-packages/flask_restful/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -1407,13 +1413,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/documentation/kanban.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="18" column="56" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/WeeklyView.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="672">
@@ -1435,6 +1434,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="753">
           <caret line="93" selection-start-line="93" selection-end-line="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documentation/kanban.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="90" selection-start-line="10" selection-start-column="90" selection-end-line="10" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/utilities/weekdays.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1449">
+          <caret line="69" column="41" selection-start-line="69" selection-start-column="41" selection-end-line="69" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -1462,105 +1475,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/utilities/weekdays.py">
+    <entry file="file://$PROJECT_DIR$/backend/run.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="69" column="41" selection-start-line="69" selection-start-column="41" selection-end-line="69" selection-end-column="41" />
+        <state relative-caret-position="63">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="403" column="18" selection-start-line="403" selection-start-column="18" selection-end-line="403" selection-end-column="18" />
+        <state relative-caret-position="273">
+          <caret line="175" column="50" selection-start-line="175" selection-start-column="50" selection-end-line="175" selection-end-column="50" />
           <folding>
-            <element signature="e#880#1416#0" />
-            <element signature="e#934#1394#0" />
-            <element signature="e#1137#1245#0" />
-            <element signature="e#1448#6050#0" />
-            <element signature="e#2001#2219#0" />
-            <element signature="e#2008#2219#0" />
-            <element signature="e#2271#2436#0" />
-            <element signature="e#2489#2668#0" />
-            <element signature="e#2489#2638#1" />
-            <element signature="e#2712#3935#0" />
-            <element signature="e#2757#3935#0" />
-            <element signature="e#3010#3146#0" />
-            <element signature="e#3017#3146#0" />
-            <element signature="e#3073#3146#0" />
-            <element signature="e#3267#3399#0" />
-            <element signature="e#3274#3399#0" />
-            <element signature="e#3326#3399#0" />
-            <element signature="e#3486#3794#0" />
-            <element signature="e#3505#3673#0" />
-            <element signature="e#3814#3935#0" />
-            <element signature="e#3866#3935#0" />
-            <element signature="e#3980#4214#0" />
-            <element signature="e#4061#4214#0" />
-            <element signature="e#4257#6050#0" />
-            <element signature="e#4303#5765#0" />
-            <element signature="e#5274#5588#0" />
-            <element signature="e#5645#5765#0" />
-            <element signature="e#5856#6050#0" />
-            <element signature="e#6082#11853#0" />
-            <element signature="e#6082#6117#0" />
-            <element signature="e#6756#6841#0" />
-            <element signature="e#6874#6896#0" />
-            <element signature="e#6926#7853#0" />
-            <element signature="e#7116#7518#0" />
-            <element signature="e#7538#7965#0" />
-            <element signature="e#7886#8105#0" />
-            <element signature="e#7886#8014#1" />
-            <element signature="e#8144#8342#0" />
-            <element signature="e#8144#8206#1" />
-            <element signature="e#8275#8320#0" />
-            <element signature="e#8395#8628#0" />
-            <element signature="e#8678#8871#0" />
-            <element signature="e#8918#9058#0" />
-            <element signature="e#8949#9058#0" />
-            <element signature="e#9111#11004#0" />
-            <element signature="e#9192#9358#0" />
-            <element signature="e#9450#11004#0" />
-            <element signature="e#9893#10075#0" />
-            <element signature="e#11047#11337#0" />
-            <element signature="e#11128#11337#0" />
-            <element signature="e#11382#11853#0" />
-            <element signature="e#11467#11768#0" />
-            <element signature="e#11560#11690#0" />
-            <element signature="e#11828#11853#0" />
-            <element signature="e#12482#12765#0" />
-            <element signature="e#12545#12765#0" />
-            <element signature="e#12568#12878#0" />
-            <element signature="e#12568#12644#1" />
-            <element signature="e#12803#12857#0" />
-            <element signature="e#13162#14310#0" />
-            <element signature="e#13208#13268#0" />
-            <element signature="e#13132#14186#0" />
-            <element signature="e#13120#13142#0" />
-            <element signature="e#14648#14715#0" />
-            <element signature="e#14792#14945#0" />
-            <element signature="e#13412#13910#0" />
-            <element signature="e#13762#13910#0" />
-            <element signature="e#13769#13910#0" />
-            <element signature="e#13939#16632#0" />
-            <element signature="e#14295#14483#0" />
-            <element signature="e#14302#14483#0" />
-            <element signature="e#14525#15517#0" />
-            <element signature="e#14610#14966#0" />
-            <element signature="e#15064#15517#0" />
-            <element signature="e#15567#16632#0" />
-            <element signature="e#15660#16041#0" />
-            <element signature="e#16107#16632#0" />
-            <element signature="e#16667#17402#0" />
-            <element signature="e#17206#17402#0" />
-            <element signature="e#17213#17402#0" />
-            <element signature="e#17434#18583#0" />
-            <element signature="e#17734#17877#0" />
-            <element signature="e#17741#17877#0" />
-            <element signature="e#17952#18099#0" />
-            <element signature="e#18146#18583#0" />
-            <element signature="e#18194#18454#0" />
-            <element signature="e#18495#18583#0" />
+            <element signature="e#907#1443#0" />
+            <element signature="e#961#1421#0" />
+            <element signature="e#1164#1272#0" />
+            <element signature="e#1475#6077#0" />
+            <element signature="e#2028#2246#0" />
+            <element signature="e#2035#2246#0" />
+            <element signature="e#2298#2463#0" />
+            <element signature="e#2516#2695#0" />
+            <element signature="e#2516#2665#1" />
+            <element signature="e#2739#3962#0" />
+            <element signature="e#2784#3962#0" />
+            <element signature="e#3037#3173#0" />
+            <element signature="e#3044#3173#0" />
+            <element signature="e#3100#3173#0" />
+            <element signature="e#3294#3426#0" />
+            <element signature="e#3301#3426#0" />
+            <element signature="e#3353#3426#0" />
+            <element signature="e#3513#3821#0" />
+            <element signature="e#3532#3700#0" />
+            <element signature="e#3841#3962#0" />
+            <element signature="e#3893#3962#0" />
+            <element signature="e#4007#4241#0" />
+            <element signature="e#4088#4241#0" />
+            <element signature="e#4284#6077#0" />
+            <element signature="e#4330#5792#0" />
+            <element signature="e#5301#5615#0" />
+            <element signature="e#5672#5792#0" />
+            <element signature="e#5883#6077#0" />
+            <element signature="e#6109#6144#0" />
+            <element signature="e#6733#6818#0" />
+            <element signature="e#7999#8218#0" />
+            <element signature="e#7999#8127#1" />
+            <element signature="e#8257#8455#0" />
+            <element signature="e#8257#8319#1" />
+            <element signature="e#8388#8433#0" />
+            <element signature="e#8508#8741#0" />
+            <element signature="e#9031#9171#0" />
+            <element signature="e#9062#9171#0" />
+            <element signature="e#9305#9471#0" />
+            <element signature="e#11574#11864#0" />
+            <element signature="e#11655#11864#0" />
+            <element signature="e#11909#12380#0" />
+            <element signature="e#11994#12295#0" />
+            <element signature="e#12087#12217#0" />
+            <element signature="e#12355#12380#0" />
+            <element signature="e#12415#12469#0" />
+            <element signature="e#13184#13499#0" />
+            <element signature="e#13504#13819#0" />
+            <element signature="e#13504#13580#1" />
+            <element signature="e#13744#13798#0" />
+            <element signature="e#13876#15604#0" />
+            <element signature="e#13931#14103#0" />
+            <element signature="e#13931#14017#1" />
+            <element signature="e#14169#15604#0" />
+            <element signature="e#14169#14191#0" />
+            <element signature="e#15465#15519#0" />
+            <element signature="e#15654#16050#0" />
+            <element signature="e#15713#15780#0" />
+            <element signature="e#15852#16050#0" />
+            <element signature="e#16969#17157#0" />
+            <element signature="e#16976#17157#0" />
+            <element signature="e#17199#18191#0" />
+            <element signature="e#17284#17640#0" />
+            <element signature="e#17738#18191#0" />
+            <element signature="e#18781#19306#0" />
+            <element signature="e#19341#20076#0" />
+            <element signature="e#19880#20076#0" />
+            <element signature="e#19887#20076#0" />
+            <element signature="e#20108#21439#0" />
+            <element signature="e#20408#20551#0" />
+            <element signature="e#20415#20551#0" />
+            <element signature="e#20626#20773#0" />
+            <element signature="e#20820#21439#0" />
+            <element signature="e#20876#21216#0" />
+            <element signature="e#20876#20935#1" />
+            <element signature="e#21281#21439#0" />
+            <element signature="e#21281#21356#1" />
           </folding>
         </state>
       </provider>

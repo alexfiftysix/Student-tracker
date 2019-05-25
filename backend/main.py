@@ -17,6 +17,8 @@ from functools import wraps
 
 from .utilities.weekdays import next_weekday, all_days_in_week, weekdays, weekdays_abbreviated, to_weekday
 
+# import .ut
+
 app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:password@localhost/student-tracker'
@@ -168,44 +170,46 @@ class Student(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     teacher = db.Column('teacher', db.Integer, db.ForeignKey(Teacher.id, onupdate="CASCADE", ondelete="CASCADE"))
     name = db.Column('name', db.String(200), nullable=False)
-    lesson_length_minutes = db.Column('lesson_length_minutes', db.Integer, nullable=False, default=30)
     address = db.Column('address', db.String(200), nullable=False)
-    price = db.Column('price', db.DECIMAL, nullable=False)
     end_date = db.Column(db.Date, nullable=True)
+    email = db.Column(db.String(200), nullable=True)
+    phone = db.Column(db.String(20), nullable=True)
+
+    def json(self):
+        lesson_time = None
+        lesson_day = None
+        lesson_length = None
+        price = None
+
+        plan: LessonPlan = self.get_lesson_plan()
+        if plan:
+            lesson_time = str(plan.lesson_time)
+            lesson_day = str(plan.lesson_day)
+            lesson_length = str(plan.length_minutes)
+            price = str(plan.price)
+
+        teacher = Teacher.query.filter_by(id=self.teacher).first().public_id
+
+        student = {
+            'id': str(self.id),
+            'teacher': str(teacher),
+            'name': str(self.name),
+            'address': str(self.address),
+            'end_date': str(self.end_date),
+            'email': str(self.email),
+            'lesson_time': str(lesson_time),
+            'lesson_day': str(lesson_day),
+            'price': str(price),
+            'lesson_length_minutes': str(lesson_length)
+        }
+
+        return student
 
     def __repr__(self):
         return f'Student: {self.name}.  {self.lesson_day}. {self.lesson_time}. ${self.price}'
 
     def __str__(self):
         return self.__repr__()
-
-    def json(self):
-        lesson_day_time: LessonTime = LessonTime.get_current_lesson_time(self)
-        lesson_day = None
-        lesson_time = None
-        lesson_end = None
-        if lesson_day_time:
-            lesson_day = lesson_day_time.lesson_day
-            lesson_time = lesson_day_time.lesson_time
-
-            lesson_end = datetime.strptime(lesson_time, "%H:%M")  # + timedelta(minutes=self.lesson_length_minutes)
-            lesson_end += timedelta(minutes=self.lesson_length_minutes)
-            lesson_end = lesson_end.time()
-            lesson_end = str(lesson_end.hour) + ':' + str(lesson_end.minute)
-
-        student = {
-            'id': self.id,
-            'name': self.name,
-            'lesson_day': str(lesson_day),
-            'lesson_time': str(lesson_time),
-            'lesson_length_minutes': str(self.lesson_length_minutes),
-            'lesson_end': str(lesson_end),
-            'address': self.address,
-            'price': str(self.price),
-            'teacher': Teacher.query.filter_by(id=self.teacher).first().public_id
-        }
-
-        return student
 
     def account(self):
         """
@@ -226,6 +230,16 @@ class Student(db.Model):
             total += x.amount
 
         return total
+
+    def get_lesson_plan(self):
+        plans = [x for x in LessonPlan.query.filter_by(student=self.id)]
+        now = datetime.now().date()
+        for plan in plans:
+            if plan.start_date >= now:
+                print(plan)
+                return plan
+
+        return None
 
     @staticmethod
     def delete(id: int):
@@ -261,41 +275,71 @@ class Student(db.Model):
         @staticmethod
         @token_required
         def post(current_user):
+            """
+            Adds a new student to the logged in teacher
+            """
             # TODO: Check for schedule clash when adding new student
             name = request.form.get('name')
+            address = request.form.get('address')
+            end_date = None  # TODO: Implement this as optional
+            email = request.form.get('email')
+            start_date = None  # TODO: Implement this as optional
+            lesson_time = request.form.get('lesson_time')
+            lesson_day = request.form.get('lesson_day')
+            length_minutes = request.form.get('lesson_length_minutes')
+            price = request.form.get('price')
+
             if not name:
                 return {'message': 'name must be provided'}
 
-            lesson_day = request.form.get('lesson_day')
+            if not address:
+                return {'message': 'address must be provided'}
+
+            if not start_date:
+                start_date = datetime.now().date()
+
+            try:
+                time.strptime(lesson_time, "%H:%M")
+            except (TypeError, ValueError):
+                return {'message': 'lesson_time must be in format HH:MM (24 hour time)'}
+
             if not lesson_day:
                 return {'message': 'lesson_day must be provided'}
+
+            # TODO: Use util function instead of this
             lesson_day = lesson_day.lower()
             if lesson_day not in weekdays:
                 if lesson_day not in weekdays_abbreviated:
                     return {'message': 'lesson day must be a day Eg. Monday'}
                 lesson_day = weekdays_abbreviated[lesson_day]
 
-            lesson_time = request.form.get('lesson_time')
-            try:
-                time.strptime(lesson_time, "%H:%M")
-            except (TypeError, ValueError):
-                return {'message': 'lesson_time must be in format HH:MM (24 hour time)'}
-
-            lesson_length_minutes = request.form.get('lesson_length_minutes')
-
-            address = request.form.get('address')
-            if not address:
-                return {'message': 'address must be provided'}
-
-            price = request.form.get('price')
             if not price:
                 price = current_user.standard_rate
 
-            to_add = Student(name=name, lesson_day=lesson_day, lesson_time=lesson_time, teacher=current_user.id,
-                             lesson_length_minutes=lesson_length_minutes, address=address, price=price)
-            db.session.add(to_add)
+            # TODO: Handle end_date
+
+            new_student = Student(
+                teacher=current_user.id,
+                name=name,
+                address=address,
+                end_date=None,
+                email=email
+            )
+            db.session.add(new_student)
             db.session.commit()
-            return to_add.json(), 201
+
+            new_lt = LessonPlan(
+                student=new_student.id,
+                start_date=start_date,
+                lesson_time=lesson_time,
+                lesson_day=lesson_day,
+                length_minutes=length_minutes,
+                price=price
+            )
+            db.session.add(new_lt)
+            db.session.commit()
+
+            return new_student.json(), 201
 
     class AllStudents(Resource):
         @staticmethod
@@ -325,13 +369,17 @@ class Student(db.Model):
             return Student.delete(id)
 
 
-class LessonTime(db.Model):
-    __tablename__ = 'lesson_time'
+class LessonPlan(db.Model):
+    # TODO: Instead of lesson_time. Convert to LessonPlan.
+    #       Can also contain pricing information
+    __tablename__ = 'lesson_plan'
     id = db.Column(db.Integer, primary_key=True)
     student = db.Column(db.ForeignKey(Student.id, onupdate='CASCADE', ondelete='CASCADE'))
     start_date = db.Column(db.Date, nullable=False)  # When the student starts using this lesson time
-    lesson_time = db.Column(db.Time, nullable=False)
+    lesson_time = db.Column(db.String(50), nullable=False)
     lesson_day = db.Column(db.String, nullable=False)  # Only days of the week allowed here
+    length_minutes = db.Column('length_minutes', db.Integer, nullable=False, default=30)
+    price = db.Column(db.DECIMAL, nullable=False)
 
     def json(self):
         # TODO: Return student in readable format maybe
@@ -339,8 +387,10 @@ class LessonTime(db.Model):
             'id': str(self.id),
             'lesson_time': str(self.lesson_time),
             'lesson_day': self.lesson_day,
-            'student': self.student,
             'start_date': str(self.start_date.date()),
+            'lesson_length': str(self.length_minutes),
+            'price': str(self.price),
+            'student': self.student,
         }
 
     @staticmethod
@@ -348,7 +398,7 @@ class LessonTime(db.Model):
         """
         Get current lesson time for a student - based on now
         """
-        times = LessonTime.query.filter_by(student=student.id).order_by(LessonTime.start_date)
+        times = LessonPlan.query.filter_by(student=student.id).order_by(LessonPlan.start_date)
         now = datetime.now()
         for time in times:
             if now >= time.start_Date:
@@ -356,27 +406,28 @@ class LessonTime(db.Model):
 
         return None
 
-    class StudentLessonTimeResource(Resource):
+    class StudentLessonPlanResource(Resource):
         @staticmethod
         def get(student_id):
-            return [x.json() for x in LessonTime.query.filter_by(student=student_id)]
-
+            """
+            Gets all lesson times attached to a particular student
+            """
+            return [x.json() for x in LessonPlan.query.filter_by(student=student_id)]
 
         @staticmethod
         def post(student_id):
             # TODO: Error checking
-            # TODO: Finish this
+            # TODO: Don't allow multiple with the same start time
             start_date = request.form.get('start_date')
             lesson_time = request.form.get('lesson_time')
             lesson_day = request.form.get('lesson_day')
+            lesson_length_minutes = request.form.get('lesson_length_minutes')
+            lesson_price = request.form.get('price')
 
             if not start_date:
                 start_date = datetime.now().date()
             elif start_date:
                 start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
-
-            print(start_date)
-            print(str(start_date))
 
             if not lesson_time:
                 return {'message': '"lesson_time" must be included'}
@@ -388,40 +439,36 @@ class LessonTime(db.Model):
             elif lesson_day:
                 lesson_day = to_weekday(lesson_day)
 
-            to_add = LessonTime(student=student_id, start_date=start_date, lesson_time=lesson_time,
-                                lesson_day=lesson_day)
+            if not lesson_length_minutes:
+                return {'message': '"lesson_length_minutes" must be included'}
+
+            if not lesson_price:
+                return {'message': '"lesson_price" must be included'}
+            else:
+                # TODO: try-catch for parsing errors
+                lesson_price = float(lesson_price)
+
+            # TODO: Wrap in try-catch
+            lesson_length_minutes = int(lesson_length_minutes)
+
+            to_add = LessonPlan(student=student_id, start_date=start_date, lesson_time=lesson_time,
+                                lesson_day=lesson_day, lesson_length_minutes=lesson_length_minutes, price=lesson_price)
             db.session.add(to_add)
             db.session.commit()
 
             return to_add.json()
 
-    class lessonTimeResource(Resource):
+    class LessonPlanResource(Resource):
         @staticmethod
         def get(lesson_time_id):
-            return LessonTime.query.filter_by(id=lesson_time_id).first().json()
+            return LessonPlan.query.filter_by(id=lesson_time_id).first().json()
 
         @staticmethod
         def delete(lesson_time_id):
-            lt = LessonTime.query.filter_by(id=lesson_time_id).first().json()
+            lt = LessonPlan.query.filter_by(id=lesson_time_id).first().json()
             db.session.remove(lt)
             db.session.commit()
             return {'message': 'Lesson Time deleted successfully'}
-
-
-
-class LessonPrice(db.Model):
-    __tablename__ = 'lesson_price'
-    id = db.Column(db.Integer, primary_key=True)
-    student = db.Column(db.ForeignKey(Student.id, onupdate='CASCADE', ondelete='CASCADE'))
-    start_date = db.Column(db.DateTime, nullable=False)  # When the student starts using this price
-    price = db.Column(db.DECIMAL, nullable=False)
-
-    def json(self):
-        return {
-            'student': str(self.student.id),
-            'start_date': str(self.start_date),
-            'price': str(self.price)
-        }
 
 
 class Note(db.Model):
@@ -537,24 +584,30 @@ class Payment(db.Model):
     def add_payment(student: Student, amount):
         now = datetime.now()
         payment = Payment(student=student, datetime=now, amount=amount)
-        db.Session.add(payment)
+        db.session.add(payment)
         return payment
 
     class PaymentResource(Resource):
         @staticmethod
-        def post(id):
+        def post(student_id):
+            """
+            Adds a payment to a student
+            """
             date_and_time = datetime.now()
             amount = request.form.get('amount')
 
-            to_add = Payment(student=id, datetime=date_and_time, amount=amount)
+            to_add = Payment(student=student_id, datetime=date_and_time, amount=amount)
             db.session.add(to_add)
             db.session.commit()
 
             return to_add.json()
 
-        def get(self, id):
-            payments = Payment.query.filter_by(student=id)
-            return {'payments': payments}
+        @staticmethod
+        def get(student_id):
+            """
+            Gets all payments for the specified student
+            """
+            return [x.json() for x in Payment.query.filter_by(student=student_id)]
 
 
 api.add_resource(Teacher.SingleTeacher, '/teacher')
@@ -570,6 +623,6 @@ api.add_resource(Student.StudentPayments, '/my_students/payments/<id>')
 api.add_resource(Note.SingleNote, '/student/note/<id>')
 api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
 
-api.add_resource(Payment.PaymentResource, '/payment/<id>')
+api.add_resource(Payment.PaymentResource, '/payment/<student_id>')
 
-api.add_resource(LessonTime.StudentLessonTimeResource, '/my_students/lesson_time/<student_id>')
+api.add_resource(LessonPlan.StudentLessonPlanResource, '/my_students/lesson_time/<student_id>')
