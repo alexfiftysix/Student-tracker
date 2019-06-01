@@ -179,8 +179,6 @@ class DailySchedule(Resource):
 
 
 class Student(db.Model):
-    # TODO: Add start-date and end-date
-    #   end-date is null when end-date has not been explicitly set
     __tablename__ = 'student'
     id = db.Column('id', db.Integer, primary_key=True)
     teacher = db.Column('teacher', db.Integer, db.ForeignKey(Teacher.id, onupdate="CASCADE", ondelete="CASCADE"))
@@ -191,19 +189,8 @@ class Student(db.Model):
     phone = db.Column(db.String(20), nullable=True)
 
     def json(self):
-        lesson_time = None
-        lesson_day = None
-        lesson_length = None
-        price = None
-
         plan: LessonPlan = self.get_lesson_plan()
-        if plan:
-            lesson_time = str(plan.lesson_time)
-            lesson_day = str(plan.lesson_day)
-            lesson_length = str(plan.length_minutes)
-            price = str(plan.price)
-
-        teacher = Teacher.query.filter_by(id=self.teacher).first().public_id
+        teacher = Teacher.query.filter_by(id=self.teacher).first().public_id  # Maybe don't release this info
 
         student = {
             'id': str(self.id),
@@ -212,11 +199,10 @@ class Student(db.Model):
             'address': str(self.address),
             'end_date': str(self.end_date),
             'email': str(self.email),
-            'lesson_time': str(lesson_time),
-            'lesson_day': str(lesson_day),
-            'price': str(price),
-            'lesson_length_minutes': str(lesson_length)
         }
+
+        if plan:
+            student['lesson_plan'] = plan.json()
 
         return student
 
@@ -251,7 +237,6 @@ class Student(db.Model):
         now = datetime.now().date()
         for plan in plans:
             if plan.start_date >= now:
-                print(plan)
                 return plan
 
         return None
@@ -277,7 +262,6 @@ class Student(db.Model):
             return current_plan.lesson_time
         else:
             return None
-
 
     @staticmethod
     def delete(id: int):
@@ -408,12 +392,11 @@ class Student(db.Model):
 
 
 class LessonPlan(db.Model):
-    # TODO: Instead of lesson_time. Convert to LessonPlan.
-    #       Can also contain pricing information
     __tablename__ = 'lesson_plan'
     id = db.Column(db.Integer, primary_key=True)
     student = db.Column(db.ForeignKey(Student.id, onupdate='CASCADE', ondelete='CASCADE'))
     start_date = db.Column(db.Date, nullable=False)  # When the student starts using this lesson time
+    end_date = db.Column(db.Date, nullable=True, default=None)  # Null when no end-date set
     lesson_time = db.Column(db.String(50), nullable=False)
     lesson_day = db.Column(db.String, nullable=False)  # Only days of the week allowed here
     length_minutes = db.Column('length_minutes', db.Integer, nullable=False, default=30)
@@ -421,12 +404,14 @@ class LessonPlan(db.Model):
 
     def json(self):
         # TODO: Return student in readable format maybe
+
         return {
             'id': str(self.id),
             'lesson_time': str(self.lesson_time),
             'lesson_day': self.lesson_day,
-            'start_date': str(self.start_date.date()),
-            'lesson_length': str(self.length_minutes),
+            'start_date': str(self.start_date),
+            'end_date': str(self.end_date),
+            'end_time': 'XX:YY',
             'price': str(self.price),
             'student': self.student,
         }

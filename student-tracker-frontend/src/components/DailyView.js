@@ -17,6 +17,7 @@ export default function DailyView(props) {
             .then(results => results.json())
             .then(data => {
                 setBookings(data);
+                console.log(data);
             });
     }, [date]);
 
@@ -36,7 +37,6 @@ export default function DailyView(props) {
         return (<div className={'booking-list'}>Loading...</div>);
     }
 
-
     if (bookings['message']) {
         return (<div className={'booking-list'}>{bookings['message']}</div>);
     }
@@ -46,9 +46,9 @@ export default function DailyView(props) {
             <h2><Link to={'/daily/' + date}>{day}</Link></h2>
             <h5>{date}</h5>
             {!bookings ? 'Loading...' : bookings.map(b =>
-                <Booking key={b.id} name={b.student.name} time={b.time} attended={b.attended} payed={b.payed}
-                         address={b.student.address} id={b.id} price={b.student.price} end_time={b.student.lesson_end}
-                         student_id={b.student.id}/>
+                <Booking key={b.lesson_plan.id} name={b.name} time={b.lesson_plan.lesson_time} attended={'???'} payed={'???'}
+                         address={b.address} id={b.id} price={b.lesson_plan.price} end_time={b.lesson_plan.end_time}
+                         student_id={b.id}/>
             )}
         </div>
     );
