@@ -1,4 +1,9 @@
-### backlog
+### Gereral notes
+
+Should be able to view unnattended booking 
+
+
+## backlog
 
 Generate report - who attended, who payed in monthly view
 

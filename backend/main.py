@@ -199,6 +199,7 @@ class Student(db.Model):
             'address': str(self.address),
             'end_date': str(self.end_date),
             'email': str(self.email),
+            'lesson_plan': None
         }
 
         if plan:
@@ -236,7 +237,7 @@ class Student(db.Model):
         plans = [x for x in LessonPlan.query.filter_by(student=self.id)]
         now = datetime.now().date()
         for plan in plans:
-            if plan.start_date >= now:
+            if now >= plan.start_date:
                 return plan
 
         return None
@@ -423,9 +424,9 @@ class LessonPlan(db.Model):
         """
         times = LessonPlan.query.filter_by(student=student.id).order_by(LessonPlan.start_date)
         now = datetime.now()
-        for time in times:
-            if now >= time.start_Date:
-                return time
+        for lesson_time in times:
+            if now >= lesson_time.start_Date:
+                return lesson_time
 
         return None
 
