@@ -173,7 +173,12 @@ class DailySchedule(Resource):
         to_ret = []
         for student in my_students:
             if student.get_lesson_time(lesson_date):
-                to_ret.append(student.json())
+                lesson_date_time = f"{lesson_date}_{student.get_lesson_time(lesson_date)}"
+                print(lesson_date_time)
+                print(student.id)
+                booking, code = Booking.get(student_id=student.id, lesson_date_time=lesson_date_time)
+                to_ret.append(booking)
+                # to_ret.append(student.json())
 
         return to_ret
 
@@ -232,7 +237,6 @@ class Student(db.Model):
         """
         total = 0
         for x in Payment.query.all():
-            print(x.amount)
             total += x.amount
 
         return total
@@ -251,7 +255,6 @@ class Student(db.Model):
         Gets the lesson time on the given date, or none if no lesson on that date
         """
         weekday = weekdays[(requested_date.weekday() + 1) % 7]
-        print(weekday)
 
         plans = [x for x in LessonPlan.query.filter_by(student=self.id).order_by(LessonPlan.start_date.desc())]
         current_plan = None
