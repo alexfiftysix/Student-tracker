@@ -205,6 +205,10 @@ class Student(db.Model):
         if plan:
             student['lesson_plan'] = plan.json()
 
+        # Append the following to student:
+        # Attended: bool: if there's an attendance record for this day/time
+        # Payed: bool: if there's a payment object for this day/time
+
         return student
 
     def __repr__(self):
@@ -390,6 +394,50 @@ class Student(db.Model):
         @staticmethod
         def delete(id):
             return Student.delete(id)
+
+
+class Booking(Resource):
+    @staticmethod
+    @token_required
+    def get(current_user, student_id, lesson_date_time):
+        # TODO: Error checking
+        # TODO: Check that student is owned by current_user
+        lesson_date_time = datetime.strptime(lesson_date_time, "%Y-%m-%d_%H:%M")
+
+        student = Student.query.filter_by(id=student_id).first()
+
+        plan: LessonPlan = student.get_lesson_plan()
+        teacher = Teacher.query.filter_by(id=student.teacher).first().public_id  # Maybe don't release this info
+
+        booking = {
+            'id': str(student.id),
+            'teacher': str(teacher),
+            'name': str(student.name),
+            'address': str(student.address),
+            'end_date': str(student.end_date),
+            'email': str(student.email),
+            'lesson_plan': None,
+            'attended': False,
+            'payed': False
+        }
+
+        if plan:
+            booking['lesson_plan'] = plan.json()
+
+        # Append the following to student:
+        # Attended: bool: if there's an attendance record for this day/time
+        # Payed: bool: if there's a payment object for this day/time
+
+        attendance = Attendance.query.filter_by(student=student_id).filter_by(datetime=lesson_date_time).first()
+        if attendance and attendance.attended:
+            booking['attended'] = True
+
+        payment = Payment.query.filter_by(student=student_id).filter_by(datetime=lesson_date_time).first()
+        if payment:
+            # TODO: Use the account instead of checking for individual payments
+            booking['payed'] = True
+
+        return booking, 200
 
 
 class LessonPlan(db.Model):
@@ -583,11 +631,38 @@ class Attendance(db.Model):
 
     def json(self):
         return {
-            'student': str(self.student.id),
+            'student': str(self.student),
             'datetime': str(self.datetime),
             'attended': str(self.attended),
             'cancelled': str(self.cancelled)
         }
+
+    class AttendanceResource(Resource):
+        @staticmethod
+        @token_required
+        def post(current_user):
+            # TODO: Get some error checking going on in here
+            student = request.form.get('student')
+            lesson_date_time = request.form.get('lesson_date_time')
+            lesson_length = request.form.get('lesson_length')
+            attended = request.form.get('attended')
+            if attended and attended.lower() == 'true' or attended.lower() == 't':
+                attended = True
+            else:
+                attended = False
+            cancelled = request.form.get('cancelled')
+            if cancelled and cancelled.lower() == 'true' or cancelled.lower() == 't':
+                cancelled = bool(cancelled)
+            else:
+                cancelled = False
+            price = request.form.get('price')
+
+            to_add = Attendance(student=student, datetime=lesson_date_time, lesson_length=lesson_length,
+                                attended=attended, cancelled=cancelled, price=price)
+
+            db.session.add(to_add)
+            db.session.commit()
+            return to_add.json(), 201
 
 
 class Payment(db.Model):
@@ -651,3 +726,7 @@ api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
 api.add_resource(Payment.PaymentResource, '/payment/<student_id>')
 
 api.add_resource(LessonPlan.StudentLessonPlanResource, '/my_students/lesson_time/<student_id>')
+
+api.add_resource(Attendance.AttendanceResource, '/my_students/attendance')
+
+api.add_resource(Booking, '/my_students/booking/<student_id>/<lesson_date_time>')

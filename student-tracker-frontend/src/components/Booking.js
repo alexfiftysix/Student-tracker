@@ -54,6 +54,8 @@ export default class Booking extends React.Component {
         };
 
         options.body.append('attended', String(!this.state.attended));
+        options.body.append('student', String(this.state['student_id']));
+
 
         fetch(url, options)
             .then(response => response.json())

@@ -6,7 +6,6 @@ import './DailyView.css'
 export default function DailyView(props) {
     const [bookings, setBookings] = React.useState(null);
     const date = props.date ? props.date : props.match.params.start_date;
-    console.log('http://localhost:5000/my_appointments/daily/' + date);
 
     useEffect(() => {
         fetch('http://localhost:5000/my_appointments/daily/' + date,
