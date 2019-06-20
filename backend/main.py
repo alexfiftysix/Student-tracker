@@ -643,10 +643,14 @@ class Attendance(db.Model):
     class AttendanceResource(Resource):
         @staticmethod
         @token_required
-        def post(current_user):
+        def put(current_user):
+            # TODO: Use url params for student and lesson_date_time
             # TODO: Get some error checking going on in here
             student = request.form.get('student')
             lesson_date_time = request.form.get('lesson_date_time')
+
+
+
             lesson_length = request.form.get('lesson_length')
             attended = request.form.get('attended')
             if attended and attended.lower() == 'true' or attended.lower() == 't':
@@ -660,12 +664,29 @@ class Attendance(db.Model):
                 cancelled = False
             price = request.form.get('price')
 
-            to_add = Attendance(student=student, datetime=lesson_date_time, lesson_length=lesson_length,
-                                attended=attended, cancelled=cancelled, price=price)
+            if Attendance.query.filter_by(student=student).filter_by(datetime=lesson_date_time).first():
+                # Modify the record
+                modified: Attendance = Attendance.query.filter_by(student=student).filter_by(
+                     datetime=lesson_date_time).first()
+                modified.student = student
+                modified.datetime = lesson_date_time
+                modified.lesson_length = lesson_length
+                modified.attended = attended
+                modified.cancelled = cancelled
+                modified.price = price
+                db.session.commit()
+                print("Attendance Modified!")
+                return modified.json(), 200
+            else:
+                to_add = Attendance(student=student, datetime=lesson_date_time, lesson_length=lesson_length,
+                                    attended=attended, cancelled=cancelled, price=price)
+                db.session.add(to_add)
+                db.session.commit()
+                print("Attendance Added!")
+                return to_add.json(), 201
 
-            db.session.add(to_add)
-            db.session.commit()
-            return to_add.json(), 201
+
+
 
 
 class Payment(db.Model):
