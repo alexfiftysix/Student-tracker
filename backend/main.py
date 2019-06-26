@@ -174,8 +174,6 @@ class DailySchedule(Resource):
         for student in my_students:
             if student.get_lesson_time(lesson_date):
                 lesson_date_time = f"{lesson_date}_{student.get_lesson_time(lesson_date)}"
-                print(lesson_date_time)
-                print(student.id)
                 booking, code = Booking.get(student_id=student.id, lesson_date_time=lesson_date_time)
                 to_ret.append(booking)
                 # to_ret.append(student.json())
@@ -436,7 +434,7 @@ class Booking(Resource):
             booking['attended'] = True
 
         payment = Payment.query.filter_by(student=student_id).filter_by(datetime=lesson_date_time).first()
-        if payment:
+        if payment and payment.amount > 0:
             # TODO: Use the account instead of checking for individual payments
             booking['payed'] = True
 
@@ -643,13 +641,11 @@ class Attendance(db.Model):
     class AttendanceResource(Resource):
         @staticmethod
         @token_required
-        def put(current_user):
+        def put(current_user, student_id):
             # TODO: Use url params for student and lesson_date_time
             # TODO: Get some error checking going on in here
-            student = request.form.get('student')
+            # TODO: Check the student is owned by the current_user
             lesson_date_time = request.form.get('lesson_date_time')
-
-
 
             lesson_length = request.form.get('lesson_length')
             attended = request.form.get('attended')
@@ -664,11 +660,11 @@ class Attendance(db.Model):
                 cancelled = False
             price = request.form.get('price')
 
-            if Attendance.query.filter_by(student=student).filter_by(datetime=lesson_date_time).first():
+            if Attendance.query.filter_by(student=student_id).filter_by(datetime=lesson_date_time).first():
                 # Modify the record
-                modified: Attendance = Attendance.query.filter_by(student=student).filter_by(
-                     datetime=lesson_date_time).first()
-                modified.student = student
+                modified: Attendance = Attendance.query.filter_by(student=student_id).filter_by(
+                    datetime=lesson_date_time).first()
+                modified.student = student_id
                 modified.datetime = lesson_date_time
                 modified.lesson_length = lesson_length
                 modified.attended = attended
@@ -678,15 +674,12 @@ class Attendance(db.Model):
                 print("Attendance Modified!")
                 return modified.json(), 200
             else:
-                to_add = Attendance(student=student, datetime=lesson_date_time, lesson_length=lesson_length,
+                to_add = Attendance(student=student_id, datetime=lesson_date_time, lesson_length=lesson_length,
                                     attended=attended, cancelled=cancelled, price=price)
                 db.session.add(to_add)
                 db.session.commit()
                 print("Attendance Added!")
                 return to_add.json(), 201
-
-
-
 
 
 class Payment(db.Model):
@@ -712,18 +705,26 @@ class Payment(db.Model):
 
     class PaymentResource(Resource):
         @staticmethod
-        def post(student_id):
+        @token_required
+        def put(current_user, student_id):
             """
             Adds a payment to a student
             """
-            date_and_time = datetime.now()
+            # TODO: Check the student is owned by the current_user
             amount = request.form.get('amount')
+            date_and_time = datetime.strptime(request.form.get('lesson_date_time'), "%Y-%m-%d_%H:%M")
 
-            to_add = Payment(student=student_id, datetime=date_and_time, amount=amount)
-            db.session.add(to_add)
+            payment = Payment.query.filter_by(student=student_id).filter_by(datetime=date_and_time).first()
+            if payment:
+                # Modify the existing record
+                payment.amount = amount
+            else:
+                # Create new record
+                payment = Payment(student=student_id, datetime=date_and_time, amount=amount)
+                db.session.add(payment)
+
             db.session.commit()
-
-            return to_add.json()
+            return payment.json()
 
         @staticmethod
         def get(student_id):
@@ -747,10 +748,9 @@ api.add_resource(Student.StudentPayments, '/my_students/payments/<id>')
 api.add_resource(Note.SingleNote, '/student/note/<id>')
 api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
 
-api.add_resource(Payment.PaymentResource, '/payment/<student_id>')
-
 api.add_resource(LessonPlan.StudentLessonPlanResource, '/my_students/lesson_time/<student_id>')
 
-api.add_resource(Attendance.AttendanceResource, '/my_students/attendance')
+api.add_resource(Payment.PaymentResource, '/my_students/payment/<student_id>')
+api.add_resource(Attendance.AttendanceResource, '/my_students/attendance/<student_id>')
 
 api.add_resource(Booking, '/my_students/booking/<student_id>/<lesson_date_time>')

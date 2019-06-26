@@ -16,23 +16,31 @@ export default class Booking extends React.Component {
         this.state['price'] = props.price;
         this.state['student_id'] = props.student_id;
         this.state['message'] = '';
+        this.state['date'] = props.date;
 
         this.changeAttended = this.changeAttended.bind(this);
         this.changePayed = this.changePayed.bind(this);
     }
 
     changePayed() {
-        let url = 'http://localhost:5000/appointment/' + this.state['id'];
+        let url = 'http://localhost:5000/my_students/payment/' + this.state.student_id;
+        const token = localStorage.getItem('token');
         let options = {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
+                'x-access-token': token
             },
             credentials: 'same-origin',
             body: new FormData()
         };
 
-        options.body.append('payed', String(!this.state.payed));
+        options.body.append('lesson_date_time', String(this.state.date + '_' + this.state.time));
+        if (this.state.payed) {
+            options.body.append('amount', '0');
+        } else {
+            options.body.append('amount', String(this.state.price));
+        }
 
         fetch(url, options)
             .then(response => response.json())
@@ -43,19 +51,24 @@ export default class Booking extends React.Component {
     }
 
     changeAttended() {
-        let url = 'http://localhost:5000/appointment/' + this.state['id'];
+        let url = 'http://localhost:5000/my_students/attendance/' + this.state.student_id;
+        const token = localStorage.getItem('token');
+
         let options = {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
+                'x-access-token': token
             },
             credentials: 'same-origin',
             body: new FormData()
         };
 
+        options.body.append('lesson_date_time', String(this.state.date + ' ' + this.state.time));
+        options.body.append('lesson_length', '30'); // TODO: Get dynamically
         options.body.append('attended', String(!this.state.attended));
-        options.body.append('student', String(this.state['student_id']));
-
+        options.body.append('cancelled', String(false)); // TODO: Get dynamically
+        options.body.append('price', String(this.state.price));
 
         fetch(url, options)
             .then(response => response.json())
