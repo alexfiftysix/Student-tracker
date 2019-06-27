@@ -17,8 +17,6 @@ from functools import wraps
 
 from .utilities.weekdays import next_weekday, all_days_in_week, weekdays, weekdays_abbreviated, to_weekday
 
-# import .ut
-
 app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:password@localhost/student-tracker'
@@ -240,6 +238,7 @@ class Student(db.Model):
         return total
 
     def get_lesson_plan(self):
+        """Get current lesson plan"""
         plans = [x for x in LessonPlan.query.filter_by(student=self.id)]
         now = datetime.now().date()
         for plan in plans:
@@ -407,7 +406,6 @@ class Booking(Resource):
 
         student = Student.query.filter_by(id=student_id).first()
 
-        plan: LessonPlan = student.get_lesson_plan()
         teacher = Teacher.query.filter_by(id=student.teacher).first().public_id  # Maybe don't release this info
 
         booking = {
@@ -422,6 +420,7 @@ class Booking(Resource):
             'payed': False
         }
 
+        plan: LessonPlan = student.get_lesson_plan()
         if plan:
             booking['lesson_plan'] = plan.json()
 
@@ -455,13 +454,17 @@ class LessonPlan(db.Model):
     def json(self):
         # TODO: Return student in readable format maybe
 
+        end_time = datetime.strptime(self.lesson_time, '%H:%M') + timedelta(minutes=self.length_minutes)
+        end_time = datetime.time(end_time)
+
         return {
             'id': str(self.id),
             'lesson_time': str(self.lesson_time),
             'lesson_day': self.lesson_day,
             'start_date': str(self.start_date),
             'end_date': str(self.end_date),
-            'end_time': 'XX:YY',
+            'end_time': str(end_time),
+            'length_minutes': str(self.length_minutes),
             'price': str(self.price),
             'student': self.student,
         }
@@ -734,6 +737,89 @@ class Payment(db.Model):
             return [x.json() for x in Payment.query.filter_by(student=student_id)]
 
 
+class Invoice(Resource):
+    @staticmethod
+    @token_required
+    def get(current_user, year_and_month, student_id):
+        """
+        Generates an invoice for one student for one month.
+        {
+            invoice_number: int,
+            month: str,
+            lessons: [
+                { date: date, attended: bool},
+            ],
+            payments: [
+                { date: date, amount: decimal},
+            ],
+            total_payable: decimal,
+            total_outstanding: decimal,
+            date_created: date,
+            student: {
+                name: str,
+                address: str,
+            },
+            teacher: {
+                name: str,
+                business_name: str,
+                ABN: str,
+                logo: file,
+                contact: {
+                    phone: str,
+                    email: str
+                }
+            }
+        }
+        """
+        invoiced_student = Student.get(student_id)
+        initial_date = current_date = datetime.strptime(year_and_month, '%Y-%m')
+        bookings = []
+        while True:
+            lesson_time = invoiced_student.get_lesson_time(current_date.date())
+            if lesson_time:
+                s = str(current_date.date()) + ' ' + lesson_time
+                dt = datetime.strptime(s, '%Y-%m-%d %H:%M')
+                bookings.append({'datetime': str(dt)})
+            current_date += timedelta(days=1)
+            if initial_date.month != current_date.month:
+                break
+
+        total_payed = 0
+        total_price = 0
+        for booking in bookings:
+            dt = datetime.strptime(booking.get('datetime'), '%Y-%m-%d %H:%M:%S')
+            attendance = Attendance.query.filter_by(datetime=booking.get('datetime')).first()
+            if attendance:
+                booking['attended'] = str(attendance.attended)
+            else:
+                booking['attended'] = 'False'
+
+            b, code = Booking.get(student_id, dt.strftime('%Y-%m-%d_%H:%M'))
+            if b:
+                print(b)
+                booking['price'] = b['lesson_plan']['price']
+                total_price += int(b['lesson_plan']['price'])
+
+            payment = Payment.query.filter_by(datetime=dt).first()
+            if payment:
+                booking['payed'] = str(payment.amount)
+                total_payed += payment.amount
+            else:
+                booking['payed'] = '0'
+
+        invoice = {
+            'invoice_number': '1',
+            'month': initial_date.strftime('%B %Y'),
+            'student': invoiced_student.json(),
+            'teacher': current_user.json(),
+            'bookings': bookings,
+            'total_price': str(total_price),
+            'total_payed': str(total_payed),
+            'total_outstanding': str(total_price - total_payed),
+        }
+        return invoice
+
+
 api.add_resource(Teacher.SingleTeacher, '/teacher')
 api.add_resource(Teacher.AllTeachers, '/teachers')
 api.add_resource(Teacher.TeacherLogIn, '/user')
@@ -754,3 +840,5 @@ api.add_resource(Payment.PaymentResource, '/my_students/payment/<student_id>')
 api.add_resource(Attendance.AttendanceResource, '/my_students/attendance/<student_id>')
 
 api.add_resource(Booking, '/my_students/booking/<student_id>/<lesson_date_time>')
+
+api.add_resource(Invoice, '/my_students/invoice/<student_id>/<year_and_month>')

@@ -7,11 +7,8 @@ Should be able to view unnattended booking
 
 Generate report - who attended, who payed in monthly view
 
-Invoices:
-    generate invoices: invoices are displayed in browser and have print-styling for simple b+w print.
-    Teachers have Company name field for nice invoicing.
-    Teachers have ABN field for nice invoicing.
-    Appointments have late-cancellation option - to make pricing more clear on invoice.
+
+
 
 As a teacher I want the students to arranged into families so one invoice can be sent for many students.
 
@@ -23,7 +20,7 @@ As a dev I want email verification so I don't get spammers in the system
 
 As a teacher I want to be warned if adding two students to the same time slot so I don't double-book
 
-As a teacher I want students to be automatically added to my weekly schedule so I don't have to do it myself
+As a teacher I want to be able to change student lesson times so I can keep up with student's schedules
 
 As a teacher I want to be able to remove students from the system when they leave so I don't have their appointments anymore
 
@@ -49,6 +46,8 @@ As a teacher I want to be able to add notes to my calendar
 
 As a teacher I want to be able to book one-off and short term lessons to support weird students.
 
+As a teacher I want to be able to view all of my students records to keep track of their personal details
+
 ### todo
 
 As a dev, I want my RESTful API to follow standard responses. (Eg. response code (201 for delete success, etc)
@@ -56,9 +55,16 @@ As a teacher I want to be able to edit notes I left so I can remove mistakes fro
 
 ### doing
 
+As a teacher I want to generate invoices for me students so I can save time and have accurate invoices
+Invoices:
+    generate invoices: invoices are displayed in browser and have print-styling for simple b+w print.
+    Teachers have Company name field for nice invoicing.
+    Teachers have ABN field for nice invoicing.
+    Appointments have late-cancellation option - to make pricing more clear on invoice.
+
 Convert all routes to be based off a teacher
 
-As a teacher I want to be able to view all of my students records to keep track of their personal details
+
 
 ### done
 I want multiple teachers to be able to use the system simultaneously, each with their own students
@@ -74,3 +80,4 @@ As a teacher I want to be able to tick off when students have attended their les
 Can add students.
 can add appointments
 Students have day and time
+As a teacher I want students to be automatically added to my weekly schedule so I don't have to do it myself

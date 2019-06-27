@@ -17,6 +17,7 @@ export default class Booking extends React.Component {
         this.state['student_id'] = props.student_id;
         this.state['message'] = '';
         this.state['date'] = props.date;
+        this.state['length'] = props.length;
 
         this.changeAttended = this.changeAttended.bind(this);
         this.changePayed = this.changePayed.bind(this);
@@ -65,7 +66,7 @@ export default class Booking extends React.Component {
         };
 
         options.body.append('lesson_date_time', String(this.state.date + ' ' + this.state.time));
-        options.body.append('lesson_length', '30'); // TODO: Get dynamically
+        options.body.append('lesson_length', String(this.state.length)); // TODO: Get dynamically
         options.body.append('attended', String(!this.state.attended));
         options.body.append('cancelled', String(false)); // TODO: Get dynamically
         options.body.append('price', String(this.state.price));
