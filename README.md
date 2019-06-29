@@ -21,3 +21,24 @@ documentation/kanban.txt has a text-based board of user stories to be implemente
 
 ### Technology
 The program is python based, with a flask back-end, using SQLalchemy and a PostgreSQL database.
+
+React is used for the front-end.
+
+### instructions
+
+Run server
+```
+$ cd backend
+$ flask run
+```
+Run front-end
+```
+$ cd student-tracker-frontend
+$ npm start
+```
+Migrate database
+```
+$ cd backend
+$ flask db migrate
+$ flask db upgrade
+```

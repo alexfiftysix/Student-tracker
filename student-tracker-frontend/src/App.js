@@ -12,6 +12,7 @@ import TopBar from './components/topBar'
 import LogIn from './components/logIn'
 import NewTeacherFrom from './components/newTeacherForm'
 import Teacher from './components/teacher'
+import Invoice from './components/invoice'
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/student_add_notes/:student_id" component={NewNoteForm}/>
                 <Route path="/add_student" component={NewStudentForm}/>
                 <Route path={'/me'} component={Teacher}/>
+                <Route path={'/invoice'} component={Invoice}/>
             </Router>
         </main>
     );

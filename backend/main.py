@@ -14,6 +14,8 @@ from flask_cors import CORS
 import _sha256
 from passlib.hash import sha256_crypt
 from functools import wraps
+from flask_migrate import Migrate
+import re
 
 from .utilities.weekdays import next_weekday, all_days_in_week, weekdays, weekdays_abbreviated, to_weekday
 
@@ -24,6 +26,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'myBigSecret'
 api = Api(app)
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)  # TODO: Migrations
 
 
 def token_required(f):
@@ -52,17 +55,24 @@ class Teacher(db.Model):
     public_id = db.Column(db.String(50), unique=True)
     email = db.Column('email', db.String(250), unique=True)
     name = db.Column('name', db.String(200))
+    business_name = db.Column('business_name', db.String(200), nullable=True)
     password = db.Column('password', db.String(200), nullable=False)  # sha256 encryption here plz
     standard_rate = db.Column('standard_rate', db.DECIMAL, nullable=False)
-    address = db.Column('address', db.String, nullable=True)  # for price calculations if we want to go there
+    address = db.Column('address', db.String(250), nullable=True)  # for price calculations if we want to go there
+    abn = db.Column('ABN', db.String(11), nullable=True)
+
+    # Note the first two digits of an ABN are a checksum, use this to calculate ABN validity
+    # https://abr.business.gov.au/Help/AbnFormat
 
     def json(self):
         return {
             'public_id': self.public_id,
             'email': self.email,
             'name': self.name,
+            'business_name': self.business_name,
             'standard_rate': str(self.standard_rate),
-            'address': str(self.address)
+            'address': str(self.address),
+            'abn': self.abn,
         }
 
     @staticmethod
@@ -740,7 +750,7 @@ class Payment(db.Model):
 class Invoice(Resource):
     @staticmethod
     @token_required
-    def get(current_user, year_and_month, student_id):
+    def get(current_user, year_and_month: str, student_id):
         """
         Generates an invoice for one student for one month.
         {
@@ -808,15 +818,19 @@ class Invoice(Resource):
                 booking['payed'] = '0'
 
         invoice = {
-            'invoice_number': '1',
+            'invoice_number': str(current_user.id) + str(invoiced_student.id) + year_and_month.replace('-', ''),
+            # TODO: Do some kind of encoding here so as not to reveal user id.
             'month': initial_date.strftime('%B %Y'),
             'student': invoiced_student.json(),
             'teacher': current_user.json(),
             'bookings': bookings,
             'total_price': str(total_price),
             'total_payed': str(total_payed),
-            'total_outstanding': str(total_price - total_payed),
+            'total_outstanding': str(total_price - total_payed)
         }
+
+
+
         return invoice
 
 
