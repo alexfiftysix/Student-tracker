@@ -8,7 +8,8 @@ Should be able to view unnattended booking
 Generate report - who attended, who payed in monthly view
 
 
-
+As a teacher I want to be able to view a complete account of my student to check their payment history
+    (Shows every lesson attended, amount owed and payed per lesson, and totals)
 
 As a teacher I want the students to arranged into families so one invoice can be sent for many students.
 

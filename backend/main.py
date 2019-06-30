@@ -23,7 +23,7 @@ app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:password@localhost/student-tracker'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'myBigSecret'
+
 api = Api(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)  # TODO: Migrations
@@ -755,7 +755,7 @@ class Invoice(Resource):
         Generates an invoice for one student for one month.
         {
             invoice_number: int,
-            month: str,
+            date: str,
             lessons: [
                 { date: date, attended: bool},
             ],
@@ -820,7 +820,7 @@ class Invoice(Resource):
         invoice = {
             'invoice_number': str(current_user.id) + str(invoiced_student.id) + year_and_month.replace('-', ''),
             # TODO: Do some kind of encoding here so as not to reveal user id.
-            'month': initial_date.strftime('%B %Y'),
+            'date': initial_date.strftime('%B %Y'),
             'student': invoiced_student.json(),
             'teacher': current_user.json(),
             'bookings': bookings,
@@ -832,6 +832,7 @@ class Invoice(Resource):
 
 
         return invoice
+app.config['SECRET_KEY'] = 'myBigSecret'
 
 
 api.add_resource(Teacher.SingleTeacher, '/teacher')

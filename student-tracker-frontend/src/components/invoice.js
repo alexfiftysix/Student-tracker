@@ -11,7 +11,14 @@ import Paper from '@material-ui/core/Paper';
 
 export default function Invoice(props) {
     const [invoice, setInvoice] = React.useState(null);
-    const url = 'http://localhost:5000/my_students/invoice/4/2019-06';
+    // TODO: Get year from url also
+    let student_id = props.match.params.student_id;
+    let month = '' + props.match.params.month;
+    if (month.length === 1) {
+        month = '0' + month;
+    }
+
+    const url = 'http://localhost:5000/my_students/invoice/' + student_id + '/2019-' + month;
     useEffect(() => {
         fetch(url,
             {
@@ -22,7 +29,6 @@ export default function Invoice(props) {
             .then(results => results.json())
             .then(data => {
                 setInvoice(data);
-                console.log(data);
             })
     }, [url]);
 
@@ -34,6 +40,7 @@ export default function Invoice(props) {
         <Paper className={'classes.root invoice'}>
             <h1>Tax Invoice</h1>
             <p>Invoice number: {invoice.invoice_number}</p>
+            <p>Date: {invoice.date}</p>
             <aside className={'teacher-details'}>
                 <h3>From</h3>
                 <p>Name: {invoice.teacher.name}</p>
@@ -47,6 +54,7 @@ export default function Invoice(props) {
                 <p>Address: {invoice.student.address}</p>
             </aside>
 
+            <h3>Lessons:</h3>
             <Paper className={'table'}>
                 <Table className={'classes.table'}>
                     <TableHead>
@@ -61,7 +69,7 @@ export default function Invoice(props) {
                         {invoice.bookings.map(b =>
                             <TableRow key={b.dateTime}>
                                 <TableCell>{b.datetime}</TableCell>
-                                <TableCell align={'right'}>{b.attended ? 'Yes' : 'No'}</TableCell>
+                                <TableCell align={'right'}>{b.attended === 'True' ? 'Yes' : 'No'}</TableCell>
                                 <TableCell align={'right'}>${b.price}</TableCell>
                                 <TableCell align={'right'}>${b.payed}</TableCell>
                             </TableRow>
