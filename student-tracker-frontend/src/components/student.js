@@ -1,10 +1,18 @@
 import React, {useEffect} from 'react'
 import './student.css'
 import {Link} from "react-router-dom";
+import {makeStyles} from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    caps: {
+        textTransform: 'capitalize',
+    }
+});
 
 export default function Student(props) {
     const [student, setStudent] = React.useState(null);
     const student_id = props.id ? props.id : props.match.params.student_id;
+    const classes = useStyles();
 
     useEffect(() => {
         fetch('http://localhost:5000/student/' + student_id,
@@ -30,12 +38,12 @@ export default function Student(props) {
             <h2>{student.name}</h2>
             <ul>
                 <li>
-                    <h4>Name:</h4>
-                    <p>{student.lesson_day}</p>
+                    <h4>Day:</h4>
+                    <p className={classes.caps}>{student.lesson_plan.lesson_day}</p>
                 </li>
                 <li>
                     <h4>Lesson time:</h4>
-                    <p>{student.lesson_time} - {student.lesson_end}</p>
+                    <p>{student.lesson_plan.lesson_time} - {student.lesson_plan.end_time}</p>
                 </li>
                 <li>
                     <h4>Address:</h4>
@@ -43,7 +51,7 @@ export default function Student(props) {
                 </li>
                 <li>
                     <h4>Price:</h4>
-                    <p>${student.price}</p>
+                    <p>${student.lesson_plan.price}</p>
                 </li>
                 <li>
                     <Link to={'/student_notes/' + student.id}>

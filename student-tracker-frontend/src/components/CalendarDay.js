@@ -32,6 +32,7 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'left',
         textDecoration: 'none',
+        textTransform: 'none'
     },
     time: {
         marginRight: '1em',
