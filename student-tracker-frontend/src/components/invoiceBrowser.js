@@ -112,7 +112,7 @@ export default function InvoiceBrowser() {
             </FormControl>
 
             {values.student && values.month ? (<Link to={'/invoice/' + values.student + '/' + values.month}>
-                <Button variant="contained" color="primary">Me</Button>
+                <Button variant="contained" color="primary">Generate</Button>
             </Link>) : null}
         </form>
     );

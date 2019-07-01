@@ -14,6 +14,7 @@ import NewTeacherFrom from './components/newTeacherForm'
 import Teacher from './components/teacher'
 import Invoice from './components/invoice'
 import InvoiceBrowser from './components/invoiceBrowser'
+import CalendarDay from './components/CalendarDay'
 
 function App() {
     return (
@@ -32,6 +33,7 @@ function App() {
                 <Route path={'/invoice/:student_id/:month'} component={Invoice}/>
                 <Route path={'/invoices'} component={InvoiceBrowser}/>
             </Router>
+            {/*<CalendarDay dayNumber={5}/>*/}
         </main>
     );
 }

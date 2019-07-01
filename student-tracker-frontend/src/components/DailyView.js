@@ -17,7 +17,6 @@ export default function DailyView(props) {
             .then(results => results.json())
             .then(data => {
                 setBookings(data);
-                console.log(data);
             });
     }, [date]);
 
