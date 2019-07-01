@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles({
     card: {
@@ -35,13 +36,23 @@ const useStyles = makeStyles({
     }
 });
 
+
+
 export default function CalendarDay(props) {
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
     const dayNumber = props.dayNumber;
+    let paddedDay = '' + dayNumber;
+    if (paddedDay.length === 1) {
+        paddedDay = '0' + paddedDay;
+    }
+    let paddedMonth = '' + props.month;
+    if (paddedMonth.length === 1) {
+        paddedMonth = '0' + paddedMonth;
+    }
+    console.log(paddedMonth);
 
     const [students, setStudents] = React.useState([]);
-    const url = 'http://localhost:5000/my_appointments/daily/2019-07-02';
+    const url = 'http://localhost:5000/my_appointments/daily/2019-' + paddedMonth + '-' + paddedDay;
     useEffect(() => {
         fetch(url,
             {
@@ -58,19 +69,14 @@ export default function CalendarDay(props) {
 
 
     return (
-        <Card className={classes.card}>
-            <CardContent>
-                <Typography className={classes.dateNumber} variant="h5" component="h2">
-                    {dayNumber}
+        <div>
+            {students.map(s =>
+                <Typography className={classes.booking}>
+                    <Link to={'/student/' + s.id}/>
+                    <span>{s.name}</span>
+                    <span>{s.lesson_plan.lesson_time}</span>
                 </Typography>
-                {students.map(s =>
-                    <Typography className={classes.booking}>
-                        <span>{s.name}</span>
-                        <span>{s.lesson_plan.lesson_time}</span>
-                    </Typography>
-                )}
-
-            </CardContent>
-        </Card>
+            )}
+        </div>
     );
 }

@@ -4,7 +4,7 @@
     margin-bottom: 60px;
 }
 
-header {
+.fake-header header {
     height: 40px;
 
     position: fixed;
@@ -17,14 +17,15 @@ header {
     margin: 0;
 }
 
-header ul {
+.fake-header header ul {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     list-style: none;
+    margin-top: 0;
 }
 
-header ul > * {
+.fake-header header ul > * {
     margin-left: 20px;
 }
