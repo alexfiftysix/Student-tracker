@@ -162,12 +162,13 @@ main {
 
 .calendar .body .cell {
   position: relative;
-  height: 10em;
+  /*height: 10em;*/
   border-right: 1px solid var(--border-color);
   overflow: hidden;
   cursor: pointer;
   background: var(--neutral-color);
   transition: 0.25s ease-out;
+  padding-bottom: 1.5em;
 }
 
 /*.calendar .body .cell:hover {*/

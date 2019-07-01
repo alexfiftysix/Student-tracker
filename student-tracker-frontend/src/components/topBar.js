@@ -78,6 +78,9 @@ export default function TopBar(props) {
                         <li>
                             <Link to={'/invoices'}>Invoices</Link>
                         </li>
+                        <li>
+                            <Link to={'/calendar'}>Calendar</Link>
+                        </li>
                     </ul>
                 </header>
             </div>

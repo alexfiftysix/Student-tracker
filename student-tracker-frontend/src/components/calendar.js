@@ -69,9 +69,7 @@ export default class Calendar extends React.Component {
                 days.push(
                     <div
                         className={`col cell ${
-                            !dateFns.isSameMonth(day, monthStart)
-                                ? "disabled"
-                                : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
+                            !dateFns.isSameMonth(day, monthStart) ? "disabled" : ""
                             }`}
                         key={day}
                         // onClick={() => this.onDateClick(dateFns.parse(cloneDay))}

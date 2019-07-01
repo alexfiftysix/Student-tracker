@@ -1,11 +1,10 @@
 import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+import Student from "./student";
+import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import {Link} from "react-router-dom";
+
+// TODO: On select, expand booking to show address.
 
 const useStyles = makeStyles({
     card: {
@@ -27,18 +26,35 @@ const useStyles = makeStyles({
         textAlign: 'left',
     },
     booking: {
-        backgroundColor: 'rgb(0, 191, 255)',
-        border: '1px solid white',
-        padding: '5px',
+        marginBottom: '2px',
+        padding: '1px 5px',
         textAlign: 'left',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'left',
+        textDecoration: 'none',
+    },
+    time: {
+        marginRight: '1em',
+    },
+    day: {
+        padding: '0 0.5em',
     }
 });
 
-
-
 export default function CalendarDay(props) {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    function handleClick(event) {
+        setAnchorEl(event.currentTarget);
+    }
+
+    function handleClose() {
+        setAnchorEl(null);
+    }
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
     const classes = useStyles();
     const dayNumber = props.dayNumber;
     let paddedDay = '' + dayNumber;
@@ -69,14 +85,34 @@ export default function CalendarDay(props) {
 
 
     return (
-        <div>
+        <div className={classes.day}>
             {students.map(s =>
-                <Typography className={classes.booking}>
-                    <Link to={'/student/' + s.id}/>
-                    <span>{s.name}</span>
-                    <span>{s.lesson_plan.lesson_time}</span>
-                </Typography>
+                <div className={classes.booking}>
+                    <Button onClick={handleClick}>
+                        <span className={classes.time}>{s.lesson_plan.lesson_time}</span>
+                        <span>{s.name}</span>
+                        {/*<span>{s.name}</span>*/}
+                        {/*<span>{s.lesson_plan.lesson_time}</span>*/}
+                    </Button>
+                    <Popover
+                        id={id}
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                    >
+                        <Student id={s.id}/>
+                    </Popover>
+                </div>
             )}
+
         </div>
     );
 }

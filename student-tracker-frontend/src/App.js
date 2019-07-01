@@ -16,6 +16,7 @@ import Invoice from './components/invoice'
 import InvoiceBrowser from './components/invoiceBrowser'
 import CalendarDay from './components/CalendarDay'
 import Calendar from './components/calendar'
+import SimplePopover from './components/SimplePopover'
 
 function App() {
     return (
@@ -35,7 +36,6 @@ function App() {
                 <Route path={'/invoices'} component={InvoiceBrowser}/>
                 <Route path={'/calendar'} component={Calendar}/>
             </Router>
-            {/*<CalendarDay dayNumber={5}/>*/}
         </main>
     );
 }
