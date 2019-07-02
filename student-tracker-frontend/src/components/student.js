@@ -45,6 +45,13 @@ export default function Student(props) {
                     <h4>Lesson time:</h4>
                     <p>{student.lesson_plan.lesson_time} - {student.lesson_plan.end_time}</p>
                 </li>
+                {student.email !== 'None' ?
+                    <li>
+                        <h4>Email:</h4>
+                        <p>{student.email}</p>
+                    </li>
+                    : null
+                }
                 <li>
                     <h4>Address:</h4>
                     <p>{student.address}</p>

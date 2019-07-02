@@ -14,10 +14,7 @@ import NewTeacherFrom from './components/newTeacherForm'
 import Teacher from './components/teacher'
 import Invoice from './components/invoice'
 import InvoiceBrowser from './components/invoiceBrowser'
-import CalendarDay from './components/CalendarDay'
 import Calendar from './components/calendar'
-import SimplePopover from './components/SimplePopover'
-import AddressInput from './components/addressInput'
 
 function App() {
     return (

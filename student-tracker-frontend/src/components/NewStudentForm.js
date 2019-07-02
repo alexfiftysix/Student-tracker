@@ -177,105 +177,10 @@ export default function NewTeacherForm(props) {
                         startAdornment={<InputAdornment position="start">$</InputAdornment>}
                     />
                 </FormControl>
-
                 <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
                     Submit
                 </Button>
             </form>
         </Paper>
     );
-}
-
-
-class NewStudentFormOld extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            lesson_day: '',
-            lesson_time: '',
-            lesson_duration: '',
-            address: '',
-            price: ''
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        let url = 'http://localhost:5000/my_students';
-        let options = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'x-access-token': localStorage.getItem('token')
-            },
-            credentials: 'same-origin',
-            body: new FormData()
-        };
-
-        options.body.append('name', this.state.name);
-        options.body.append('lesson_day', this.state.lesson_day);
-        options.body.append('lesson_time', this.state.lesson_time);
-        options.body.append('address', this.state.address);
-        options.body.append('price', this.state.price);
-
-        fetch(url, options)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                history.push('/weekly/' + currentDateAsString());
-                window.location.assign(window.location);
-            });
-    }
-
-    render() {
-        return (
-            <form className={'newStudentForm'} onSubmit={this.handleSubmit}>
-                <h2>Add new Student</h2>
-                <label>
-                    <div>Name:</div>
-                    <input name={'name'} type={'text'} value={this.state.name} onChange={this.handleChange}/>
-                </label>
-                <label>
-                    <div>Lesson day:</div>
-                    <input name={'lesson_day'} type={'text'} value={this.state.lesson_day}
-                           onChange={this.handleChange}/>
-                </label>
-                <label>
-                    <div>Lesson time:</div>
-                    <input name={'lesson_time'} type={'text'} value={this.state.lesson_time}
-                           onChange={this.handleChange}/>
-                </label>
-                <label>
-                    <div>Lesson duration (minutes):</div>
-                    <input name={'lesson_duration'} type={'text'} value={this.state.lesson_duration}
-                           onChange={this.handleChange}/>
-                </label>
-                <label>
-                    <div>Address:</div>
-                    <input name={'address'} type={'text'} value={this.state.address} onChange={this.handleChange}/>
-                </label>
-                <label>
-                    <div>Price:</div>
-                    <input name={'price'} type={'number'} step={'.01'} value={this.state.price}
-                           onChange={this.handleChange}/>
-                </label>
-                <input type={'submit'} value={'Submit'}/>
-            </form>
-        )
-    }
-
 }

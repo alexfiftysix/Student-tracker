@@ -49,7 +49,7 @@ export default class Calendar extends React.Component {
     }
 
     renderCells() {
-        const {currentMonth, selectedDate} = this.state;
+        const {currentMonth} = this.state;
         const monthStart = dateFns.startOfMonth(currentMonth);
         const monthEnd = dateFns.endOfMonth(monthStart);
         const startDate = dateFns.startOfWeek(monthStart);
@@ -65,14 +65,12 @@ export default class Calendar extends React.Component {
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {
                 formattedDate = dateFns.format(day, dateFormat);
-                const cloneDay = day;
                 days.push(
                     <div
                         className={`col cell ${
                             !dateFns.isSameMonth(day, monthStart) ? "disabled" : ""
                             }`}
                         key={day}
-                        // onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
                     >
                         <div className={'contents'}>
                             <CalendarDay dayNumber={formattedDate}
@@ -93,12 +91,6 @@ export default class Calendar extends React.Component {
         }
         return <div className="body">{rows}</div>;
     }
-
-    // onDateClick = day => {
-    //     this.setState({
-    //         selectedDate: day
-    //     });
-    // };
 
     nextMonth = () => {
         this.setState({

@@ -4,8 +4,6 @@ import Student from "./student";
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
 
-// TODO: On select, expand booking to show address.
-
 const useStyles = makeStyles({
     card: {
         minWidth: 275,
