@@ -1,34 +1,49 @@
 import React from 'react'
 import history from './history'
+import clsx from 'clsx';
+import TextField from '@material-ui/core/TextField';
+import {makeStyles} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import InputAdornment from '@material-ui/core/InputAdornment'
+import FormControl from '@material-ui/core/FormControl'
+import InputLabel from '@material-ui/core/InputLabel'
+import Input from '@material-ui/core/Input'
 
-export default class NewTeacherForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            email: '',
-            password: '',
-            password_confirm: '',
-            standard_rate: ''
-        };
+const useStyles = makeStyles(theme => ({
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: 200,
+    },
+    margin: {
+        marginTop: theme.spacing(1),
+    },
+    button: {
+        marginTop: theme.spacing(1),
+    },
+}));
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+export default function NewTeacherForm(props) {
+    const classes = useStyles();
+    const [values, setValues] = React.useState({
+        name: '',
+        email: '',
+        password: '',
+        password_confirm: '',
+        standard_rate: ''
+    });
+
+    const handleChange = name => event => {
+        setValues({...values, [name]: event.target.value});
+    };
+
+    function handleSubmit() {
+        console.log(values);
     }
 
-    handleChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleSubmit(event) {
+    function handleSubmit(event) {
         event.preventDefault();
-        if (this.state.password !== this.state.password_confirm) {
+        if (values.password !== values.password_confirm) {
             alert("Passwords don't match");
             return;
         }
@@ -43,10 +58,10 @@ export default class NewTeacherForm extends React.Component {
             body: new FormData()
         };
 
-        options.body.append('name', this.state.name);
-        options.body.append('email', this.state.email);
-        options.body.append('password', this.state.password);
-        options.body.append('standard_rate', this.state.standard_rate);
+        options.body.append('name', values.name);
+        options.body.append('email', values.email);
+        options.body.append('password', values.password);
+        options.body.append('standard_rate', values.standard_rate);
 
         fetch(url, options)
             .then(response => response.json())
@@ -56,36 +71,50 @@ export default class NewTeacherForm extends React.Component {
             });
     }
 
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <h2>Welcome</h2>
-                <label>
-                    <div>Email:</div>
-                    <input name={'email'} type={'text'} value={this.state.email} onChange={this.handleChange}/>
-                </label>
-                <label>
-                    <div>Name:</div>
-                    <input name={'name'} type={'text'} value={this.state.name} onChange={this.handleChange}/>
-                </label>
-                <label>
-                    <div>Password:</div>
-                    <input name={'password'} type={'password'} value={this.state.password}
-                           onChange={this.handleChange}/>
-                </label>
-                <label>
-                    <div>Confirm password:</div>
-                    <input name={'password_confirm'} type={'password'} value={this.state.password_confirm}
-                           onChange={this.handleChange}/>
-                </label>
-                <label>
-                    <div>Standard rate:</div>
-                    <input name={'standard_rate'} type={'number'} step={'.01'} value={this.state.standard_rate}
-                           onChange={this.handleChange}/>
-                </label>
-                <input type={'submit'} value={'Submit'}/>
-            </form>
-        )
-    }
-
+    return (
+        <form className={classes.container} noValidate autoComplete="off">
+            <TextField
+                id={'name'}
+                label={'Name'}
+                className={classes.textField}
+                margin="normal"
+                onChange={handleChange('name')}
+            />
+            <TextField
+                id={'email'}
+                label={'Email'}
+                className={classes.textField}
+                margin="normal"
+                onChange={handleChange('email')}
+            />
+            <TextField
+                id={'password'}
+                label={'Password'}
+                className={classes.textField}
+                type="password"
+                margin="normal"
+                onChange={handleChange('password')}
+            />
+            <TextField
+                id={'password_confirm'}
+                label={'Confirm Password'}
+                className={classes.textField}
+                type="password"
+                margin="normal"
+                onChange={handleChange('password_confirm')}
+            />
+            <FormControl fullWidth className={clsx(classes.margin, classes.textField)}>
+                <InputLabel htmlFor="adornment-amount">Standard Rate</InputLabel>
+                <Input
+                    id="standard_rate"
+                    value={values.standard_rate}
+                    onChange={handleChange('standard_rate')}
+                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                />
+            </FormControl>
+            <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+                Submit
+            </Button>
+        </form>
+    )
 }
