@@ -1,39 +1,45 @@
 import React from 'react'
 import history from './history'
 import currentDateAsString from '../utilities/dates'
+import TextField from '@material-ui/core/TextField';
+import {makeStyles} from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import Input from "@material-ui/core/Input"
+import Invoice from "./invoice";
 
-export default class LogIn extends React.Component {
+const useStyles = makeStyles(theme => ({
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: 200,
+    },
+}));
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password: '',
-        };
+export default function LogIn(props) {
+    const classes = useStyles();
+    const [values, setValues] = React.useState({
+        username: '',
+        password: ''
+    });
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    const handleChange = name => event => {
+        setValues({...values, [name]: event.target.value});
+    };
+
+    function submit() {
+        // TODO: Do something with this
+        console.log(values);
     }
 
-    handleChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleSubmit(event) {
-            event.preventDefault();
-
+    function handleSubmit(event) {
+        event.preventDefault();
         let url = 'http://localhost:5000/user';
         let options = {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
-                'Authorization': 'Basic '+btoa(this.state.username + ':' + this.state.password),
+                'Authorization': 'Basic ' + btoa(values.username + ':' + values.password),
             },
             credentials: 'same-origin'
         };
@@ -43,29 +49,32 @@ export default class LogIn extends React.Component {
         fetch(url, options)
             .then(response => response.json())
             .then(data => {
-                localStorage.setItem('token',data['token']);
+                localStorage.setItem('token', data['token']);
                 history.push('/weekly/' + today);
                 window.location.assign(window.location);
             });
     }
 
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <h2>Log In</h2>
-                <label>
-                    <div>Username:</div>
-                    <input name={'username'} type={'text'} value={this.state.username} onChange={this.handleChange}/>
-                </label>
-                <label>
-                    <div>Password:</div>
-                    <input name={'password'} type={'password'} value={this.state.password}
-                           onChange={this.handleChange}/>
-                </label>
-                <input type={'submit'} value={'Submit'}/>
-            </form>
-        )
-    }
-
-
+    return (
+        <form className={classes.container} noValidate autoComplete="off">
+            <TextField
+                id={'username'}
+                label={'Username'}
+                className={classes.textField}
+                margin="normal"
+                onChange={handleChange('username')}
+            />
+            <TextField
+                id={'password'}
+                label={'Password'}
+                className={classes.textField}
+                type="password"
+                margin="normal"
+                onChange={handleChange('password')}
+            />
+            <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+                Submit
+            </Button>
+        </form>
+    );
 }

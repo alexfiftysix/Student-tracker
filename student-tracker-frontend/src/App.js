@@ -36,7 +36,7 @@ function App() {
                 <Route path={'/invoice/:student_id/:month'} component={Invoice}/>
                 <Route path={'/invoices'} component={InvoiceBrowser}/>
                 <Route path={'/calendar'} component={Calendar}/>
-                <AddressInput/>
+                {/*<AddressInput/>*/}
             </Router>
         </main>
     );
