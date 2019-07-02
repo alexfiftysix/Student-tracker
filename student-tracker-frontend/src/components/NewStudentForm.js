@@ -59,7 +59,7 @@ export default class NewStudentForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form className={'newStudentForm'} onSubmit={this.handleSubmit}>
                 <h2>Add new Student</h2>
                 <label>
                     <div>Name:</div>

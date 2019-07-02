@@ -11,7 +11,7 @@ form > * {
     margin: 8px 5px;
 }
 
-label {
+.newStudentForm label {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

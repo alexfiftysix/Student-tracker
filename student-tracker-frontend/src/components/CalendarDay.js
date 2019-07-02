@@ -32,13 +32,16 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'left',
         textDecoration: 'none',
-        textTransform: 'none'
+        textTransform: 'capitalize'
     },
     time: {
         marginRight: '1em',
     },
     day: {
         padding: '0 0.5em',
+    },
+    name: {
+        textTransform: 'capitalize',
     }
 });
 
@@ -91,9 +94,7 @@ export default function CalendarDay(props) {
                 <div className={classes.booking}>
                     <Button onClick={handleClick}>
                         <span className={classes.time}>{s.lesson_plan.lesson_time}</span>
-                        <span>{s.name}</span>
-                        {/*<span>{s.name}</span>*/}
-                        {/*<span>{s.lesson_plan.lesson_time}</span>*/}
+                        <span className={classes.name}>{s.name}</span>
                     </Button>
                     <Popover
                         id={id}

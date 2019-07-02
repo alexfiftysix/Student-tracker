@@ -5,6 +5,8 @@ Should be able to view unnattended booking
 
 ## backlog
 
+Addresses should be decomposed - to allow for easily showing relevant address information only depending on context
+
 As a teacher I want to be able to email a copy of the invoice to myself and my student.
 
 As a teacher I want to be able to change student lesson times so I can keep up with student's schedules

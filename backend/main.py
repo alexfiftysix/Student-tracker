@@ -49,6 +49,62 @@ def token_required(f):
     return decorated
 
 
+class Address(db.Model):
+    """
+    Address fields are not restricted so as not to cause issues with international users.
+    """
+    __tablename__ = 'address'
+    id = db.Column('id', db.Integer, primary_key=True)
+    country = db.Column('country', db.String(200), default='Australia')  # TODO: Store as ISO code instead
+    state = db.Column('state', db.String(200))
+    suburb = db.Column('suburb', db.String(200))
+    post_code = db.Column('post_code', db.String(50))
+    street_name = db.Column('street_name', db.String(200))
+    street_number = db.Column('street_number', db.String(200))
+    unit_number = db.Column('unit_number', db.String(50))
+
+    def json(self):
+        return {
+            'id': self.id,
+            'country': self.country,
+            'state': self.state,
+            'suburb': self.suburb,
+            'post_code': self.post_code,
+            'street_name': self.street_name,
+            'street_number': self.street_number,
+            'unit_number': self.unit_number,
+        }
+
+    class AddressResource(Resource):
+        @staticmethod
+        @token_required
+        def get(current_user, id):
+            add = Address.query.filter_by(id=id).first()
+            if add:
+                return add.json(), 200
+            else:
+                return None, 404
+
+        @staticmethod
+        @token_required
+        def post(current_user):
+            fields = ['country', 'state', 'suburb', 'post_code', 'street_name', 'street_number', 'unit_number']
+
+            country = request.form.get('country')
+            state = request.form.get('state')
+            suburb = request.form.get('suburb')
+            post_code = request.form.get('post_code')
+            street_name = request.form.get('street_name')
+            street_number = request.form.get('street_number')
+            unit_number = request.form.get('unit_number')
+
+            new_address = Address(country=country, state=state, suburb=suburb, post_code=post_code,
+                                  street_name=street_name, street_number=street_number, unit_number=unit_number)
+            db.session.add(new_address)
+            db.session.commit()
+            return new_address.json(), 201
+
+
 class Teacher(db.Model):
     __tablename__ = 'teacher'
     id = db.Column('id', db.Integer, primary_key=True)
@@ -829,11 +885,10 @@ class Invoice(Resource):
             'total_outstanding': str(total_price - total_payed)
         }
 
-
-
         return invoice
-app.config['SECRET_KEY'] = 'myBigSecret'
 
+
+app.config['SECRET_KEY'] = 'myBigSecret'
 
 api.add_resource(Teacher.SingleTeacher, '/teacher')
 api.add_resource(Teacher.AllTeachers, '/teachers')
