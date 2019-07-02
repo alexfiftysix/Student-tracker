@@ -1,9 +1,11 @@
 import React from 'react'
 import history from './history'
+import clsx from 'clsx';
 import currentDateAsString from '../utilities/dates'
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import Paper from '@material-ui/core/Paper'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -11,6 +13,14 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(1),
         width: 200,
     },
+    flex: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    paper: {
+        padding: theme.spacing(2)
+    }
 }));
 
 export default function LogIn(props) {
@@ -48,25 +58,28 @@ export default function LogIn(props) {
     }
 
     return (
-        <form className={classes.container} noValidate autoComplete="off">
-            <TextField
-                id={'username'}
-                label={'Username'}
-                className={classes.textField}
-                margin="normal"
-                onChange={handleChange('username')}
-            />
-            <TextField
-                id={'password'}
-                label={'Password'}
-                className={classes.textField}
-                type="password"
-                margin="normal"
-                onChange={handleChange('password')}
-            />
-            <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
-                Submit
-            </Button>
-        </form>
+        <Paper className={classes.paper}>
+            <form className={clsx(classes.container, classes.flex)} noValidate autoComplete="off">
+                <h3>Log in</h3>
+                <TextField
+                    id={'username'}
+                    label={'Username'}
+                    className={classes.textField}
+                    margin="normal"
+                    onChange={handleChange('username')}
+                />
+                <TextField
+                    id={'password'}
+                    label={'Password'}
+                    className={classes.textField}
+                    type="password"
+                    margin="normal"
+                    onChange={handleChange('password')}
+                />
+                <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+                    Submit
+                </Button>
+            </form>
+        </Paper>
     );
 }

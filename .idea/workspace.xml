@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="20cfc609-3330-477e-9691-15a11792953d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/invoiceBrowser.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/invoiceBrowser.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/newStudentForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/newStudentForm.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,18 +39,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/documentation/data_model.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="168">
-                <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/documentation/kanban.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="168">
@@ -60,12 +50,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="104" column="42" selection-start-line="104" selection-start-column="42" selection-end-line="104" selection-end-column="42" />
+            <state relative-caret-position="435">
+              <caret line="383" lean-forward="true" selection-start-line="383" selection-end-line="383" />
               <folding>
                 <element signature="e#943#1479#0" />
                 <element signature="e#997#1457#0" />
                 <element signature="e#1200#1308#0" />
+                <element signature="e#1511#3677#0" />
+                <element signature="e#3344#8308#0" />
                 <element signature="e#2180#2268#0" />
                 <element signature="e#2347#2644#0" />
                 <element signature="e#2354#2644#0" />
@@ -89,6 +81,7 @@
                 <element signature="e#5699#6013#0" />
                 <element signature="e#6070#6190#0" />
                 <element signature="e#6281#6475#0" />
+                <element signature="e#6513#7180#0" />
                 <element signature="e#6595#7180#0" />
                 <element signature="e#6837#7157#0" />
                 <element signature="e#6894#7157#0" />
@@ -111,9 +104,7 @@
                 <element signature="e#10389#10582#0" />
                 <element signature="e#10629#10769#0" />
                 <element signature="e#10660#10769#0" />
-                <element signature="e#10822#13499#0" />
                 <element signature="e#10903#11069#0" />
-                <element signature="e#11161#13499#0" />
                 <element signature="e#11161#11236#1" />
                 <element signature="e#12527#12709#0" />
                 <element signature="e#13542#13832#0" />
@@ -186,31 +177,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/addressInput.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="78" column="6" selection-start-line="60" selection-start-column="4" selection-end-line="78" selection-end-column="6" />
+            <state relative-caret-position="412">
+              <caret line="61" column="13" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="13" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -219,17 +189,50 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/newStudentForm.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+            <state relative-caret-position="240">
+              <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="63" column="26" lean-forward="true" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="48">
+              <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/invoiceBrowser.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="19" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="61" column="44" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
+            <state relative-caret-position="216">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -251,7 +254,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>query.</find>
       <find>strptime</find>
       <find>toa</find>
       <find>to_add</find>
@@ -281,6 +283,7 @@
       <find>icon</find>
       <find>label</find>
       <find>handleSubmit</find>
+      <find>cls</find>
     </findStrings>
     <replaceStrings>
       <replace>window.location.assign(window.location);</replace>
@@ -334,7 +337,6 @@
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/invoice.css" />
         <option value="$PROJECT_DIR$/backend/README.md" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/invoice.js" />
-        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/invoiceBrowser.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/DailyView.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/calendar.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/topBar.css" />
@@ -345,12 +347,13 @@
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/CalendarDay.js" />
         <option value="$PROJECT_DIR$/documentation/kanban.txt" />
         <option value="$PROJECT_DIR$/backend/main.py" />
-        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js" />
+        <option value="$PROJECT_DIR$/student-tracker-frontend/src/App.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/newStudentForm.css" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/addressInput.js" />
-        <option value="$PROJECT_DIR$/student-tracker-frontend/src/App.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js" />
+        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/invoiceBrowser.js" />
+        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js" />
       </list>
     </option>
   </component>
@@ -671,14 +674,7 @@
       <workItem from="1561762835827" duration="12228000" />
       <workItem from="1561865939957" duration="19274000" />
       <workItem from="1561960104719" duration="1130000" />
-      <workItem from="1562030862817" duration="6554000" />
-    </task>
-    <task id="LOCAL-00027" summary="AllStudentNotes works">
-      <created>1558098053340</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1558098053341</updated>
+      <workItem from="1562030862817" duration="9802000" />
     </task>
     <task id="LOCAL-00028" summary="Added some routing to the app">
       <created>1558102055180</created>
@@ -1016,7 +1012,14 @@
       <option name="project" value="LOCAL" />
       <updated>1562041091166</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Updated Sign Up form to use material-ui">
+      <created>1562043808332</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1562043808332</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1052,7 +1055,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195497000" />
+    <option name="totallyTimeSpent" value="198745000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1067,12 +1070,12 @@
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23851688" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23851688" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32894737" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.28179824" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.28179824" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4364035" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1081,7 +1084,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.31798247" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.4002193" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.4002193" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32894737" />
       <window_info anchor="bottom" id="Messages" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -1158,7 +1161,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Can add next month of appointments on back-end" />
     <MESSAGE value="Daily view navigator now respects month boundaries" />
     <MESSAGE value="Weekly view now handles month boundaries correctly" />
     <MESSAGE value="Cleared up some todo's. Made UX slightly nicer - login and new student form now redirect to current weekly view" />
@@ -1183,7 +1185,8 @@
     <MESSAGE value="Student view fixed" />
     <MESSAGE value="Address input front-end mostly done" />
     <MESSAGE value="Redesigned login to use material-ui.&#10;Needs to respond correctly to 'enter' press" />
-    <option name="LAST_COMMIT_MESSAGE" value="Redesigned login to use material-ui.&#10;Needs to respond correctly to 'enter' press" />
+    <MESSAGE value="Updated Sign Up form to use material-ui" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated Sign Up form to use material-ui" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1439,16 +1442,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/invoiceBrowser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="114" column="68" selection-start-line="114" selection-start-column="68" selection-end-line="114" selection-end-column="68" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/DailyView.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-408">
@@ -1540,31 +1533,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/newStudentForm.css">
+    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="61" column="44" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
+        <state relative-caret-position="624">
+          <caret line="41" column="6" selection-start-line="41" selection-start-column="6" selection-end-line="41" selection-end-column="6" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="104" column="42" selection-start-line="104" selection-start-column="42" selection-end-line="104" selection-end-column="42" />
+        <state relative-caret-position="435">
+          <caret line="383" lean-forward="true" selection-start-line="383" selection-end-line="383" />
           <folding>
             <element signature="e#943#1479#0" />
             <element signature="e#997#1457#0" />
             <element signature="e#1200#1308#0" />
+            <element signature="e#1511#3677#0" />
+            <element signature="e#3344#8308#0" />
             <element signature="e#2180#2268#0" />
             <element signature="e#2347#2644#0" />
             <element signature="e#2354#2644#0" />
@@ -1588,6 +1576,7 @@
             <element signature="e#5699#6013#0" />
             <element signature="e#6070#6190#0" />
             <element signature="e#6281#6475#0" />
+            <element signature="e#6513#7180#0" />
             <element signature="e#6595#7180#0" />
             <element signature="e#6837#7157#0" />
             <element signature="e#6894#7157#0" />
@@ -1610,9 +1599,7 @@
             <element signature="e#10389#10582#0" />
             <element signature="e#10629#10769#0" />
             <element signature="e#10660#10769#0" />
-            <element signature="e#10822#13499#0" />
             <element signature="e#10903#11069#0" />
-            <element signature="e#11161#13499#0" />
             <element signature="e#11161#11236#1" />
             <element signature="e#12527#12709#0" />
             <element signature="e#13542#13832#0" />
@@ -1681,40 +1668,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/addressInput.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="78" column="6" selection-start-line="60" selection-start-column="4" selection-end-line="78" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="41" column="6" selection-start-line="41" selection-start-column="6" selection-end-line="41" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js">
+    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/newStudentForm.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/addressInput.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="61" column="13" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="13" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="63" column="26" lean-forward="true" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
+          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/invoiceBrowser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="19" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/NewStudentForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

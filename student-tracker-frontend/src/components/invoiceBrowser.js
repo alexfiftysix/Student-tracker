@@ -1,16 +1,13 @@
 import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FilledInput from '@material-ui/core/FilledInput';
+import clsx from 'clsx';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
-import history from './history'
+import Paper from '@material-ui/core/Paper'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -24,6 +21,25 @@ const useStyles = makeStyles(theme => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: 200,
+    },
+    margin: {
+        marginTop: theme.spacing(1),
+    },
+    button: {
+        marginTop: theme.spacing(1),
+    },
+    flex: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    paper: {
+        padding: theme.spacing(2)
+    }
 }));
 
 export default function InvoiceBrowser() {
@@ -78,42 +94,44 @@ export default function InvoiceBrowser() {
     }
 
     return (
-        <form className={classes.root} autoComplete="off">
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="age-simple">Month</InputLabel>
-                <Select
-                    value={values.month}
-                    onChange={handleChange}
-                    inputProps={{
-                        name: 'month',
-                        id: 'age-simple',
-                    }}
-                >
-                    {months.map(m =>
-                        <MenuItem key={m.value} value={m.value}>{m.name}</MenuItem>
-                    )}
-                </Select>
-            </FormControl>
+        <Paper className={classes.paper}>
+            <form className={clsx(classes.root, classes.flex)} autoComplete="off">
+                <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="age-simple">Month</InputLabel>
+                    <Select
+                        value={values.month}
+                        onChange={handleChange}
+                        inputProps={{
+                            name: 'month',
+                            id: 'age-simple',
+                        }}
+                    >
+                        {months.map(m =>
+                            <MenuItem key={m.value} value={m.value}>{m.name}</MenuItem>
+                        )}
+                    </Select>
+                </FormControl>
 
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="age-simple">Student</InputLabel>
-                <Select
-                    value={values.student}
-                    onChange={handleChange}
-                    inputProps={{
-                        name: 'student',
-                        id: 'student-simple',
-                    }}
-                >
-                    {students.map(s =>
-                        <MenuItem key={s.id} value={s.id}>{s.name}</MenuItem>
-                    )}
-                </Select>
-            </FormControl>
+                <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="age-simple">Student</InputLabel>
+                    <Select
+                        value={values.student}
+                        onChange={handleChange}
+                        inputProps={{
+                            name: 'student',
+                            id: 'student-simple',
+                        }}
+                    >
+                        {students.map(s =>
+                            <MenuItem key={s.id} value={s.id}>{s.name}</MenuItem>
+                        )}
+                    </Select>
+                </FormControl>
 
-            {values.student && values.month ? (<Link to={'/invoice/' + values.student + '/' + values.month}>
-                <Button variant="contained" color="primary">Generate</Button>
-            </Link>) : null}
-        </form>
+                {values.student && values.month ? (<Link to={'/invoice/' + values.student + '/' + values.month}>
+                    <Button variant="contained" color="primary">Generate</Button>
+                </Link>) : null}
+            </form>
+        </Paper>
     );
 }

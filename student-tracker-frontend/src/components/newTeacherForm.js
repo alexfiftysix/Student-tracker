@@ -8,6 +8,7 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
+import Paper from '@material-ui/core/Paper'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -21,6 +22,14 @@ const useStyles = makeStyles(theme => ({
     button: {
         marginTop: theme.spacing(1),
     },
+    flex: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    paper: {
+        padding: theme.spacing(2)
+    }
 }));
 
 export default function NewTeacherForm(props) {
@@ -36,10 +45,6 @@ export default function NewTeacherForm(props) {
     const handleChange = name => event => {
         setValues({...values, [name]: event.target.value});
     };
-
-    function handleSubmit() {
-        console.log(values);
-    }
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -72,49 +77,52 @@ export default function NewTeacherForm(props) {
     }
 
     return (
-        <form className={classes.container} noValidate autoComplete="off">
-            <TextField
-                id={'name'}
-                label={'Name'}
-                className={classes.textField}
-                margin="normal"
-                onChange={handleChange('name')}
-            />
-            <TextField
-                id={'email'}
-                label={'Email'}
-                className={classes.textField}
-                margin="normal"
-                onChange={handleChange('email')}
-            />
-            <TextField
-                id={'password'}
-                label={'Password'}
-                className={classes.textField}
-                type="password"
-                margin="normal"
-                onChange={handleChange('password')}
-            />
-            <TextField
-                id={'password_confirm'}
-                label={'Confirm Password'}
-                className={classes.textField}
-                type="password"
-                margin="normal"
-                onChange={handleChange('password_confirm')}
-            />
-            <FormControl fullWidth className={clsx(classes.margin, classes.textField)}>
-                <InputLabel htmlFor="adornment-amount">Standard Rate</InputLabel>
-                <Input
-                    id="standard_rate"
-                    value={values.standard_rate}
-                    onChange={handleChange('standard_rate')}
-                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
+        <Paper className={classes.paper}>
+            <form className={clsx(classes.container, classes.flex)} noValidate autoComplete="off">
+                <h3>Sign up</h3>
+                <TextField
+                    id={'name'}
+                    label={'Name'}
+                    className={classes.textField}
+                    margin="normal"
+                    onChange={handleChange('name')}
                 />
-            </FormControl>
-            <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
-                Submit
-            </Button>
-        </form>
+                <TextField
+                    id={'email'}
+                    label={'Email'}
+                    className={classes.textField}
+                    margin="normal"
+                    onChange={handleChange('email')}
+                />
+                <TextField
+                    id={'password'}
+                    label={'Password'}
+                    className={classes.textField}
+                    type="password"
+                    margin="normal"
+                    onChange={handleChange('password')}
+                />
+                <TextField
+                    id={'password_confirm'}
+                    label={'Confirm Password'}
+                    className={classes.textField}
+                    type="password"
+                    margin="normal"
+                    onChange={handleChange('password_confirm')}
+                />
+                <FormControl fullWidth className={clsx(classes.margin, classes.textField)}>
+                    <InputLabel htmlFor="adornment-amount">Standard Rate</InputLabel>
+                    <Input
+                        id="standard_rate"
+                        value={values.standard_rate}
+                        onChange={handleChange('standard_rate')}
+                        startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                    />
+                </FormControl>
+                <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+                    Submit
+                </Button>
+            </form>
+        </Paper>
     )
 }
