@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Student from "./student";
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -91,6 +92,23 @@ export default function CalendarDay(props) {
                         <span className={classes.details}>{s.name}</span>
                         <span className={classes.details}>{s.address.suburb}</span>
                     </Button>
+                    <Checkbox
+                        checked={s.attended}
+                        // onChange={handleChange('attended')}
+                        value="attended"
+                        inputProps={{
+                            'aria-label': 'primary checkbox',
+                        }}
+                    />
+                    <Checkbox
+                        checked={s.payed}
+                        // onChange={handleChange('payed')}
+                        value="payed"
+                        color="primary"
+                        inputProps={{
+                            'aria-label': 'secondary checkbox',
+                        }}
+                    />
                     <Popover
                         id={id}
                         open={open}
