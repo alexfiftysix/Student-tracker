@@ -68,14 +68,16 @@ export default class Calendar extends React.Component {
                 days.push(
                     <div
                         className={`col cell ${
-                            !dateFns.isSameMonth(day, monthStart) ? "disabled" : ""
-                            }`}
+                            !dateFns.isSameMonth(day, monthStart) ? "disabled" : ""}`}
                         key={day}
                     >
-                        <div className={'contents'}>
-                            <CalendarDay dayNumber={formattedDate}
-                                         month={currentMonth.getMonth() + 1}/>
-                        </div>
+                        {dateFns.isSameMonth(day, monthStart) ?
+                            <div className={'contents'}>
+                                <CalendarDay dayNumber={formattedDate}
+                                             month={currentMonth.getMonth() + 1}/>
+                            </div>
+                            : null
+                        }
                         <span className="number">{formattedDate}</span>
                     </div>
                 );
