@@ -54,6 +54,7 @@ export default function NewTeacherForm(props) {
         email: '',
     });
 
+    const addressFields = ['unit_number', 'street_number', 'street_name', 'suburb', 'post_code', 'state', 'country'];
     const weekDays = [
         'Monday',
         'Tuesday',
@@ -82,12 +83,9 @@ export default function NewTeacherForm(props) {
             body: new FormData()
         };
 
-        options.body.append('name', values.name);
-        options.body.append('lesson_day', values.lesson_day);
-        options.body.append('lesson_time', values.lesson_time);
-        options.body.append('address', values.address);
-        options.body.append('price', values.price);
-        options.body.append('email', values.email);
+        for (let key in values) {
+            options.body.append(key, values[key]);
+        }
 
         fetch(url, options)
             .then(response => response.json())
@@ -97,10 +95,16 @@ export default function NewTeacherForm(props) {
             });
     }
 
+    function prepare(str) {
+        str = str.charAt(0).toUpperCase() + str.slice(1);
+        return str.replace('_', ' ')
+    }
+
     return (
         <Paper className={classes.paper}>
             <form className={clsx(classes.container, classes.flex)} noValidate autoComplete="off">
-                <h3>New Student</h3>
+                <h2>New Student</h2>
+                <h3>Details</h3>
                 <TextField
                     id={'name'}
                     label={'Name'}
@@ -114,13 +118,6 @@ export default function NewTeacherForm(props) {
                     className={classes.textField}
                     margin="normal"
                     onChange={handleChange('email')}
-                />
-                <TextField
-                    id={'address'}
-                    label={'Address'}
-                    className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange('address')}
                 />
                 <FormControl className={classes.textField}>
                     <InputLabel htmlFor="age-simple">Lesson day</InputLabel>
@@ -170,6 +167,17 @@ export default function NewTeacherForm(props) {
                         startAdornment={<InputAdornment position="start">$</InputAdornment>}
                     />
                 </FormControl>
+                <h3>Address</h3>
+                {addressFields.map(f =>
+                    <TextField
+                        id={f}
+                        key={f}
+                        label={prepare(f)}
+                        className={classes.textField}
+                        margin="normal"
+                        onChange={handleChange(f)}
+                    />
+                )}
                 <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
                     Submit
                 </Button>

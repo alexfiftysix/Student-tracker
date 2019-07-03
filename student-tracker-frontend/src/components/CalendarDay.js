@@ -4,7 +4,7 @@ import Student from "./student";
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     card: {
         minWidth: 275,
     },
@@ -32,16 +32,14 @@ const useStyles = makeStyles({
         textDecoration: 'none',
         textTransform: 'capitalize'
     },
-    time: {
-        marginRight: '1em',
+    details: {
+        marginRight: theme.spacing(0.5),
+        textTransform: 'capitalize',
     },
     day: {
         padding: '0 0.5em',
-    },
-    name: {
-        textTransform: 'capitalize',
     }
-});
+}));
 
 export default function CalendarDay(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -67,7 +65,6 @@ export default function CalendarDay(props) {
     if (paddedMonth.length === 1) {
         paddedMonth = '0' + paddedMonth;
     }
-    console.log(paddedMonth);
 
     const [students, setStudents] = React.useState([]);
     const url = 'http://localhost:5000/my_appointments/daily/2019-' + paddedMonth + '-' + paddedDay;
@@ -81,7 +78,6 @@ export default function CalendarDay(props) {
             .then(results => results.json())
             .then(data => {
                 setStudents(data);
-                console.log(data);
             });
     }, [url]);
 
@@ -89,10 +85,11 @@ export default function CalendarDay(props) {
     return (
         <div className={classes.day}>
             {students.map(s =>
-                <div className={classes.booking}>
+                <div className={classes.booking} key={s.id}>
                     <Button onClick={handleClick}>
-                        <span className={classes.time}>{s.lesson_plan.lesson_time}</span>
-                        <span className={classes.name}>{s.name}</span>
+                        <span className={classes.details}>{s.lesson_plan.lesson_time}</span>
+                        <span className={classes.details}>{s.name}</span>
+                        <span className={classes.details}>{s.address.suburb}</span>
                     </Button>
                     <Popover
                         id={id}

@@ -499,16 +499,15 @@ class Booking(Resource):
         # TODO: Error checking
         # TODO: Check that student is owned by current_user
         lesson_date_time = datetime.strptime(lesson_date_time, "%Y-%m-%d_%H:%M")
-
         student = Student.query.filter_by(id=student_id).first()
-
         teacher = Teacher.query.filter_by(id=student.teacher).first().public_id  # Maybe don't release this info
+        address = Address.query.filter_by(id=student.address).first().json()
 
         booking = {
             'id': str(student.id),
             'teacher': str(teacher),
             'name': str(student.name),
-            'address': str(student.address),
+            'address': address,
             'end_date': str(student.end_date),
             'email': str(student.email),
             'lesson_plan': None,

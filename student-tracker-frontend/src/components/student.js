@@ -23,7 +23,6 @@ export default function Student(props) {
             })
             .then(results => results.json())
             .then(data => {
-                console.log(data);
                 setStudent(data);
             });
     }, [student_id]);
@@ -54,7 +53,7 @@ export default function Student(props) {
                 }
                 <li>
                     <h4>Address:</h4>
-                    <p>{student.address}</p>
+                    <p>{student.address.street_number} {student.address.street_name}, {student.address.suburb}</p>
                 </li>
                 <li>
                     <h4>Price:</h4>

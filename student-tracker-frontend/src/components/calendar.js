@@ -77,7 +77,6 @@ export default class Calendar extends React.Component {
                                          month={currentMonth.getMonth() + 1}/>
                         </div>
                         <span className="number">{formattedDate}</span>
-                        <span className="bg">{formattedDate}</span>
                     </div>
                 );
                 day = dateFns.addDays(day, 1);
