@@ -39,6 +39,7 @@ $ npm start
 Migrate database
 ```
 $ cd backend
+$ export FLASK_APP=run.py
 $ flask db migrate
 $ flask db upgrade
 ```

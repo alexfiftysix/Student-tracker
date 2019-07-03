@@ -15,6 +15,7 @@ import Teacher from './components/teacher'
 import Invoice from './components/invoice'
 import InvoiceBrowser from './components/invoiceBrowser'
 import Calendar from './components/calendar'
+import AddressInput from './components/addressInput'
 
 function App() {
     return (
@@ -33,7 +34,7 @@ function App() {
                 <Route path={'/invoice/:student_id/:month'} component={Invoice}/>
                 <Route path={'/invoices'} component={InvoiceBrowser}/>
                 <Route path={'/calendar'} component={Calendar}/>
-                {/*<AddressInput/>*/}
+                <AddressInput/>
             </Router>
         </main>
     );

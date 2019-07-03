@@ -75,6 +75,14 @@ class Address(db.Model):
             'unit_number': self.unit_number,
         }
 
+    @staticmethod
+    def add(country, state, suburb, post_code, street_name, street_number, unit_number):
+        new_address = Address(country=country, state=state, suburb=suburb, post_code=post_code,
+                              street_name=street_name, street_number=street_number, unit_number=unit_number)
+        db.session.add(new_address)
+        db.session.commit()
+        return new_address
+
     class AddressResource(Resource):
         @staticmethod
         @token_required
@@ -85,11 +93,10 @@ class Address(db.Model):
             else:
                 return None, 404
 
+    class AllAddressesResource(Resource):
         @staticmethod
         @token_required
         def post(current_user):
-            fields = ['country', 'state', 'suburb', 'post_code', 'street_name', 'street_number', 'unit_number']
-
             country = request.form.get('country')
             state = request.form.get('state')
             suburb = request.form.get('suburb')
@@ -114,20 +121,21 @@ class Teacher(db.Model):
     business_name = db.Column('business_name', db.String(200), nullable=True)
     password = db.Column('password', db.String(200), nullable=False)  # sha256 encryption here plz
     standard_rate = db.Column('standard_rate', db.DECIMAL, nullable=False)
-    address = db.Column('address', db.String(250), nullable=True)  # for price calculations if we want to go there
     abn = db.Column('ABN', db.String(11), nullable=True)
+    address = db.Column(db.ForeignKey('address.id'), nullable=False)
 
     # Note the first two digits of an ABN are a checksum, use this to calculate ABN validity
     # https://abr.business.gov.au/Help/AbnFormat
 
     def json(self):
+        address = Address.query.filter_by(id=self.address).first().json()
         return {
             'public_id': self.public_id,
             'email': self.email,
             'name': self.name,
             'business_name': self.business_name,
             'standard_rate': str(self.standard_rate),
-            'address': str(self.address),
+            'address': address,
             'abn': self.abn,
         }
 
@@ -192,7 +200,18 @@ class Teacher(db.Model):
             public_id = str(uuid.uuid4())
             password = request.form.get('password')
             standard_rate = request.form.get('standard_rate')
-            address = request.form.get('address')
+            business_name = request.form.get('business_name')
+            abn = request.form.get('abn')
+
+            country = request.form.get('country')
+            state = request.form.get('state')
+            suburb = request.form.get('suburb')
+            post_code = request.form.get('post_code')
+            street_name = request.form.get('street_name')
+            street_number = request.form.get('street_number')
+            unit_number = request.form.get('unit_number')
+
+            address = Address.add(country, state, suburb, post_code, street_name, street_number, unit_number)
 
             # Is having accurate messages inviting spammers/bad actors creating accounts?
             if not email:
@@ -208,7 +227,7 @@ class Teacher(db.Model):
 
             try:
                 to_add = Teacher(email=email, name=name, public_id=public_id, password=password_encrypted,
-                                 standard_rate=standard_rate, address=address)
+                                 standard_rate=standard_rate, address=address.id, business_name=business_name, abn=abn)
                 db.session.add(to_add)
                 db.session.commit()
                 return {'message': 'Teacher added successfully'}, 201
@@ -250,23 +269,25 @@ class Student(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     teacher = db.Column('teacher', db.Integer, db.ForeignKey(Teacher.id, onupdate="CASCADE", ondelete="CASCADE"))
     name = db.Column('name', db.String(200), nullable=False)
-    address = db.Column('address', db.String(200), nullable=False)
     end_date = db.Column(db.Date, nullable=True)
     email = db.Column(db.String(200), nullable=True)
     phone = db.Column(db.String(20), nullable=True)
+    address = db.Column(db.ForeignKey('address.id'), nullable=False)
 
     def json(self):
         plan: LessonPlan = self.get_lesson_plan()
         teacher = Teacher.query.filter_by(id=self.teacher).first().public_id  # Maybe don't release this info
+        address = Address.query.filter_by(id=self.address).first().json()
 
         student = {
             'id': str(self.id),
             'teacher': str(teacher),
             'name': str(self.name),
-            'address': str(self.address),
+            'address': address,
             'end_date': str(self.end_date),
             'email': str(self.email),
-            'lesson_plan': None
+            'lesson_plan': None,
+
         }
 
         if plan:
@@ -373,7 +394,6 @@ class Student(db.Model):
             """
             # TODO: Check for schedule clash when adding new student
             name = request.form.get('name')
-            address = request.form.get('address')
             end_date = None  # TODO: Implement this as optional
             email = request.form.get('email')
             start_date = None  # TODO: Implement this as optional
@@ -381,6 +401,16 @@ class Student(db.Model):
             lesson_day = request.form.get('lesson_day')
             length_minutes = request.form.get('lesson_length_minutes')
             price = request.form.get('price')
+
+            country = request.form.get('country')
+            state = request.form.get('state')
+            suburb = request.form.get('suburb')
+            post_code = request.form.get('post_code')
+            street_name = request.form.get('street_name')
+            street_number = request.form.get('street_number')
+            unit_number = request.form.get('unit_number')
+
+            address = Address.add(country, state, suburb, post_code, street_name, street_number, unit_number)
 
             if not name:
                 return {'message': 'name must be provided'}
@@ -414,7 +444,7 @@ class Student(db.Model):
             new_student = Student(
                 teacher=current_user.id,
                 name=name,
-                address=address,
+                address=address.id,
                 end_date=None,
                 email=email
             )
@@ -912,3 +942,4 @@ api.add_resource(Attendance.AttendanceResource, '/my_students/attendance/<studen
 api.add_resource(Booking, '/my_students/booking/<student_id>/<lesson_date_time>')
 
 api.add_resource(Invoice, '/my_students/invoice/<student_id>/<year_and_month>')
+api.add_resource(Address.AllAddressesResource, '/address')

@@ -122,13 +122,6 @@ export default function NewTeacherForm(props) {
                     margin="normal"
                     onChange={handleChange('address')}
                 />
-                {/*<TextField*/}
-                {/*    id={'lesson_day'}*/}
-                {/*    label={'Lesson Day'}*/}
-                {/*    className={classes.textField}*/}
-                {/*    margin="normal"*/}
-                {/*    onChange={handleChange('lesson_day')}*/}
-                {/*/>*/}
                 <FormControl className={classes.textField}>
                     <InputLabel htmlFor="age-simple">Lesson day</InputLabel>
                     <Select
