@@ -512,7 +512,8 @@ class Booking(Resource):
             'email': str(student.email),
             'lesson_plan': None,
             'attended': False,
-            'payed': False
+            'payed': False,
+            'cancelled': False
         }
 
         plan: LessonPlan = student.get_lesson_plan()
@@ -526,6 +527,8 @@ class Booking(Resource):
         attendance = Attendance.query.filter_by(student=student_id).filter_by(datetime=lesson_date_time).first()
         if attendance and attendance.attended:
             booking['attended'] = True
+        if attendance and attendance.cancelled:
+            booking['cancelled'] = True
 
         payment = Payment.query.filter_by(student=student_id).filter_by(datetime=lesson_date_time).first()
         if payment and payment.amount > 0:

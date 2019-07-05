@@ -39,6 +39,9 @@ const useStyles = makeStyles(theme => ({
     },
     day: {
         padding: '0 0.5em',
+    },
+    cancelled: {
+        color: 'grey',
     }
 }));
 
@@ -79,15 +82,15 @@ export default function CalendarDay(props) {
             .then(results => results.json())
             .then(data => {
                 setStudents(data);
+                console.log(data);
             });
     }, [url]);
-
 
     return (
         <div className={classes.day}>
             {students.map(s =>
                 <div className={classes.booking} key={s.id}>
-                    <Button onClick={handleClick}>
+                    <Button onClick={handleClick} className={s.cancelled ? classes.cancelled : null}>
                         <span className={classes.details}>{s.lesson_plan.lesson_time}</span>
                         <span className={classes.details}>{s.name}</span>
                         <span className={classes.details}>{s.address.suburb}</span>
