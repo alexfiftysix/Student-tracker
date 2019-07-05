@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
     },
     cancelled: {
         color: 'grey',
+        textDecoration: 'line-through'
     }
 }));
 
