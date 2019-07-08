@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="20cfc609-3330-477e-9691-15a11792953d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentation/kanban.txt" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/kanban.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.css" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/DailyView.css" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/DailyView.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -134,14 +133,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+            <state relative-caret-position="768">
+              <caret line="83" column="19" selection-start-line="83" selection-start-column="19" selection-end-line="83" selection-end-column="19" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <element signature="e#572#924#0" />
+                <element signature="n#!!block;n#f#0;n#!!block;n#BookingNew#0" />
+                <element signature="n#!!block;n#f#0;n#!!block;n#BookingNew#0" />
               </folding>
             </state>
           </provider>
@@ -150,8 +150,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+            <state relative-caret-position="157">
+              <caret line="61" column="78" selection-start-line="61" selection-start-column="78" selection-end-line="61" selection-end-column="78" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -159,11 +159,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+            <state relative-caret-position="168">
+              <caret line="16" column="15" lean-forward="true" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -191,8 +191,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>def del</find>
-      <find>desc</find>
       <find>filter_by</find>
       <find>order_by</find>
       <find>timedelta</find>
@@ -219,8 +217,10 @@
       <find>spacing(1)</find>
       <find>console.log</find>
       <find>booking-list a</find>
-      <find>l</find>
       <find>...</find>
+      <find>l</find>
+      <find>payed</find>
+      <find>attended</find>
     </findStrings>
     <replaceStrings>
       <replace>window.location.assign(window.location);</replace>
@@ -274,7 +274,6 @@
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/calendar.css" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/SimplePopover.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/newStudentForm.css" />
-        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/invoiceBrowser.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/invoice.js" />
         <option value="$PROJECT_DIR$/README.md" />
@@ -289,8 +288,9 @@
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/CalendarDay.js" />
         <option value="$PROJECT_DIR$/documentation/kanban.txt" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/DailyView.css" />
-        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.css" />
+        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.js" />
+        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.css" />
       </list>
     </option>
   </component>
@@ -614,14 +614,7 @@
       <workItem from="1562162804523" duration="1581000" />
       <workItem from="1562288281858" duration="1158000" />
       <workItem from="1562291197185" duration="1072000" />
-      <workItem from="1562568224114" duration="1460000" />
-    </task>
-    <task id="LOCAL-00036" summary="Front-end support multiple teachers to add/view students, add/view notes and view schedules.">
-      <created>1558169994039</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1558169994039</updated>
+      <workItem from="1562568224114" duration="4481000" />
     </task>
     <task id="LOCAL-00037" summary="Basic authorisation added and implemented on a few routes - notably for getting all teachers and all students">
       <created>1558187975937</created>
@@ -959,7 +952,14 @@
       <option name="project" value="LOCAL" />
       <updated>1562291357317</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="Booking changed to function component">
+      <created>1562569704568</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1562569704568</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -995,7 +995,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="213086000" />
+    <option name="totallyTimeSpent" value="216107000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1101,7 +1101,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Can get daily schedule" />
     <MESSAGE value="Front end works very basically" />
     <MESSAGE value="Lessons render correctly - fixed broken date comparison" />
     <MESSAGE value="Added Booking resource which combines lesson plan, attendance, and booking tables" />
@@ -1126,7 +1125,8 @@
     <MESSAGE value="Added checkboxes to the calendar to display attended/payed" />
     <MESSAGE value="Calendar bookings are now greyed out when cancelled" />
     <MESSAGE value="Cancelled Calendar bookings are now strikethrough" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cancelled Calendar bookings are now strikethrough" />
+    <MESSAGE value="Booking changed to function component" />
+    <option name="LAST_COMMIT_MESSAGE" value="Booking changed to function component" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1590,17 +1590,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+        <state relative-caret-position="157">
+          <caret line="61" column="78" selection-start-line="61" selection-start-column="78" selection-end-line="61" selection-end-column="78" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
@@ -1609,12 +1602,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+        <state relative-caret-position="768">
+          <caret line="83" column="19" selection-start-line="83" selection-start-column="19" selection-end-line="83" selection-end-column="19" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#572#924#0" />
+            <element signature="n#!!block;n#f#0;n#!!block;n#BookingNew#0" />
+            <element signature="n#!!block;n#f#0;n#!!block;n#BookingNew#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="16" column="15" lean-forward="true" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
         </state>
       </provider>
     </entry>

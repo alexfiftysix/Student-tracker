@@ -59,7 +59,7 @@ export default function LogIn(props) {
 
     return (
         <Paper className={classes.paper}>
-            <form className={clsx(classes.container, classes.flex)} noValidate autoComplete="off">
+            <form className={clsx(classes.container, classes.flex)} noValidate>
                 <h3>Log in</h3>
                 <TextField
                     id={'username'}
