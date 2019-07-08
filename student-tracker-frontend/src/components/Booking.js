@@ -1,30 +1,44 @@
 import React from 'react';
 import './Booking.css';
 import {Link} from "react-router-dom";
+import Paper from '@material-ui/core/Paper'
+import {makeStyles} from "@material-ui/core";
 
-export default class Booking extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        this.state['id'] = props.id;
-        this.state['name'] = props.name;
-        this.state['time'] = props.time;
-        this.state['end_time'] = props.end_time;
-        this.state['address'] = props.address;
-        this.state['attended'] = props.attended;
-        this.state['payed'] = props.payed;
-        this.state['price'] = props.price;
-        this.state['student_id'] = props.student_id;
-        this.state['message'] = '';
-        this.state['date'] = props.date;
-        this.state['length'] = props.length;
+const useStyles = makeStyles(theme => ({
+    booking: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(5, 1fr)',
+        gridTemplateRows: 'repeat(2, 1fr)',
+        rowGap: '5px',
+        columnGap: '5px',
+        gridTemplateAreas: "'nm nm nm attended payed' 'tm addr addr addr price'",
+        color: 'black',
+        textAlign: 'left',
+        padding: theme.spacing(1),
+        margin: theme.spacing(1),
 
-        this.changeAttended = this.changeAttended.bind(this);
-        this.changePayed = this.changePayed.bind(this);
-    }
+    },
+}));
 
-    changePayed() {
-        let url = 'http://localhost:5000/my_students/payment/' + this.state.student_id;
+export default function Booking(props) {
+    const classes = useStyles();
+    const [state, setState] = React.useState({
+        id: props.id,
+        name: props.name,
+        time: props.time,
+        end_time: props.end_time,
+        address: props.address,
+        attended: props.attended,
+        payed: props.payed,
+        price: props.price,
+        student_id: props.student_id,
+        message: '',
+        date: props.date,
+        length: props.length,
+    });
+
+    function changePayed() {
+        let url = 'http://localhost:5000/my_students/payment/' + state.student_id;
         const token = localStorage.getItem('token');
         let options = {
             method: 'PUT',
@@ -36,11 +50,11 @@ export default class Booking extends React.Component {
             body: new FormData()
         };
 
-        options.body.append('lesson_date_time', String(this.state.date + '_' + this.state.time));
-        if (this.state.payed) {
+        options.body.append('lesson_date_time', String(state.date + '_' + state.time));
+        if (state.payed) {
             options.body.append('amount', '0');
         } else {
-            options.body.append('amount', String(this.state.price));
+            options.body.append('amount', String(state.price));
         }
 
         fetch(url, options)
@@ -48,11 +62,11 @@ export default class Booking extends React.Component {
             .then(data => data);
 
 
-        this.setState({'payed': !this.state.payed});
+        setState({...state, 'payed': !state.payed});
     }
 
-    changeAttended() {
-        let url = 'http://localhost:5000/my_students/attendance/' + this.state.student_id;
+    function changeAttended() {
+        let url = 'http://localhost:5000/my_students/attendance/' + state.student_id;
         const token = localStorage.getItem('token');
 
         let options = {
@@ -65,63 +79,33 @@ export default class Booking extends React.Component {
             body: new FormData()
         };
 
-        options.body.append('lesson_date_time', String(this.state.date + ' ' + this.state.time));
-        options.body.append('lesson_length', String(this.state.length)); // TODO: Get dynamically
-        options.body.append('attended', String(!this.state.attended));
+        options.body.append('lesson_date_time', String(state.date + ' ' + state.time));
+        options.body.append('lesson_length', String(state.length)); // TODO: Get dynamically
+        options.body.append('attended', String(!state.attended));
         options.body.append('cancelled', String(false)); // TODO: Get dynamically
-        options.body.append('price', String(this.state.price));
+        options.body.append('price', String(state.price));
 
         fetch(url, options)
             .then(response => response.json())
             .then(data => data);
 
-        this.setState({'attended': !this.state.attended});
+        setState({...state, 'attended': !state.attended});
     }
-
-
-    render() {
-        if (this.state['message']) {
-            return <div className={'booking'}>{this.state['message']}</div>
-        }
-
-        return (
-            <div className={'booking'}>
-                <Link to={'/student/' + this.state.student_id} className={'link'}>
-                    <h3>{this.state.name}</h3>
-                </Link>
-                <p className={'time'}>{String(this.state.time).substr(0, 5)}-{String(this.state.end_time).substr(0, 5)}</p>
-                <p className={'address'}>{this.state.address}</p>
-                <div onClick={this.changeAttended}
-                     className={'attended ' + (this.state.attended ? 'success' : 'failure')}>{this.state.attended ? '' : 'Not '}Attended
-                </div>
-                <div onClick={this.changePayed}
-                     className={'payed ' + (this.state.payed ? 'success' : 'failure')}>{this.state.payed ? '' : 'Not '}Paid
-                </div>
-                <p className={'price'}>${this.state.price}</p>
-            </div>
-        );
-    }
-}
-
-/*function Booking(props) {
-    const [attended, setAttended] = React.useState(props.attended);
-    const [payed, setPayed] = React.useState(props.payed);
-
 
     return (
-        <div className={'booking'}>
-            <h3>{props.name}</h3>
-            <p className={'time'}>{props.time}</p>
-            <p className={'address'}>{props.address}</p>
-            <div className={'attended ' + (props.attended ? 'success' : 'failure')}>Attended</div>
-            <div onClick={changePayed} className={'payed ' + (props.payed ? 'success' : 'failure')}>Paid</div>
-        </div>
+        <Paper className={classes.booking}>
+            <Link to={'/student/' + state.student_id}>
+                <h3>{state.name}</h3>
+            </Link>
+            <p className={'time'}>{String(state.time).substr(0, 5)}-{String(state.end_time).substr(0, 5)}</p>
+            <p className={'address'}>{state.address}</p>
+            <div onClick={changeAttended}
+                 className={'attended ' + (state.attended ? 'success' : 'failure')}>{state.attended ? '' : 'Not '}Attended
+            </div>
+            <div onClick={changePayed}
+                 className={'payed ' + (state.payed ? 'success' : 'failure')}>{state.payed ? '' : 'Not '}Paid
+            </div>
+            <p className={'price'}>${state.price}</p>
+        </Paper>
     );
 }
-
-Booking.propTypes = {
-    name: PropTypes.string.isRequired
-};*/
-
-
-// export default Booking
