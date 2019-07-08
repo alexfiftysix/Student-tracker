@@ -3,25 +3,18 @@ import './Booking.css';
 import {Link} from "react-router-dom";
 import Paper from '@material-ui/core/Paper'
 import Checkbox from '@material-ui/core/Checkbox';
+import Popover from '@material-ui/core/Popover'
 
 export default function Booking(props) {
     const [state, setState] = React.useState({
-        id: props.id,
-        name: props.name,
-        time: props.time,
-        end_time: props.end_time,
-        address: props.address,
         attended: props.attended,
         payed: props.payed,
-        price: props.price,
-        student_id: props.student_id,
-        message: '',
         date: props.date,
-        length: props.length,
+        booking: props.booking
     });
 
     function changePayed() {
-        let url = 'http://localhost:5000/my_students/payment/' + state.student_id;
+        let url = 'http://localhost:5000/my_students/payment/' + state.booking.id;
         const token = localStorage.getItem('token');
         let options = {
             method: 'PUT',
@@ -33,11 +26,11 @@ export default function Booking(props) {
             body: new FormData()
         };
 
-        options.body.append('lesson_date_time', String(state.date + '_' + state.time));
+        options.body.append('lesson_date_time', String(state.date + '_' + state.booking.lesson_plan.lesson_time));
         if (state.payed) {
             options.body.append('amount', '0');
         } else {
-            options.body.append('amount', String(state.price));
+            options.body.append('amount', String(state.booking.lesson_plan.price));
         }
 
         fetch(url, options)
@@ -49,7 +42,7 @@ export default function Booking(props) {
     }
 
     function changeAttended() {
-        let url = 'http://localhost:5000/my_students/attendance/' + state.student_id;
+        let url = 'http://localhost:5000/my_students/attendance/' + state.booking.id;
         const token = localStorage.getItem('token');
 
         let options = {
@@ -62,11 +55,11 @@ export default function Booking(props) {
             body: new FormData()
         };
 
-        options.body.append('lesson_date_time', String(state.date + ' ' + state.time));
-        options.body.append('lesson_length', String(state.length)); // TODO: Get dynamically
+        options.body.append('lesson_date_time', String(state.date + ' ' + state.booking.lesson_plan.lesson_time));
+        options.body.append('lesson_length', String(state.booking.lesson_plan.length_minutes));
         options.body.append('attended', String(!state.attended));
         options.body.append('cancelled', String(false)); // TODO: Get dynamically
-        options.body.append('price', String(state.price));
+        options.body.append('price', String(state.booking.lesson_plan.price));
 
         fetch(url, options)
             .then(response => response.json())
@@ -75,17 +68,46 @@ export default function Booking(props) {
         setState({...state, 'attended': !state.attended});
     }
 
+    // Popover stuff
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    function openPopover(event) {
+        setAnchorEl(event.currentTarget);
+    }
+
+    function closePopover() {
+        setAnchorEl(null);
+    }
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'address-popover' : undefined;
+    // end Popover stuff
+
     return (
         <Paper className={'booking'}>
             <div>
-                <Link to={'/student/' + state.student_id} className={'lefty'}>
-                    <h3>{state.name}</h3>
+                <Link to={'/student/' + state.booking.id} className={'lefty name'}>
+                    <h3>{state.booking.name}</h3>
                 </Link>
-                <h4>{String(state.time).substr(0, 5)}-{String(state.end_time).substr(0, 5)}</h4>
+                <h4>{String(state.booking.lesson_plan.lesson_time).substr(0, 5)}-{String(state.booking.lesson_plan.end_time).substr(0, 5)}</h4>
             </div>
 
             <div>
-                <p className={'lefty'}>{state.address}</p>
+                <p className={'lefty address'} onClick={openPopover}>{state.booking.address.suburb ? state.booking.address.suburb : 'Address'}</p>
+                <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={closePopover}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                    }}
+                >{state.booking.address.street_number + ' ' + state.booking.address.street_name + ', ' + state.booking.address.suburb}</Popover>
                 <div className={'attended'}>
                     Attended
                     <Checkbox
@@ -101,7 +123,7 @@ export default function Booking(props) {
             </div>
 
             <div>
-                <p className={'price lefty'}>${state.price}</p>
+                <p className={'price lefty'}>${state.booking.lesson_plan.price}</p>
                 <div>Paid
                     <Checkbox
                         checked={state.payed}

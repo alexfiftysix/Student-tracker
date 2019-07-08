@@ -49,8 +49,9 @@ export default function DailyView(props) {
                 <Booking key={b.lesson_plan.id} name={b.name} time={b.lesson_plan.lesson_time} attended={b.attended}
                          payed={b.payed}
                          address={b.address.street_number + ' ' + b.address.street_name + ', ' + b.address.suburb}
+                         suburb={b.address.suburb}
                          id={b.id} price={b.lesson_plan.price} end_time={b.lesson_plan.end_time}
-                         student_id={b.id} date={date} length={b.lesson_plan.length_minutes}/>
+                         student_id={b.id} date={date} length={b.lesson_plan.length_minutes} booking={b}/>
             )}
         </div>
     );
