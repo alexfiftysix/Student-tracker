@@ -64,6 +64,11 @@ class Address(db.Model):
     unit_number = db.Column('unit_number', db.String(50))
 
     def json(self):
+        printable = f'{self.street_number} {self.street_name}, {self.suburb}'
+
+        if self.unit_number and self.unit_number != '':
+            printable = self.unit_number + '/' + printable
+
         return {
             'id': self.id,
             'country': self.country,
@@ -73,6 +78,7 @@ class Address(db.Model):
             'street_name': self.street_name,
             'street_number': self.street_number,
             'unit_number': self.unit_number,
+            'printable': printable
         }
 
     @staticmethod

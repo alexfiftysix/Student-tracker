@@ -27,6 +27,7 @@ export default function Invoice(props) {
             })
             .then(results => results.json())
             .then(data => {
+                console.log(data);
                 setInvoice(data);
             })
     }, [url]);
@@ -50,7 +51,7 @@ export default function Invoice(props) {
             <aside className={'student-details'}>
                 <h3>To</h3>
                 <p>Name: {invoice.student.name}</p>
-                <p>Address: {invoice.student.address}</p>
+                <p>Address: {invoice.student.address.printable}</p>
             </aside>
 
             <h3>Lessons:</h3>
@@ -66,7 +67,7 @@ export default function Invoice(props) {
                     </TableHead>
                     <TableBody>
                         {invoice.bookings.map(b =>
-                            <TableRow key={b.dateTime}>
+                            <TableRow key={b.datetime}>
                                 <TableCell>{b.datetime}</TableCell>
                                 <TableCell align={'right'}>{b.attended === 'True' ? 'Yes' : 'No'}</TableCell>
                                 <TableCell align={'right'}>${b.price}</TableCell>
