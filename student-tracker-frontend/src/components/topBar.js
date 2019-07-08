@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import './topBar.css'
 import history from './history'
 import currentDateAsString from '../utilities/dates'
-
+import Menu from './menu'
 
 function signOut() {
     localStorage.clear();
@@ -52,54 +52,37 @@ export default function TopBar(props) {
 
     if (data && data.name) {
         return (
-            <div className={'fake-header'}>
-                <header>
-                    <ul>
-                        <li>Hello, {data.name}</li>
-                        <li>
-                            <Link to={'/'} onClick={signOut}>Log out</Link>
-                        </li>
-                        <li>|</li>
-                        <li>
-                            <Link to={'/weekly/' + dateString}>Weekly View</Link>
-                        </li>
-                        <li>
-                            <Link to={'/daily/' + dateString}>Daily View</Link>
-                        </li>
-                        <li>
-                            <Link to={'/add_student'}>Add a student</Link>
-                        </li>
-                        <li>
-                            <Link onClick={updateSchedule} to={'/weekly/' + today}>Update Schedule</Link>
-                        </li>
-                        <li>
-                            <Link to={'/me'}>Me</Link>
-                        </li>
-                        <li>
-                            <Link to={'/invoices'}>Invoices</Link>
-                        </li>
-                        <li>
-                            <Link to={'/calendar'}>Calendar</Link>
-                        </li>
-                    </ul>
-                </header>
-            </div>
+            <header className={'topBar'}>
+                <ul>
+                    <l1>
+                        <div>
+                            <Menu/>
+                        </div>
+                    </l1>
+                    <li>
+                        <Link to={'/weekly/' + dateString}>Weekly View</Link>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <Link to={'/'} onClick={signOut}>Log out</Link>
+                    </li>
+                    <li>Hello, {data.name}</li>
+                </ul>
+            </header>
         )
     }
 
     return (
-        <div className={'fake-header'}>
-            <header>
-                <ul>
-                    <li>
-                        <Link to={'/log_in'}>Log In</Link>
-                    </li>
-                    <li>|</li>
-                    <li>
-                        <Link to={'/sign_up'}>Sign Up</Link>
-                    </li>
-                </ul>
-            </header>
-        </div>
+        <header className={'topBar'}>
+            <ul>
+                <li>
+                    <Link to={'/log_in'}>Log In</Link>
+                </li>
+                <li>
+                    <Link to={'/sign_up'}>Sign Up</Link>
+                </li>
+            </ul>
+        </header>
     )
 }

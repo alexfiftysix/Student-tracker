@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 import Booking from "./Booking";
 import Paper from '@material-ui/core/Paper'
 import {makeStyles} from "@material-ui/core";
-// import './DailyView.css'
 
 const useStyles = makeStyles(theme => ({
     paper: {
