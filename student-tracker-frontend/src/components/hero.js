@@ -41,8 +41,8 @@ export default function Hero() {
                 <div className={classes.title}>
                     <h1 className={classes.heading}>Organise your students. Better.</h1>
                     <h3 className={classes.heading}>
-                        Rostera helps private teachers organise their lessons.
-                        Make bookings, track attendance and payments, and generate invoices on the fly.
+                        Rostera helps private teachers organise lessons.
+                        Easily book students, track attendance and payments, and generate invoices on the fly.
                     </h3>
                     <SignUpButton cta={true}><h3>GET STARTED TODAY</h3></SignUpButton>
                 </div>

@@ -5,7 +5,6 @@ import './WeeklyView.css'
 // TODO: server-optimise this to use the /my_appointments/weekly endpoint
 
 function get_next_seven_days(start_date) {
-    console.log(start_date);
     let date = new Date(Date.parse(start_date));
 
     let weekdays = [];

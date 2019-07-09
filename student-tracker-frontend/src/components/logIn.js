@@ -25,6 +25,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function LogIn(props) {
+    // TODO: Get this and all the others to work on mobile
+    // Maybe try Formik https://jaredpalmer.com/formik/
     const classes = useStyles();
     const [values, setValues] = React.useState({
         username: '',
@@ -53,7 +55,7 @@ export default function LogIn(props) {
             .then(response => response.json())
             .then(data => {
                 console.log(window.innerHeight);
-                if (window.innerHeight > 900) {
+                if (window.innerHeight > 1000) {
                     localStorage.setItem('token', data['token']);
                     history.push('/weekly/' + today);
                 } else {
@@ -66,7 +68,7 @@ export default function LogIn(props) {
 
     return (
         <Paper className={classes.paper}>
-            <form className={clsx(classes.container, classes.flex)} noValidate>
+            <form onSubmit={handleSubmit} className={clsx(classes.container, classes.flex)} noValidate>
                 <h3>Log in</h3>
                 <TextField
                     id={'username'}
@@ -84,7 +86,7 @@ export default function LogIn(props) {
                     margin="normal"
                     onChange={handleChange('password')}
                 />
-                <Button type={'submit'} variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+                <Button type={'submit'} variant="contained" color="primary" className={classes.button} onTouchStart={handleSubmit} onClick={handleSubmit}>
                     Submit
                 </Button>
             </form>

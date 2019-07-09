@@ -46,10 +46,10 @@ export default function TopBar(props) {
                         </div>
                     </li>
                     <li>
-                        <Media query={'screen and (min-width: 1201px)'}>
+                        <Media query={'only screen and (min-width: 1000px)'}>
                             <Button href={'/weekly/' + dateString}>Weekly View</Button>
                         </Media>
-                        <Media query={'screen and (max-width: 1200px)'}>
+                        <Media query={'only screen and (max-width: 999px)'}>
                             <Button href={'/daily/' + dateString}>Daily View</Button>
                         </Media>
                     </li>
