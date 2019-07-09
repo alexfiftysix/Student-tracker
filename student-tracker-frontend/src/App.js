@@ -15,12 +15,15 @@ import Teacher from './components/teacher'
 import Invoice from './components/invoice'
 import InvoiceBrowser from './components/invoiceBrowser'
 import Calendar from './components/calendar'
+import Hero from './components/hero'
+
 
 function App() {
     return (
         <main className="App">
             <Router>
                 <TopBar/>
+                <Route path="/home" component={Hero}/>
                 <Route path="/sign_up" component={NewTeacherFrom}/>
                 <Route path="/log_in" component={LogIn}/>
                 <Route path="/weekly/:start_date" component={WeekNavigator}/>
