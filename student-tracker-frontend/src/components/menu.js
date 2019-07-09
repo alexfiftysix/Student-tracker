@@ -9,7 +9,13 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import Link from '@material-ui/core/Link'
+import Link from '@material-ui/core/Link';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import ViewWeek from '@material-ui/icons/ViewWeek';
+import ViewDay from '@material-ui/icons/ViewDay';
+import PersonAdd from '@material-ui/icons/PersonAdd';
+import Payment from '@material-ui/icons/Payment';
+import CalendarToday from '@material-ui/icons/CalendarToday';
 
 const useStyles = makeStyles({
     list: {
@@ -38,27 +44,33 @@ export default function Menu() {
     const links = [
         {
             name: 'Me',
-            link: '/me'
+            link: '/me',
+            icon: <AccountCircle/>
         },
         {
             name: 'Weekly View',
             link: '/weekly/' + dateString,
+            icon: <ViewWeek/>
         },
         {
             name: 'Daily View',
-            link: '/daily/' + dateString
+            link: '/daily/' + dateString,
+            icon: <ViewDay/>
         },
         {
             name: 'Add Student',
-            link: '/add_student'
+            link: '/add_student',
+            icon: <PersonAdd/>
         },
         {
             name: 'Invoices',
-            link: '/invoices'
+            link: '/invoices',
+            icon: <Payment/>
         },
         {
             name: 'Calender',
-            link: '/calendar'
+            link: '/calendar',
+            icon: <CalendarToday/>
         },
     ];
 
@@ -82,7 +94,7 @@ export default function Menu() {
                 {links.map((link, index) => (
                     <Link href={link.link}>
                         <ListItem button key={link.name}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
+                            <ListItemIcon>{link.icon}</ListItemIcon>
                             <ListItemText primary={link.name}/>
                         </ListItem>
                     </Link>

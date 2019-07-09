@@ -11,20 +11,6 @@ function signOut() {
     window.location.assign(window.location);
 }
 
-function updateSchedule() {
-    fetch('http://localhost:5000/my_students/update',
-        {
-            headers: {
-                'x-access-token': localStorage.getItem('token')
-            }
-        })
-        .then(results => results.json())
-        .then(data => {
-            console.log(data);
-            window.location.assign(window.location);
-        });
-}
-
 export default function TopBar(props) {
     const [data, setData] = React.useState(null);
 
@@ -65,7 +51,7 @@ export default function TopBar(props) {
                 </ul>
                 <ul>
                     <li>
-                        <Link to={'/'} onClick={signOut}>Log out</Link>
+                        <Link to={'/home'} onClick={signOut}>Log out</Link>
                     </li>
                     <li>Hello, {data.name}</li>
                 </ul>
