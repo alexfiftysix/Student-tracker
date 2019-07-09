@@ -68,6 +68,7 @@ export default function LogIn(props) {
                     className={classes.textField}
                     margin="normal"
                     onChange={handleChange('username')}
+                    autoFocus={true}
                 />
                 <TextField
                     id={'password'}

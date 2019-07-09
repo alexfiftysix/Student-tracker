@@ -4,10 +4,13 @@ import './topBar.css'
 import history from './history'
 import currentDateAsString from '../utilities/dates'
 import Menu from './menu'
+import SignUpButton from './SignUpButton'
+import LogInButton from './LogInButton'
+import Button from '@material-ui/core/Button'
 
 function signOut() {
     localStorage.clear();
-    history.push('/');
+    history.push('/home');
     window.location.assign(window.location);
 }
 
@@ -46,14 +49,15 @@ export default function TopBar(props) {
                         </div>
                     </l1>
                     <li>
-                        <Link to={'/weekly/' + dateString}>Weekly View</Link>
+                        <Button href={'/weekly/' + dateString}>Weekly View</Button>
+                        {/*<Link to={'/weekly/' + dateString}>Weekly View</Link>*/}
                     </li>
                 </ul>
                 <ul>
                     <li>
-                        <Link to={'/home'} onClick={signOut}>Log out</Link>
+                        <Button onClick={signOut}>Log out</Button>
                     </li>
-                    <li>Hello, {data.name}</li>
+                    <li><p>Hello {data.name}</p></li>
                 </ul>
             </header>
         )
@@ -63,10 +67,10 @@ export default function TopBar(props) {
         <header className={'topBar'}>
             <ul>
                 <li>
-                    <Link to={'/log_in'}>Log In</Link>
+                    <LogInButton>Log In</LogInButton>
                 </li>
                 <li>
-                    <Link to={'/sign_up'}>Sign Up</Link>
+                    <SignUpButton>Sign Up</SignUpButton>
                 </li>
             </ul>
         </header>

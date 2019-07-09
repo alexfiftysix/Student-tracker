@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        width: 200,
+        width: '40%'
     },
     margin: {
         marginTop: theme.spacing(1),
@@ -28,7 +28,14 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
     },
     paper: {
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
+        width: '500px',
+        maxWidth: '90vw',
+    },
+    section: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     }
 }));
 
@@ -90,58 +97,65 @@ export default function NewTeacherForm(props) {
     return (
         <Paper className={classes.paper}>
             <form className={clsx(classes.container, classes.flex)} noValidate autoComplete="off">
+
                 <h2>Sign up</h2>
                 <h3>Your Details</h3>
-                <TextField
-                    id={'name'}
-                    label={'Name'}
-                    className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange('name')}
-                />
-                <TextField
-                    id={'email'}
-                    label={'Email'}
-                    className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange('email')}
-                />
-                <TextField
-                    id={'password'}
-                    label={'Password'}
-                    className={classes.textField}
-                    type="password"
-                    margin="normal"
-                    onChange={handleChange('password')}
-                />
-                <TextField
-                    id={'password_confirm'}
-                    label={'Confirm Password'}
-                    className={classes.textField}
-                    type="password"
-                    margin="normal"
-                    onChange={handleChange('password_confirm')}
-                />
-                <FormControl fullWidth className={clsx(classes.margin, classes.textField)}>
-                    <InputLabel htmlFor="adornment-amount">Standard Rate</InputLabel>
-                    <Input
-                        id="standard_rate"
-                        value={values.standard_rate}
-                        onChange={handleChange('standard_rate')}
-                        startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                    />
-                </FormControl>
-                <h3>Address</h3>
-                {addressFields.map(f =>
+                <div className={classes.section}>
                     <TextField
-                        id={f}
-                        key={f}
-                        label={prepare(f)}
+                        id={'name'}
+                        label={'Name'}
                         className={classes.textField}
                         margin="normal"
-                        onChange={handleChange(f)}
+                        onChange={handleChange('name')}
+                        autoFocus={true}
                     />
-                )}
+                    <TextField
+                        id={'email'}
+                        label={'Email'}
+                        className={classes.textField}
+                        margin="normal"
+                        onChange={handleChange('email')}
+                    />
+                    <TextField
+                        id={'password'}
+                        label={'Password'}
+                        className={classes.textField}
+                        type="password"
+                        margin="normal"
+                        onChange={handleChange('password')}
+                    />
+                    <TextField
+                        id={'password_confirm'}
+                        label={'Confirm Password'}
+                        className={classes.textField}
+                        type="password"
+                        margin="normal"
+                        onChange={handleChange('password_confirm')}
+                    />
+                    <FormControl fullWidth className={clsx(classes.margin, classes.textField)}>
+                        <InputLabel htmlFor="adornment-amount">Standard Rate</InputLabel>
+                        <Input
+                            id="standard_rate"
+                            value={values.standard_rate}
+                            onChange={handleChange('standard_rate')}
+                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                        />
+                    </FormControl>
+                </div>
+
+                <h3>Address</h3>
+                <div className={classes.section}>
+                    {addressFields.map(f =>
+                        <TextField
+                            id={f}
+                            key={f}
+                            label={prepare(f)}
+                            className={classes.textField}
+                            margin="normal"
+                            onChange={handleChange(f)}
+                        />
+                    )}
+                </div>
 
                 <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
                     Submit

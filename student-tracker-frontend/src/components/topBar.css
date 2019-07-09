@@ -34,12 +34,6 @@
     margin: 0 10px;
 }
 
-.topBar li > * {
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
 .topBar header ul > * {
     margin-left: 20px;
 }

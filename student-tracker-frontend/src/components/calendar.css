@@ -122,6 +122,7 @@ main {
   width: 100%;
   background: var(--neutral-color);
   border: 1px solid var(--border-color);
+  margin: 20px;
 }
 
 .calendar .header {

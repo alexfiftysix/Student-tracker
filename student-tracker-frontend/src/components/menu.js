@@ -90,7 +90,7 @@ export default function Menu() {
             onClick={toggleDrawer(side, false)}
             onKeyDown={toggleDrawer(side, false)}
         >
-            <List>
+                <List>
                 {links.map((link, index) => (
                     <Link href={link.link}>
                         <ListItem button key={link.name}>
