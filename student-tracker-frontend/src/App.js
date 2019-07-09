@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 
 import './App.css';
 import WeekNavigator from './components/weekNavigator'
@@ -23,7 +23,7 @@ function App() {
         <main className="App">
             <Router>
                 <TopBar/>
-                <Route path="/home" component={Hero}/>
+                <Route exact path="/" component={Hero}/>
                 <Route path="/sign_up" component={NewTeacherFrom}/>
                 <Route path="/log_in" component={LogIn}/>
                 <Route path="/weekly/:start_date" component={WeekNavigator}/>

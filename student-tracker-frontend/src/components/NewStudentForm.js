@@ -35,14 +35,23 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
     },
     paper: {
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
+        margin: theme.spacing(2),
+        width: '500px',
+        maxWidth: '90vw',
     },
     leftAlign: {
         textAlign: 'left'
+    },
+    section: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     }
 }));
 
 export default function NewTeacherForm(props) {
+    // TODO: Use Material-ui stepper
     const classes = useStyles();
     const [values, setValues] = React.useState({
         name: '',
@@ -105,79 +114,83 @@ export default function NewTeacherForm(props) {
             <form className={clsx(classes.container, classes.flex)} noValidate autoComplete="off">
                 <h2>New Student</h2>
                 <h3>Details</h3>
-                <TextField
-                    id={'name'}
-                    label={'Name'}
-                    className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange('name')}
-                />
-                <TextField
-                    id={'email'}
-                    label={'Email'}
-                    className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange('email')}
-                />
-                <FormControl className={classes.textField}>
-                    <InputLabel htmlFor="age-simple">Lesson day</InputLabel>
-                    <Select
-                        className={classes.leftAlign}
-                        value={values.lesson_day}
-                        onChange={handleChange('lesson_day')}
-                        inputProps={{
-                            name: 'month',
-                            id: 'age-simple',
-                        }}
-                    >
-                        {weekDays.map(w =>
-                            <MenuItem key={w} value={w}>{w}</MenuItem>
-                        )}
-                    </Select>
-                </FormControl>
-                <TextField
-                    id="lesson_time"
-                    label="Lesson Time"
-                    type="time"
-                    defaultValue="15:00"
-                    className={classes.textField}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    inputProps={{
-                        step: 300, // 5 min
-                    }}
-                    onChange={handleChange('lesson_time')}
-                />
-                <TextField
-                    id={'lesson_duration'}
-                    label={'Lesson Duration'}
-                    className={classes.textField}
-                    type={'number'}
-                    margin="normal"
-                    onChange={handleChange('lesson_duration')}
-                />
-                <FormControl fullWidth className={clsx(classes.margin, classes.textField)}>
-                    <InputLabel htmlFor="adornment-amount">Price</InputLabel>
-                    <Input
-                        id="price"
-                        value={values.price}
-                        type={'number'}
-                        onChange={handleChange('price')}
-                        startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                    />
-                </FormControl>
-                <h3>Address</h3>
-                {addressFields.map(f =>
+                <div className={classes.section}>
                     <TextField
-                        id={f}
-                        key={f}
-                        label={prepare(f)}
+                        id={'name'}
+                        label={'Name'}
                         className={classes.textField}
                         margin="normal"
-                        onChange={handleChange(f)}
+                        onChange={handleChange('name')}
                     />
-                )}
+                    <TextField
+                        id={'email'}
+                        label={'Email'}
+                        className={classes.textField}
+                        margin="normal"
+                        onChange={handleChange('email')}
+                    />
+                    <FormControl className={classes.textField}>
+                        <InputLabel htmlFor="age-simple">Lesson day</InputLabel>
+                        <Select
+                            className={classes.leftAlign}
+                            value={values.lesson_day}
+                            onChange={handleChange('lesson_day')}
+                            inputProps={{
+                                name: 'month',
+                                id: 'age-simple',
+                            }}
+                        >
+                            {weekDays.map(w =>
+                                <MenuItem key={w} value={w}>{w}</MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
+                    <TextField
+                        id="lesson_time"
+                        label="Lesson Time"
+                        type="time"
+                        defaultValue="15:00"
+                        className={classes.textField}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        inputProps={{
+                            step: 300, // 5 min
+                        }}
+                        onChange={handleChange('lesson_time')}
+                    />
+                    <TextField
+                        id={'lesson_duration'}
+                        label={'Lesson Duration'}
+                        className={classes.textField}
+                        type={'number'}
+                        margin="normal"
+                        onChange={handleChange('lesson_duration')}
+                    />
+                    <FormControl fullWidth className={clsx(classes.margin, classes.textField)}>
+                        <InputLabel htmlFor="adornment-amount">Price</InputLabel>
+                        <Input
+                            id="price"
+                            value={values.price}
+                            type={'number'}
+                            onChange={handleChange('price')}
+                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                        />
+                    </FormControl>
+                </div>
+                <h3>Address</h3>
+                <div className={classes.section}>
+                    {addressFields.map(f =>
+                        <TextField
+                            id={f}
+                            key={f}
+                            label={prepare(f)}
+                            className={classes.textField}
+                            margin="normal"
+                            onChange={handleChange(f)}
+                        />
+                    )}
+                </div>
                 <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
                     Submit
                 </Button>

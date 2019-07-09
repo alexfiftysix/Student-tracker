@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import './invoice.css'
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,9 +6,27 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import {makeStyles} from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+    invoice: {
+        background: 'white',
+        padding: theme.spacing(3),
+        margin: theme.spacing(2),
+        borderRadius: '5px',
+        textAlign: 'left',
+    },
+    table: {
+        padding: '10px 10px 0 10px',
+    },
+    owing: {
+        fontWeight: 'bold'
+    }
+}));
 
 export default function Invoice(props) {
     const [invoice, setInvoice] = React.useState(null);
+    const classes = useStyles();
     // TODO: Get year from url also
     let student_id = props.match.params.student_id;
     let month = '' + props.match.params.month;
@@ -37,7 +54,7 @@ export default function Invoice(props) {
     }
 
     return (
-        <Paper className={'classes.root invoice'}>
+        <Paper className={classes.invoice}>
             <h1>Tax Invoice</h1>
             <p>Invoice number: {invoice.invoice_number}</p>
             <p>Date: {invoice.date}</p>
@@ -55,8 +72,8 @@ export default function Invoice(props) {
             </aside>
 
             <h3>Lessons:</h3>
-            <Paper className={'table'}>
-                <Table className={'classes.table'}>
+            <Paper className={classes.table}>
+                <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>Date and time</TableCell>
@@ -82,9 +99,9 @@ export default function Invoice(props) {
                         <TableRow>
                             <TableCell colSpan={'4'}/>
                         </TableRow>
-                        <TableRow>
+                        <TableRow >
                             <TableCell colSpan={'3'}>Amount owing</TableCell>
-                            <TableCell align={'right'}>${invoice.total_outstanding}</TableCell>
+                            <TableCell className={classes.owing} align={'right'}>${invoice.total_outstanding}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

@@ -1,21 +1,24 @@
-import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import Link from '@material-ui/core/Link';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import ViewWeek from '@material-ui/icons/ViewWeek';
-import ViewDay from '@material-ui/icons/ViewDay';
-import PersonAdd from '@material-ui/icons/PersonAdd';
-import Payment from '@material-ui/icons/Payment';
-import CalendarToday from '@material-ui/icons/CalendarToday';
+import React from 'react'
+import Media from 'react-media'
+import {makeStyles} from '@material-ui/core/styles'
+import Drawer from '@material-ui/core/Drawer'
+import Button from '@material-ui/core/Button'
+import List from '@material-ui/core/List'
+import Divider from '@material-ui/core/Divider'
+import ListItem from '@material-ui/core/ListItem'
+import Link from '@material-ui/core/Link'
+import ListItemText from '@material-ui/core/ListItemText'
+
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import InboxIcon from '@material-ui/icons/MoveToInbox'
+import MailIcon from '@material-ui/icons/Mail'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import ViewWeek from '@material-ui/icons/ViewWeek'
+import ViewDay from '@material-ui/icons/ViewDay'
+import PersonAdd from '@material-ui/icons/PersonAdd'
+import Payment from '@material-ui/icons/Payment'
+import CalendarToday from '@material-ui/icons/CalendarToday'
+import MenuIcon from '@material-ui/icons/Menu'
 
 const useStyles = makeStyles({
     list: {
@@ -24,15 +27,17 @@ const useStyles = makeStyles({
     fullList: {
         width: 'auto',
     },
+    button: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
 
 export default function Menu() {
     const classes = useStyles();
     const [state, setState] = React.useState({
-        top: false,
         left: false,
-        bottom: false,
-        right: false,
     });
 
     const now = new Date(Date());
@@ -82,7 +87,7 @@ export default function Menu() {
         setState({...state, [side]: open});
     };
 
-    // TODO: Ge these links working!!
+    // TODO: Get drawer swipeable
     const sideList = side => (
         <div
             className={classes.list}
@@ -114,7 +119,7 @@ export default function Menu() {
 
     return (
         <div>
-            <Button onClick={toggleDrawer('left', true)}>Open Menu</Button>
+            <Button onClick={toggleDrawer('left', true)}><MenuIcon/></Button>
             <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
                 {sideList('left')}
             </Drawer>
