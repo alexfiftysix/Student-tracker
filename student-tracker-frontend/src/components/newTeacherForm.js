@@ -98,7 +98,6 @@ export default function NewTeacherForm(props) {
     return (
         <Paper className={classes.paper}>
             <form className={clsx(classes.container, classes.flex)} noValidate autoComplete="off">
-
                 <h2>Sign up</h2>
                 <h3>Your Details</h3>
                 <div className={classes.section}>
@@ -158,7 +157,7 @@ export default function NewTeacherForm(props) {
                     )}
                 </div>
 
-                <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+                <Button type={'submit'} variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
                     Submit
                 </Button>
             </form>

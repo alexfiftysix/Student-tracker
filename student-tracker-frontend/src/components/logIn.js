@@ -52,8 +52,14 @@ export default function LogIn(props) {
         fetch(url, options)
             .then(response => response.json())
             .then(data => {
-                localStorage.setItem('token', data['token']);
-                history.push('/weekly/' + today);
+                console.log(window.innerHeight);
+                if (window.innerHeight > 900) {
+                    localStorage.setItem('token', data['token']);
+                    history.push('/weekly/' + today);
+                } else {
+                    localStorage.setItem('token', data['token']);
+                    history.push('/daily/' + today);
+                }
                 window.location.assign(window.location);
             });
     }
@@ -78,7 +84,7 @@ export default function LogIn(props) {
                     margin="normal"
                     onChange={handleChange('password')}
                 />
-                <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+                <Button type={'submit'} variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
                     Submit
                 </Button>
             </form>

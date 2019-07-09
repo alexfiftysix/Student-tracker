@@ -107,7 +107,9 @@ export default function Booking(props) {
                         vertical: 'top',
                         horizontal: 'center',
                     }}
-                >{state.booking.address.printable}</Popover>
+                >
+                    <p className={'popover'}>{state.booking.address.printable}</p>
+                </Popover>
                 <div className={'attended'}>
                     Attended
                     <Checkbox

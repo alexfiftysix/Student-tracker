@@ -6,7 +6,7 @@ import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     paper: {
-        margin: theme.spacing(0.2),
+        margin: theme.spacing(1),
         padding: theme.spacing(1),
         backgroundColor: '#f5f5ef',
     },

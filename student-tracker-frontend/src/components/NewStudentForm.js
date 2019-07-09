@@ -191,7 +191,7 @@ export default function NewTeacherForm(props) {
                         />
                     )}
                 </div>
-                <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+                <Button type={'submit'} variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
                     Submit
                 </Button>
             </form>

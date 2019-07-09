@@ -34,6 +34,7 @@ export default function LogInButton(props) {
                 {props.children}
             </Button>
             <Modal className={classes.modal} open={open} onClose={handleClose}><LogIn/></Modal>
+            {/*    TODO: Expected an element that can hold a ref. Did you accidentally use a plain function component for an element instead? */}
         </div>
     );
 }

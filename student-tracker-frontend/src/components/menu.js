@@ -1,5 +1,4 @@
 import React from 'react'
-import Media from 'react-media'
 import {makeStyles} from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import Button from '@material-ui/core/Button'
@@ -97,7 +96,7 @@ export default function Menu() {
         >
                 <List>
                 {links.map((link, index) => (
-                    <Link href={link.link}>
+                    <Link key={link.name} href={link.link}>
                         <ListItem button key={link.name}>
                             <ListItemIcon>{link.icon}</ListItemIcon>
                             <ListItemText primary={link.name}/>

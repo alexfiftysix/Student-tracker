@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react'
-import {Link} from "react-router-dom";
+import Media from 'react-media'
 import './topBar.css'
 import history from './history'
-import currentDateAsString from '../utilities/dates'
 import Menu from './menu'
 import SignUpButton from './SignUpButton'
 import LogInButton from './LogInButton'
@@ -10,7 +9,7 @@ import Button from '@material-ui/core/Button'
 
 function signOut() {
     localStorage.clear();
-    history.push('/home');
+    history.push('/');
     window.location.assign(window.location);
 }
 
@@ -37,20 +36,22 @@ export default function TopBar(props) {
     let day = ('0' + now.getDate()).slice(-2);
     let dateString = year + '-' + month + '-' + day;
 
-    const today = currentDateAsString();
-
     if (data && data.name) {
         return (
             <header className={'topBar'}>
                 <ul>
-                    <l1>
+                    <li>
                         <div>
                             <Menu/>
                         </div>
-                    </l1>
+                    </li>
                     <li>
-                        <Button href={'/weekly/' + dateString}>Weekly View</Button>
-                        {/*<Link to={'/weekly/' + dateString}>Weekly View</Link>*/}
+                        <Media query={'screen and (min-width: 1201px)'}>
+                            <Button href={'/weekly/' + dateString}>Weekly View</Button>
+                        </Media>
+                        <Media query={'screen and (max-width: 1200px)'}>
+                            <Button href={'/daily/' + dateString}>Daily View</Button>
+                        </Media>
                     </li>
                 </ul>
                 <ul>
