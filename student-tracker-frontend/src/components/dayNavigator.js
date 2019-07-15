@@ -18,16 +18,22 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center'
     },
     button: {
-        background: 'white',
-        padding: '5px 20px',
+        background: 'none',
         textAlign: 'center',
         textDecoration: 'none',
-        margin: '0 5px',
+        margin: '0 2em',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+        color: 'white',
+        '&:visited': {
+            color: 'white',
+        },
+        '&:hover': {
+            textShadow: '0 0 5px rgba(255,255,255,0.4)',
+        }
+    },
 }));
 
 export default function DayNavigator(props) {

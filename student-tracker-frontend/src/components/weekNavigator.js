@@ -8,7 +8,6 @@ import {makeStyles} from "@material-ui/core";
 const useStyles = makeStyles(theme => ({
     button: {
         background: 'none',
-        // padding: '5px 20px',
         textAlign: 'center',
         textDecoration: 'none',
         margin: '0 2em',
