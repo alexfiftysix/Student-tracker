@@ -3,6 +3,10 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  display: inline-block;
+}
+
 .App {
   text-align: center;
   background-color: #282c34;
