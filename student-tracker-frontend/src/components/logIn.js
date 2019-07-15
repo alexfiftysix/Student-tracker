@@ -1,11 +1,12 @@
 import React from 'react'
 import history from './history'
-import clsx from 'clsx';
+import clsx from 'clsx'
 import currentDateAsString from '../utilities/dates'
-import TextField from '@material-ui/core/TextField';
-import {makeStyles} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import TextField from '@material-ui/core/TextField'
+import {makeStyles} from "@material-ui/core"
+import Button from "@material-ui/core/Button"
 import Paper from '@material-ui/core/Paper'
+import config from '../config'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -39,7 +40,7 @@ export default function LogIn(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        let url = 'http://localhost:5000/user';
+        let url = config.serverHost + 'user';
         let options = {
             method: 'get',
             headers: {

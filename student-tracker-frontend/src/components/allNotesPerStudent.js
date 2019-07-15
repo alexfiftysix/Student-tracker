@@ -1,13 +1,14 @@
 import React, {useEffect} from 'react'
 import Note from './note'
 import './allNotesPerStudent.css'
+import config from '../config'
 
 export default function AllNotesPerStudent(props) {
     const [notes_data, setNotesData] = React.useState(null);
     const student_id = props.student_id ? props.student_id : props.match.params.student_id;
 
     useEffect(() => {
-        fetch('http://localhost:5000/student/notes/' + student_id,
+        fetch(config.serverHost + 'student/notes/' + student_id,
             {
                 headers: {
                     'x-access-token': localStorage.getItem('token')

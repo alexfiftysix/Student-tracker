@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import Student from "./student";
-import Popover from '@material-ui/core/Popover';
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
+import React, {useEffect} from 'react'
+import {makeStyles} from '@material-ui/core/styles'
+import Student from "./student"
+import Popover from '@material-ui/core/Popover'
+import Button from '@material-ui/core/Button'
+import Checkbox from '@material-ui/core/Checkbox'
+import config from '../config'
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -72,7 +73,7 @@ export default function CalendarDay(props) {
     }
 
     const [students, setStudents] = React.useState([]);
-    const url = 'http://localhost:5000/my_appointments/daily/2019-' + paddedMonth + '-' + paddedDay;
+    const url = config.serverHost + 'my_appointments/daily/2019-' + paddedMonth + '-' + paddedDay;
     useEffect(() => {
         fetch(url,
             {

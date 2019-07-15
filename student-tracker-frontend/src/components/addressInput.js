@@ -1,10 +1,11 @@
-import React from 'react';
-import clsx from 'clsx';
-import {makeStyles} from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import React from 'react'
+import clsx from 'clsx'
+import {makeStyles} from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
-import history from "./history";
+import history from "./history"
+import config from '../config'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -60,9 +61,7 @@ export default function AddressInput() {
     }
 
     function submit() {
-        // TODO: Do something with this
-        console.log(values);
-        const url = 'http://localhost:5000/address'
+        const url = config.serverHost + 'address';
         let options = {
             method: 'POST',
             headers: {

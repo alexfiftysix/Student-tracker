@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react'
 import './student.css'
-import {Link} from "react-router-dom";
-import {makeStyles} from '@material-ui/core/styles';
+import {Link} from "react-router-dom"
+import {makeStyles} from '@material-ui/core/styles'
+import config from '../config'
 
 const useStyles = makeStyles({
     caps: {
@@ -15,7 +16,7 @@ export default function Student(props) {
     const classes = useStyles();
 
     useEffect(() => {
-        fetch('http://localhost:5000/student/' + student_id,
+        fetch(config.serverHost + 'student/' + student_id,
             {
                 headers: {
                     'x-access-token': localStorage.getItem('token')

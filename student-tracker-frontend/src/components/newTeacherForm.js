@@ -1,14 +1,15 @@
 import React from 'react'
 import history from './history'
-import clsx from 'clsx';
-import TextField from '@material-ui/core/TextField';
-import {makeStyles} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import clsx from 'clsx'
+import TextField from '@material-ui/core/TextField'
+import {makeStyles} from "@material-ui/core"
+import Button from "@material-ui/core/Button"
 import InputAdornment from '@material-ui/core/InputAdornment'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
 import Paper from '@material-ui/core/Paper'
+import config from '../config'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -69,7 +70,7 @@ export default function NewTeacherForm(props) {
             return;
         }
 
-        let url = 'http://localhost:5000/teachers';
+        let url = config.serverHost + 'teachers';
         let options = {
             method: 'POST',
             headers: {
@@ -157,7 +158,8 @@ export default function NewTeacherForm(props) {
                     )}
                 </div>
 
-                <Button type={'submit'} variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+                <Button type={'submit'} variant="contained" color="primary" className={classes.button}
+                        onClick={handleSubmit}>
                     Submit
                 </Button>
             </form>

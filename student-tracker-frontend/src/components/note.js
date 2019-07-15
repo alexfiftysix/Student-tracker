@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import './note.css'
-import {Link} from "react-router-dom";
+import {Link} from "react-router-dom"
+import config from '../config'
 
 export default function Note(props) {
     const [note_data, setNoteData] = React.useState(null);
@@ -8,7 +9,7 @@ export default function Note(props) {
     const note_id = props.note_id ? props.note_id : this.props.match.pararms.note_id;
 
     useEffect(() => {
-        fetch('http://localhost:5000/student/note/' + note_id,
+        fetch(config.serverHost + 'student/note/' + note_id,
             {
                 headers: {
                     'x-access-token': localStorage.getItem('token')

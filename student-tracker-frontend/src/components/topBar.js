@@ -6,6 +6,7 @@ import Menu from './menu'
 import SignUpButton from './SignUpButton'
 import LogInButton from './LogInButton'
 import Button from '@material-ui/core/Button'
+import config from '../config'
 
 function signOut() {
     localStorage.clear();
@@ -18,7 +19,7 @@ export default function TopBar(props) {
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            fetch('http://localhost:5000/teacher', {
+            fetch(config.serverHost + 'teacher', {
                 headers: {
                     'x-access-token': localStorage.getItem('token')
                 }

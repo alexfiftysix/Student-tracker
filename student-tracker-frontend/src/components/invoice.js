@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react'
-
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import {makeStyles} from "@material-ui/core";
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
+import {makeStyles} from "@material-ui/core"
+import config from '../config'
 
 const useStyles = makeStyles(theme => ({
     invoice: {
@@ -34,7 +34,7 @@ export default function Invoice(props) {
         month = '0' + month;
     }
 
-    const url = 'http://localhost:5000/my_students/invoice/' + student_id + '/2019-' + month;
+    const url = config.serverHost + 'my_students/invoice/' + student_id + '/2019-' + month;
     useEffect(() => {
         fetch(url,
             {

@@ -1,8 +1,8 @@
 import React from 'react'
 import './newNoteForm.css'
-import {Link} from "react-router-dom";
+import {Link} from "react-router-dom"
 import history from './history'
-
+import config from '../config'
 
 export default class NewNoteForm extends React.Component {
     constructor(props) {
@@ -18,7 +18,7 @@ export default class NewNoteForm extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:5000/student/' + this.state.student_id)
+        fetch(config.serverHost + 'student/' + this.state.student_id)
             .then(results => results.json())
             .then(data => {
                 this.setState({student_name: data.name});

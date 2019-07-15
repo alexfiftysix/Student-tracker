@@ -1,17 +1,18 @@
 import React from 'react'
 import history from './history'
 import currentDateAsString from '../utilities/dates'
-import {makeStyles} from "@material-ui/core";
-import clsx from 'clsx';
-import TextField from '@material-ui/core/TextField';
-import Button from "@material-ui/core/Button";
+import {makeStyles} from "@material-ui/core"
+import clsx from 'clsx'
+import TextField from '@material-ui/core/TextField'
+import Button from "@material-ui/core/Button"
 import InputAdornment from '@material-ui/core/InputAdornment'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
 import Paper from '@material-ui/core/Paper'
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select"
+import MenuItem from "@material-ui/core/MenuItem"
+import config from '../config'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -81,7 +82,7 @@ export default function NewTeacherForm(props) {
     function handleSubmit(event) {
         event.preventDefault();
 
-        let url = 'http://localhost:5000/my_students';
+        let url = config.serverHost + 'my_students';
         let options = {
             method: 'POST',
             headers: {
@@ -191,7 +192,8 @@ export default function NewTeacherForm(props) {
                         />
                     )}
                 </div>
-                <Button type={'submit'} variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+                <Button type={'submit'} variant="contained" color="primary" className={classes.button}
+                        onClick={handleSubmit}>
                     Submit
                 </Button>
             </form>

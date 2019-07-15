@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react'
 import './teacher.css'
+import config from '../config'
 
 export default function Teacher(props) {
     const [data, setData] = React.useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:5000/teacher', {
+        fetch(config.serverHost + 'teacher', {
             method: 'get',
             headers: {
                 'x-access-token': localStorage.getItem('token'),

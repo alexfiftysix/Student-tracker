@@ -1,13 +1,14 @@
-import React, {useEffect} from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import clsx from 'clsx';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import {Link} from "react-router-dom";
-import Button from '@material-ui/core/Button';
+import React, {useEffect} from 'react'
+import {makeStyles} from '@material-ui/core/styles'
+import clsx from 'clsx'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
+import {Link} from "react-router-dom"
+import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
+import config from '../config'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -73,7 +74,7 @@ export default function InvoiceBrowser() {
         {value: 12, name: 'December'},
     ];
 
-    const url = 'http://localhost:5000/my_students';
+    const url = config.serverHost + 'my_students';
 
     useEffect(() => {
         fetch(url,

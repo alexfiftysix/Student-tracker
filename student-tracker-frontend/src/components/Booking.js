@@ -1,9 +1,10 @@
-import React from 'react';
-import './Booking.css';
-import {Link} from "react-router-dom";
+import React from 'react'
+import './Booking.css'
+import {Link} from "react-router-dom"
 import Paper from '@material-ui/core/Paper'
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from '@material-ui/core/Checkbox'
 import Popover from '@material-ui/core/Popover'
+import config from '../config'
 
 export default function Booking(props) {
     const [state, setState] = React.useState({
@@ -14,7 +15,7 @@ export default function Booking(props) {
     });
 
     function changePayed() {
-        let url = 'http://localhost:5000/my_students/payment/' + state.booking.id;
+        let url = config.serverHost + 'my_students/payment/' + state.booking.id;
         const token = localStorage.getItem('token');
         let options = {
             method: 'PUT',
@@ -42,7 +43,7 @@ export default function Booking(props) {
     }
 
     function changeAttended() {
-        let url = 'http://localhost:5000/my_students/attendance/' + state.booking.id;
+        let url = config.serverHost + 'my_students/attendance/' + state.booking.id;
         const token = localStorage.getItem('token');
 
         let options = {

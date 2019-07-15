@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react'
-import {Link} from "react-router-dom";
-import Booking from "./Booking";
+import {Link} from "react-router-dom"
+import Booking from "./Booking"
 import Paper from '@material-ui/core/Paper'
-import {makeStyles} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core"
+import config from '../config'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -25,7 +26,7 @@ export default function DailyView(props) {
     const date = props.date ? props.date : props.match.params.start_date;
 
     useEffect(() => {
-        fetch('http://localhost:5000/my_appointments/daily/' + date,
+        fetch(config.serverHost + 'my_appointments/daily/' + date,
             {
                 headers: {
                     'x-access-token': localStorage.getItem('token')
