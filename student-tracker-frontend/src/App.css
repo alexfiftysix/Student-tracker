@@ -1,5 +1,8 @@
 html {
   background-color: #2f3131;
+}
+
+* {
   box-sizing: border-box;
 }
 

@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
-.icon {
+.calendar .icon {
     font-family: 'Material Icons', serif;
     font-style: normal;
     display: inline-block;
@@ -23,7 +23,7 @@
 
 /* VARIABLES */
 
-:root {
+.calendar :root {
     --main-color: #1a8fff;
     --text-color: #777;
     --text-color-light: #ccc;
@@ -35,11 +35,11 @@
 
 /* GENERAL */
 
-* {
+.calendar * {
     box-sizing: border-box;
 }
 
-body {
+.calendar body {
     font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     font-size: 1em;
     font-weight: 300;
@@ -49,7 +49,7 @@ body {
     position: relative;
 }
 
-header {
+.calendar header {
     display: block;
     width: 100%;
     padding: 1.75em 0;
@@ -57,22 +57,22 @@ header {
     background: var(--neutral-color);
 }
 
-header #logo {
+.calendar header #logo {
     font-size: 175%;
     text-align: center;
     color: var(--main-color);
     line-height: 1;
 }
 
-header #logo .icon {
+.calendar header #logo .icon {
     padding-right: .25em;
 }
 
-main {
+.calendar main {
     display: block;
     margin: 0 auto;
     margin-top: 5em;
-    max-width: 50em;
+    /*max-width: 50em;*/
 }
 
 
