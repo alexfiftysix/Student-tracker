@@ -164,7 +164,7 @@ main {
     position: relative;
     /*height: 10em;*/
     border-right: 1px solid var(--border-color);
-    overflow: hidden;
+    /*overflow: hidden;*/
     cursor: pointer;
     background: var(--neutral-color);
     transition: 0.25s ease-out;

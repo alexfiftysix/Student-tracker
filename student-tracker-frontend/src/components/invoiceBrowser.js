@@ -39,7 +39,8 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
     },
     paper: {
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
+        margin: theme.spacing(2)
     }
 }));
 
@@ -129,9 +130,14 @@ export default function InvoiceBrowser() {
                     </Select>
                 </FormControl>
 
-                {values.student && values.month ? (<Link to={'/invoice/' + values.student + '/' + values.month}>
-                    <Button variant="contained" color="primary">Generate</Button>
-                </Link>) : null}
+
+                <Button
+                    disabled={!(values.student && values.month)}
+                    component={Link}
+                    to={'/invoice/' + values.student + '/' + values.month}
+                    variant="contained"
+                    color="primary"
+                >Generate</Button>
             </form>
         </Paper>
     );
