@@ -38,21 +38,29 @@ const useStyles = makeStyles(theme => ({
 
 export default function DayNavigator(props) {
     const classes = useStyles();
-    const date = props.match.params.date;
+    let date = props.match.params.date;
     let as_date = new Date(date);
 
     let tomorrow = new Date(as_date.getTime() + 24 * 60 * 60 * 1000);
     tomorrow = tomorrow.getFullYear() + '-' + ('0' + (1 + tomorrow.getMonth())).slice(-2) + '-' + tomorrow.getDate();
-    console.log(tomorrow);
 
     let yesterday = new Date(as_date.getTime() - 24 * 60 * 60 * 1000);
     yesterday = yesterday.getFullYear() + '-' + ('0' + (1 + yesterday.getMonth())).slice(-2) + '-' + yesterday.getDate();
 
+    let next_week = new Date(as_date.getTime() + 7 * 24 * 60 * 60 * 1000);
+    next_week = next_week.getFullYear() + '-' + ('0' + (1 + next_week.getMonth())).slice(-2) + '-' + ('0' + next_week.getDate()).slice(-2);
+
+    let last_week = new Date(as_date.getTime() - 7 * 24 * 60 * 60 * 1000);
+    last_week = last_week.getFullYear() + '-' + ('0' + (1 + last_week.getMonth())).slice(-2) + '-' + ('0' + last_week.getDate()).slice(-2);
+
+    // TODO: doesn't change after going up or back one week until refresh
     return (
         <div className={classes.navigator}>
             <div className={classes.top}>
-                <Link className={classes.button} to={'/daily/' + yesterday}><ChevronLeft/><p>Yesterday</p></Link>
-                <Link className={classes.button} to={'/daily/' + tomorrow}><p>Tomorrow</p><ChevronRight/></Link>
+                <Link className={classes.button} to={'/daily/' + last_week}> &lt;&lt; </Link>
+                <Link className={classes.button} to={'/daily/' + yesterday}> &lt; </Link>
+                <Link className={classes.button} to={'/daily/' + tomorrow}> > </Link>
+                <Link className={classes.button} to={'/daily/' + next_week}>  >> </Link>
             </div>
             <DailyView date={date}/>
         </div>
