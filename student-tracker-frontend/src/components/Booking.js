@@ -94,7 +94,8 @@ export default function Booking(props) {
             </div>
 
             <div>
-                <p className={'lefty address'} onClick={openPopover}>{state.booking.address.suburb ? state.booking.address.suburb : 'Address'}</p>
+                <p className={'lefty address'}
+                   onClick={openPopover}>{state.booking.address.suburb ? state.booking.address.suburb : 'Address'}</p>
                 <Popover
                     id={id}
                     open={open}

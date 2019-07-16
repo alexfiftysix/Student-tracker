@@ -3,6 +3,7 @@ import history from './history'
 import clsx from 'clsx'
 import currentDateAsString from '../utilities/dates'
 import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
 import {makeStyles} from "@material-ui/core"
 import Button from "@material-ui/core/Button"
 import Paper from '@material-ui/core/Paper'
@@ -33,6 +34,7 @@ export default function LogIn(props) {
         username: '',
         password: ''
     });
+    const [warning, setWarning] = React.useState(null);
 
     const handleChange = name => event => {
         setValues({...values, [name]: event.target.value});
@@ -55,15 +57,20 @@ export default function LogIn(props) {
         fetch(url, options)
             .then(response => response.json())
             .then(data => {
-                console.log(window.innerHeight);
-                if (window.innerHeight > 1000) {
-                    localStorage.setItem('token', data['token']);
-                    history.push('/weekly/' + today);
+                // console.log(data);
+                if (data.message) {
+                    console.log(data.message);
+                    setWarning(data.message);
                 } else {
-                    localStorage.setItem('token', data['token']);
-                    history.push('/daily/' + today);
+                    if (window.innerHeight > 1000) {
+                        localStorage.setItem('token', data['token']);
+                        history.push('/weekly/' + today);
+                    } else {
+                        localStorage.setItem('token', data['token']);
+                        history.push('/daily/' + today);
+                    }
+                    window.location.assign(window.location);
                 }
-                window.location.assign(window.location);
             });
     }
 
@@ -78,6 +85,7 @@ export default function LogIn(props) {
                     margin="normal"
                     onChange={handleChange('username')}
                     autoFocus={true}
+                    type={'email'}
                 />
                 <TextField
                     id={'password'}
@@ -87,7 +95,11 @@ export default function LogIn(props) {
                     margin="normal"
                     onChange={handleChange('password')}
                 />
-                <Button type={'submit'} variant="contained" color="primary" className={classes.button} onTouchStart={handleSubmit} onClick={handleSubmit}>
+                {warning ?
+                    <Typography className={classes.textField} color={'error'}>{warning}</Typography>
+                    : null}
+                <Button type={'submit'} variant="contained" color="primary" className={classes.button}
+                        onTouchStart={handleSubmit} onClick={handleSubmit}>
                     Submit
                 </Button>
             </form>
