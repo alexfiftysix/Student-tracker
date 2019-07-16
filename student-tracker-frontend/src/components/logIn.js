@@ -99,7 +99,9 @@ export default function LogIn(props) {
                     <Typography className={classes.textField} color={'error'}>{warning}</Typography>
                     : null}
                 <Button type={'submit'} variant="contained" color="primary" className={classes.button}
-                        onTouchStart={handleSubmit} onClick={handleSubmit}>
+                        onTouchStart={handleSubmit} onClick={handleSubmit}
+                        disabled={!(values.username && values.password)}
+                >
                     Submit
                 </Button>
             </form>
