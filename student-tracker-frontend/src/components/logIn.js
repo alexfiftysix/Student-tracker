@@ -8,11 +8,12 @@ import {makeStyles} from "@material-ui/core"
 import Button from "@material-ui/core/Button"
 import Paper from '@material-ui/core/Paper'
 import config from '../config'
+import useForm from 'react-hook-form'
+import Input from '@material-ui/core/Input'
 
 const useStyles = makeStyles(theme => ({
     textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
+        margin: theme.spacing(1),
         width: 200,
     },
     flex: {
@@ -27,27 +28,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function LogIn(props) {
-    // TODO: Get this and all the others to work on mobile
-    // Maybe try Formik https://jaredpalmer.com/formik/
     const classes = useStyles();
-    const [values, setValues] = React.useState({
-        username: '',
-        password: ''
-    });
     const [warning, setWarning] = React.useState(null);
+    const {register, handleSubmit, watch, errors} = useForm();
 
-    const handleChange = name => event => {
-        setValues({...values, [name]: event.target.value});
-    };
-
-    function handleSubmit(event) {
-        event.preventDefault();
+    const onSubmit = data => {
+        // event.preventDefault();
         let url = config.serverHost + 'user';
         let options = {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
-                'Authorization': 'Basic ' + btoa(values.username + ':' + values.password),
+                'Authorization': 'Basic ' + btoa(data.username + ':' + data.password),
             },
             credentials: 'same-origin'
         };
@@ -72,35 +64,30 @@ export default function LogIn(props) {
                     window.location.assign(window.location);
                 }
             });
-    }
+    };
 
     return (
         <Paper className={classes.paper}>
-            <form onSubmit={handleSubmit} className={clsx(classes.container, classes.flex)} noValidate>
+            <form onSubmit={handleSubmit(onSubmit)} className={clsx(classes.container, classes.flex)}>
                 <h3>Log in</h3>
-                <TextField
-                    id={'username'}
-                    label={'Username'}
-                    className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange('username')}
-                    autoFocus={true}
-                    type={'email'}
-                />
-                <TextField
-                    id={'password'}
-                    label={'Password'}
-                    className={classes.textField}
-                    type="password"
-                    margin="normal"
-                    onChange={handleChange('password')}
-                />
+                <Input name={'username'} placeholder={'Username'}
+                       inputRef={register({
+                           required: true,
+                           pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+                       })}
+                       className={classes.textField} autoFocus={true}/>
+                {errors.username && errors.username.type === 'pattern' && <Typography color={'error'}>Username must be a valid email address</Typography>}
+                {errors.username && errors.username.type === 'required' && <Typography color={'error'}>Username is required</Typography>}
+                <Input name={'password'} placeholder={'Password'} inputRef={register({required: true})}
+                       className={classes.textField}/>
+                {errors.password && errors.password.type === 'required' && <Typography color={'error'}>Password is required</Typography>}
+                {errors.password && console.log(errors.password)}
                 {warning ?
                     <Typography className={classes.textField} color={'error'}>{warning}</Typography>
                     : null}
                 <Button type={'submit'} variant="contained" color="primary" className={classes.button}
                         onTouchStart={handleSubmit} onClick={handleSubmit}
-                        disabled={!(values.username && values.password)}
+                    // disabled={!(register.username && register.password)}
                 >
                     Submit
                 </Button>

@@ -57,10 +57,10 @@ export default function DayNavigator(props) {
     return (
         <div className={classes.navigator}>
             <div className={classes.top}>
-                <Link className={classes.button} to={'/daily/' + lastWeek}> &lt;&lt; </Link>
+                <Link className={classes.button} to={'/daily/' + lastWeek}> ≪ </Link>
                 <Link className={classes.button} to={'/daily/' + yesterday}> &lt; </Link>
                 <Link className={classes.button} to={'/daily/' + tomorrow}> > </Link>
-                <Link className={classes.button} to={'/daily/' + nextWeek}>  >> </Link>
+                <Link className={classes.button} to={'/daily/' + nextWeek}>  ≫ </Link>
             </div>
             <DailyView date={date}/>
         </div>

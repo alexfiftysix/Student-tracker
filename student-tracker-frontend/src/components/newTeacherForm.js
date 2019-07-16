@@ -114,7 +114,7 @@ export default function NewTeacherForm(props) {
                         id={'email'}
                         label={'Email'}
                         className={classes.textField}
-                        margin="normal"
+                        margin={'normal'}
                         onChange={handleChange('email')}
                     />
                     <TextField
