@@ -286,8 +286,8 @@ class Student(db.Model):
             'address': address,
             'end_date': str(self.end_date),
             'email': str(self.email),
+            'phone': self.phone,
             'lesson_plan': None,
-
         }
 
         if plan:
@@ -510,6 +510,7 @@ class Booking(Resource):
             'address': address,
             'end_date': str(student.end_date),
             'email': str(student.email),
+            'phone': str(student.phone),
             'lesson_plan': None,
             'attended': False,
             'payed': False,

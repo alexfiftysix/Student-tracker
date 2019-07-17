@@ -9,6 +9,8 @@ import Paper from '@material-ui/core/Paper'
 import config from '../config'
 import useForm from 'react-hook-form'
 import Input from '@material-ui/core/Input'
+import PropTypes from 'prop-types'
+import withWidth from '@material-ui/core/withWidth'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -26,8 +28,9 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function LogIn(props) {
+function LogIn(props) {
     const classes = useStyles();
+    const {width} = props;
     const [warning, setWarning] = React.useState(null);
     const {register, handleSubmit, errors} = useForm();
 
@@ -53,7 +56,7 @@ export default function LogIn(props) {
                     console.log(data.message);
                     setWarning(data.message);
                 } else {
-                    if (window.innerHeight > 1000) {
+                    if (width === 'lg' || width === 'md') {
                         localStorage.setItem('token', data['token']);
                         history.push('/weekly/' + today);
                     } else {
@@ -93,3 +96,9 @@ export default function LogIn(props) {
         </Paper>
     );
 }
+
+LogIn.propTypes = {
+    width: PropTypes.string.isRequired,
+};
+
+export default withWidth()(LogIn);

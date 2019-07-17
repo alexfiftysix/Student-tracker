@@ -10,15 +10,6 @@ import PropTypes from 'prop-types'
 import withWidth from '@material-ui/core/withWidth'
 
 const useStyles = makeStyles(theme => ({
-    popover: {
-        '& > *': {
-            padding: theme.spacing(1),
-            '& > *': {
-                margin: theme.spacing(1),
-            }
-
-        }
-    },
     booking: {
         display: 'flex',
         flexDirection: 'column',
@@ -36,6 +27,15 @@ const useStyles = makeStyles(theme => ({
                 display: 'flex',
                 alignItems: 'center'
             }
+        }
+    },
+    popover: {
+        '& > *': {
+            padding: theme.spacing(1),
+            '& > *': {
+                margin: theme.spacing(1),
+            }
+
         }
     },
     wide: {
@@ -78,7 +78,6 @@ function Booking(props) {
         });
     }, [props]);
 
-    // TODO: combine these three functions into one function?
     function changePayed() {
         let url = config.serverHost + 'my_students/payment/' + state.booking.id;
         const token = localStorage.getItem('token');
@@ -107,6 +106,7 @@ function Booking(props) {
         setState({...state, 'payed': !state.payed});
     }
 
+    // TODO: combine these two functions into one function?
     function changeAttended() {
         let url = config.serverHost + 'my_students/attendance/' + state.booking.id;
         const token = localStorage.getItem('token');
@@ -197,11 +197,11 @@ function Booking(props) {
                         horizontal: 'left',
                     }}
                 >
-                    {console.log(state)}
                     <Typography variant={'h5'}>Lesson details</Typography>
                     <Typography><strong>Address: </strong>{state.booking.address.printable}</Typography>
                     <Typography><strong>Email: </strong>{state.booking.email}</Typography>
                     <Typography><strong>Price: </strong>${state.booking.lesson_plan.price}</Typography>
+                    <Typography><strong>Phone: </strong>{state.booking.phone}</Typography>
                     <Button variant={'contained'} onClick={changeCancelled}>{state.cancelled && 'Un-'}Cancel
                         lesson</Button>
                 </Popover>

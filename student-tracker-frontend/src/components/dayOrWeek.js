@@ -10,7 +10,7 @@ function DayOrWeek(props) {
 
     return(
         <div>
-            {width === 'lg' ? <WeeklyView start_date={date} /> : <DailyView date={date}/>}
+            {width === 'lg' || width === 'md' ? <WeeklyView start_date={date} /> : <DailyView date={date}/>}
         </div>
     )
 }
