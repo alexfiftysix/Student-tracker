@@ -84,13 +84,16 @@ function TopBar(props) {
                             <Button href={'/daily/' + dateString}>Daily View</Button>
                         }
                     </li>
+                    <li>{width}</li>
                 </ul>
-                <ul>
-                    {width !== 'xs' ? <li>
-                        <Button onClick={signOut}>Log out</Button>
-                    </li> : null}
-                    <li className={classes.hello}><Typography>Hello {data.name}</Typography></li>
-                </ul>
+                {width !== 'xs' ?
+                    <ul>
+                        <li>
+                            <Button onClick={signOut}>Log out</Button>
+                        </li>
+                        <li className={classes.hello}><Typography>Hello {data.name}</Typography></li>
+                    </ul>
+                    : null}
             </header>
         )
     }
