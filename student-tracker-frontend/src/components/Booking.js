@@ -6,6 +6,8 @@ import Popover from '@material-ui/core/Popover'
 import config from '../config'
 import {makeStyles, Typography} from "@material-ui/core"
 import clsx from 'clsx'
+import PropTypes from 'prop-types'
+import withWidth from '@material-ui/core/withWidth'
 
 const useStyles = makeStyles(theme => ({
     popover: {
@@ -28,13 +30,19 @@ const useStyles = makeStyles(theme => ({
         },
         '& > div': {
             display: 'flex',
-            flexDirection: 'row',
+            // flexDirection: 'row',
             justifyContent: 'space-between',
             '& *': {
                 display: 'flex',
                 alignItems: 'center'
             }
         }
+    },
+    wide: {
+        flexDirection: 'row',
+    },
+    notWide: {
+        flexDirection: 'column',
     },
     cancelled: {
         color: 'grey',
@@ -44,10 +52,14 @@ const useStyles = makeStyles(theme => ({
         margin :0,
         padding: 0,
         textTransform: 'capitalize',
+        textAlign: 'left',
+        display: 'flex',
+        justifyContent: 'flex-start'
     }
 }));
 
-export default function Booking(props) {
+function Booking(props) {
+    const {width} = props;
     const classes = useStyles();
     const [state, setState] = React.useState({
         attended: props.attended,
@@ -66,6 +78,7 @@ export default function Booking(props) {
         });
     }, [props]);
 
+    // TODO: combine these three functions into one function?
     function changePayed() {
         let url = config.serverHost + 'my_students/payment/' + state.booking.id;
         const token = localStorage.getItem('token');
@@ -165,7 +178,7 @@ export default function Booking(props) {
 
     return (
         <Paper className={clsx(classes.booking, state.cancelled ? classes.cancelled : null)}>
-            <div>
+            <div className={width !== 'lg' && classes.notWide}>
                 <Button className={classes.nameButton}>
                     <Typography onClick={openPopover} variant={'h6'}>{state.booking.name}</Typography>
                 </Button>
@@ -195,11 +208,11 @@ export default function Booking(props) {
                 <Typography>{String(state.booking.lesson_plan.lesson_time).substr(0, 5)}-{String(state.booking.lesson_plan.end_time).substr(0, 5)}</Typography>
             </div>
             {state.cancelled ?
-                <div>
+                <div className={width !== 'lg' && classes.notWide}>
                     <Typography>Lesson cancelled</Typography>
                 </div>
                 :
-                <div>
+                <div className={width !== 'lg' && classes.notWide}>
                     <div className={'attended'}>
                         Attended
                         <Checkbox
@@ -228,3 +241,9 @@ export default function Booking(props) {
         </Paper>
     );
 }
+
+Booking.propTypes = {
+    width: PropTypes.string.isRequired,
+};
+
+export default withWidth()(Booking);
