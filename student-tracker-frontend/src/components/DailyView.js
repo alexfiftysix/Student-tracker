@@ -65,7 +65,7 @@ export default function DailyView(props) {
             <h5>{date}</h5>
             {!bookings ? 'Loading...' : bookings.map(b =>
                 <Booking key={b.lesson_plan.id} attended={b.attended} payed={b.payed}
-                         date={date} booking={b}/>
+                         date={date} cancelled={b.cancelled} booking={b}/>
             )}
         </Paper>
     );

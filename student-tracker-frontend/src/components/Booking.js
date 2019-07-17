@@ -1,12 +1,40 @@
 import React, {useEffect} from 'react'
-import './Booking.css'
-import {Link} from "react-router-dom"
 import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
 import Checkbox from '@material-ui/core/Checkbox'
 import Popover from '@material-ui/core/Popover'
 import config from '../config'
+import {makeStyles, Typography} from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+    popover: {
+        '& > *': {
+            padding: theme.spacing(1),
+            '& > *': {
+                margin: theme.spacing(1),
+            }
+
+        }
+    },
+    booking: {
+        display: 'flex',
+        flexDirection: 'column',
+        padding: theme.spacing(1),
+        margin: theme.spacing(1),
+        '& > div': {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            '& *': {
+                display: 'flex',
+                alignItems: 'center'
+            }
+        }
+    }
+}));
 
 export default function Booking(props) {
+    const classes = useStyles();
     const [state, setState] = React.useState({
         attended: props.attended,
         payed: props.payed,
@@ -19,6 +47,7 @@ export default function Booking(props) {
             attended: props.attended,
             payed: props.payed,
             date: props.date,
+            cancelled: props.cancelled,
             booking: props.booking
         });
     }, [props]);
@@ -68,7 +97,7 @@ export default function Booking(props) {
         options.body.append('lesson_date_time', String(state.date + ' ' + state.booking.lesson_plan.lesson_time));
         options.body.append('lesson_length', String(state.booking.lesson_plan.length_minutes));
         options.body.append('attended', String(!state.attended));
-        options.body.append('cancelled', String(false)); // TODO: Get dynamically
+        options.body.append('cancelled', String(state.cancelled));
         options.body.append('price', String(state.booking.lesson_plan.price));
 
         fetch(url, options)
@@ -76,6 +105,33 @@ export default function Booking(props) {
             .then(data => data);
 
         setState({...state, 'attended': !state.attended});
+    }
+
+    function changeCancelled() {
+        let url = config.serverHost + 'my_students/attendance/' + state.booking.id;
+        const token = localStorage.getItem('token');
+
+        let options = {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'x-access-token': token
+            },
+            credentials: 'same-origin',
+            body: new FormData()
+        };
+
+        options.body.append('lesson_date_time', String(state.date + ' ' + state.booking.lesson_plan.lesson_time));
+        options.body.append('lesson_length', String(state.booking.lesson_plan.length_minutes));
+        options.body.append('attended', String(state.attended));
+        options.body.append('cancelled', String(!state.cancelled));
+        options.body.append('price', String(state.booking.lesson_plan.price));
+
+        fetch(url, options)
+            .then(response => response.json())
+            .then(data => data);
+
+        setState({...state, 'cancelled': !state.cancelled});
     }
 
     // Popover stuff
@@ -94,61 +150,66 @@ export default function Booking(props) {
     // end Popover stuff
 
     return (
-        <Paper className={'booking'}>
+        <Paper className={classes.booking}>
             <div>
-                <Link to={'/student/' + state.booking.id} className={'lefty name'}>
-                    <h3>{state.booking.name}</h3>
-                </Link>
-                <h4>{String(state.booking.lesson_plan.lesson_time).substr(0, 5)}-{String(state.booking.lesson_plan.end_time).substr(0, 5)}</h4>
-            </div>
-
-            <div>
-                <p className={'lefty address'}
-                   onClick={openPopover}>{state.booking.address.suburb ? state.booking.address.suburb : 'Address'}</p>
+                <Button onClick={openPopover} className={classes.nameButton}>
+                    {state.booking.name}
+                </Button>
                 <Popover
-                    id={id}
+                    className={classes.popover}
+                    id={'popover'}
                     open={open}
                     anchorEl={anchorEl}
                     onClose={closePopover}
                     anchorOrigin={{
                         vertical: 'bottom',
-                        horizontal: 'center',
+                        horizontal: 'left',
                     }}
                     transformOrigin={{
                         vertical: 'top',
-                        horizontal: 'center',
+                        horizontal: 'left',
                     }}
                 >
-                    <p className={'popover'}>{state.booking.address.printable}</p>
+                    {console.log(state)}
+                    <Typography variant={'h5'}>Lesson details</Typography>
+                    <Typography><strong>Address: </strong>{state.booking.address.printable}</Typography>
+                    <Typography><strong>Email: </strong>{state.booking.email}</Typography>
+                    <Typography><strong>Price: </strong>${state.booking.lesson_plan.price}</Typography>
+                    <Button variant={'contained'} onClick={changeCancelled}>{state.cancelled && 'Un-'}Cancel lesson</Button>
                 </Popover>
-                <div className={'attended'}>
-                    Attended
-                    <Checkbox
-                        checked={state.attended}
-                        onChange={changeAttended}
-                        color="primary"
-                        value="attended"
-                        inputProps={{
-                            'aria-label': 'primary checkbox',
-                        }}
-                    />
-                </div>
+                <h4>{String(state.booking.lesson_plan.lesson_time).substr(0, 5)}-{String(state.booking.lesson_plan.end_time).substr(0, 5)}</h4>
             </div>
-
-            <div>
-                <p className={'price lefty'}>${state.booking.lesson_plan.price}</p>
-                <div>Paid
-                    <Checkbox
-                        checked={state.payed}
-                        onChange={changePayed}
-                        color="primary"
-                        value="payed"
-                        inputProps={{
-                            'aria-label': 'primary checkbox',
-                        }}
-                    />
+            {state.cancelled ?
+                <div>
+                    <Typography>Lesson cancelled</Typography>
                 </div>
-            </div>
+                :
+                <div>
+                    <div className={'attended'}>
+                        Attended
+                        <Checkbox
+                            checked={state.attended}
+                            onChange={changeAttended}
+                            color="primary"
+                            value="attended"
+                            inputProps={{
+                                'aria-label': 'primary checkbox',
+                            }}
+                        />
+                    </div>
+                    <div>Paid
+                        <Checkbox
+                            checked={state.payed}
+                            onChange={changePayed}
+                            color="primary"
+                            value="payed"
+                            inputProps={{
+                                'aria-label': 'primary checkbox',
+                            }}
+                        />
+                    </div>
+                </div>
+            }
         </Paper>
     );
 }
