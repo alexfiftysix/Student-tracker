@@ -889,14 +889,19 @@ class Invoice(Resource):
             attendance = Attendance.query.filter_by(datetime=booking.get('datetime')).first()
             if attendance:
                 booking['attended'] = str(attendance.attended)
+                booking['cancelled'] = str(attendance.cancelled)
             else:
                 booking['attended'] = 'False'
+                booking['cancelled'] = 'False'
 
             b, code = Booking.get(student_id, dt.strftime('%Y-%m-%d_%H:%M'))
             if b:
                 print(b)
-                booking['price'] = b['lesson_plan']['price']
-                total_price += int(b['lesson_plan']['price'])
+                if attendance and booking['cancelled'] == 'True':
+                    booking['price'] = '0'
+                else:
+                    booking['price'] = b['lesson_plan']['price']
+                    total_price += int(b['lesson_plan']['price'])
 
             payment = Payment.query.filter_by(datetime=dt).first()
             if payment:

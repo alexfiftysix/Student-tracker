@@ -16,11 +16,14 @@ const useStyles = makeStyles(theme => ({
         borderRadius: '5px',
         textAlign: 'left',
     },
-    table: {
-        padding: '10px 10px 0 10px',
-    },
     owing: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+    },
+    table: {
+        '& *': {
+            marginLeft: 0,
+            paddingLeft: 0,
+        }
     }
 }));
 
@@ -72,8 +75,7 @@ export default function Invoice(props) {
             </aside>
 
             <h3>Lessons:</h3>
-            <Paper className={classes.table}>
-                <Table>
+                <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
                             <TableCell>Date and time</TableCell>
@@ -86,7 +88,8 @@ export default function Invoice(props) {
                         {invoice.bookings.map(b =>
                             <TableRow key={b.datetime}>
                                 <TableCell>{b.datetime}</TableCell>
-                                <TableCell align={'right'}>{b.attended === 'True' ? 'Yes' : 'No'}</TableCell>
+                                {console.log(b)}
+                                <TableCell align={'right'}>{b.cancelled === 'True' ? 'Cancelled' : b.attended === 'True' ? 'Yes' : 'No'}</TableCell>
                                 <TableCell align={'right'}>${b.price}</TableCell>
                                 <TableCell align={'right'}>${b.payed}</TableCell>
                             </TableRow>
@@ -105,7 +108,6 @@ export default function Invoice(props) {
                         </TableRow>
                     </TableBody>
                 </Table>
-            </Paper>
         </Paper>
     )
 }
