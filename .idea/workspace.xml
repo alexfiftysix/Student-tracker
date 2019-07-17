@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="20cfc609-3330-477e-9691-15a11792953d" name="Default Changelist" comment="Added DayOrWeek test component">
+    <list default="true" id="20cfc609-3330-477e-9691-15a11792953d" name="Default Changelist" comment="Invoice data responds to cancelled lessons.&#10;Backend updated to support this">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/dayOrWeek.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/dayOrWeek.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/invoice.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/invoice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/kanban.txt" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/kanban.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/invoice.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="17" column="6" lean-forward="true" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+            <state relative-caret-position="417">
+              <caret line="51" column="14" lean-forward="true" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -173,6 +171,15 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/documentation/kanban.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="43" column="46" selection-start-line="43" selection-start-column="46" selection-end-line="43" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -279,7 +286,6 @@
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/menu.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/LogInButton.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/SignUpButton.js" />
-        <option value="$PROJECT_DIR$/documentation/kanban.txt" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/App.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/topBar.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/DailyView.js" />
@@ -287,6 +293,7 @@
         <option value="$PROJECT_DIR$/backend/main.py" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/dayOrWeek.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/invoice.js" />
+        <option value="$PROJECT_DIR$/documentation/kanban.txt" />
       </list>
     </option>
   </component>
@@ -318,30 +325,7 @@
             <path>
               <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
               <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
               <item name="documentation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
-              <item name="student-tracker-frontend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
-              <item name="student-tracker-frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Student-tracker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Student-tracker" type="462c0819:PsiDirectoryNode" />
-              <item name="student-tracker-frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -523,14 +507,14 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Flask server.Flask (backend/main.py)" />
       <item itemvalue="Python.Run Flask App" />
       <item itemvalue="Python.run" />
-      <item itemvalue="Flask server.Flask (backend/main.py)" />
       <item itemvalue="Python tests.Tests" />
+      <item itemvalue="Python tests.Unittests in tests" />
       <item itemvalue="Python tests.Unittests for Student.TestStudent" />
       <item itemvalue="Python tests.Unittests for Student.TestStudent.test_account" />
       <item itemvalue="Python tests.Unittests for backend.tests.Student.TestStudent" />
-      <item itemvalue="Python tests.Unittests in tests" />
     </list>
     <recent_temporary>
       <list>
@@ -634,13 +618,6 @@
       <workItem from="1563262807375" duration="239000" />
       <workItem from="1563323917100" duration="3420000" />
       <workItem from="1563331699444" duration="8004000" />
-    </task>
-    <task id="LOCAL-00065" summary="Front end correctly displays attended/payed for bookings">
-      <created>1561000602954</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1561000602954</updated>
     </task>
     <task id="LOCAL-00066" summary="Attendance post changed to put">
       <created>1561001631259</created>
@@ -978,7 +955,14 @@
       <option name="project" value="LOCAL" />
       <updated>1563343707759</updated>
     </task>
-    <option name="localTasksCounter" value="114" />
+    <task id="LOCAL-00114" summary="Invoice data responds to cancelled lessons.&#10;Backend updated to support this">
+      <created>1563348005226</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1563348005226</updated>
+    </task>
+    <option name="localTasksCounter" value="115" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1014,7 +998,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="280346000" />
+    <option name="totallyTimeSpent" value="281103000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1097,7 +1081,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Simplfy/redisign of daily view" />
     <MESSAGE value="Menu is now Popover. TopBar redesigned" />
     <MESSAGE value="Hero image up" />
     <MESSAGE value="CTA added to hero" />
@@ -1122,7 +1105,8 @@
     <MESSAGE value="Weekly forwards/backwards buttons now work on Daily view" />
     <MESSAGE value="Modals switched to Dialogs to get around forwardRef error" />
     <MESSAGE value="Added DayOrWeek test component" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added DayOrWeek test component" />
+    <MESSAGE value="Invoice data responds to cancelled lessons.&#10;Backend updated to support this" />
+    <option name="LAST_COMMIT_MESSAGE" value="Invoice data responds to cancelled lessons.&#10;Backend updated to support this" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1504,13 +1488,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/documentation/kanban.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="60" selection-start-line="2" selection-start-column="60" selection-end-line="2" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
@@ -1655,11 +1632,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/invoice.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="17" column="6" lean-forward="true" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+        <state relative-caret-position="417">
+          <caret line="51" column="14" lean-forward="true" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documentation/kanban.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="43" column="46" selection-start-line="43" selection-start-column="46" selection-end-line="43" selection-end-column="46" />
         </state>
       </provider>
     </entry>
