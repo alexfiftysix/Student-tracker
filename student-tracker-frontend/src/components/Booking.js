@@ -4,7 +4,8 @@ import Button from '@material-ui/core/Button'
 import Checkbox from '@material-ui/core/Checkbox'
 import Popover from '@material-ui/core/Popover'
 import config from '../config'
-import {makeStyles, Typography} from "@material-ui/core";
+import {makeStyles, Typography} from "@material-ui/core"
+import clsx from 'clsx'
 
 const useStyles = makeStyles(theme => ({
     popover: {
@@ -30,6 +31,10 @@ const useStyles = makeStyles(theme => ({
                 alignItems: 'center'
             }
         }
+    },
+    cancelled: {
+        color: 'grey',
+        background: 'rgb(192,192,192)'
     }
 }));
 
@@ -150,7 +155,7 @@ export default function Booking(props) {
     // end Popover stuff
 
     return (
-        <Paper className={classes.booking}>
+        <Paper className={clsx(classes.booking, state.cancelled ? classes.cancelled: null)}>
             <div>
                 <Button onClick={openPopover} className={classes.nameButton}>
                     {state.booking.name}

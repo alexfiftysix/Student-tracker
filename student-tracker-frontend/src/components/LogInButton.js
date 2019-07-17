@@ -9,13 +9,12 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        paddingTop: theme.spacing(10),
         '& *': {
             boxShadow: 'none',
         }
     },
     button: {
-        textTransform: 'none'
+        textTransform: 'none',
     }
 }));
 
