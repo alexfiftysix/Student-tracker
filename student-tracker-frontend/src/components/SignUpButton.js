@@ -1,8 +1,8 @@
 import React from 'react'
 import {makeStyles} from "@material-ui/core"
 import Button from '@material-ui/core/Button'
-import Modal from '@material-ui/core/Modal'
 import NewTeacherForm from './newTeacherForm'
+import Dialog from '@material-ui/core/Dialog'
 
 const useStyles = makeStyles(theme => ({
     cta: {
@@ -21,7 +21,10 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        paddingTop: theme.spacing(10)
+        paddingTop: theme.spacing(10),
+        '& *': {
+            boxShadow: 'none',
+        }
     },
     button: {
         textTransform: 'none'
@@ -46,7 +49,7 @@ export default function SignUpButton(props) {
             <Button className={props.cta ? classes.cta : classes.button} onClick={handleOpen}>
                 {props.children}
             </Button>
-            <Modal className={classes.modal} open={open} onClose={handleClose}><NewTeacherForm/></Modal>
+            <Dialog className={classes.modal} open={open} onClose={handleClose}><NewTeacherForm/></Dialog>
         </div>
     );
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import history from './history'
 import clsx from 'clsx'
 import currentDateAsString from '../utilities/dates'
-import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import {makeStyles} from "@material-ui/core"
 import Button from "@material-ui/core/Button"
@@ -30,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 export default function LogIn(props) {
     const classes = useStyles();
     const [warning, setWarning] = React.useState(null);
-    const {register, handleSubmit, watch, errors} = useForm();
+    const {register, handleSubmit, errors} = useForm();
 
     const onSubmit = data => {
         // event.preventDefault();

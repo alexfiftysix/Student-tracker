@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import Media from 'react-media'
 import Typography from '@material-ui/core/Typography'
 import history from './history'
 import Menu from './menu'

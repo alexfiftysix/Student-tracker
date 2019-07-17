@@ -1,15 +1,18 @@
 import React from 'react'
 import {makeStyles} from "@material-ui/core"
 import Button from '@material-ui/core/Button'
-import Modal from '@material-ui/core/Modal'
 import LogIn from './logIn'
+import Dialog from '@material-ui/core/Dialog'
 
 const useStyles = makeStyles(theme => ({
     modal: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        paddingTop: theme.spacing(10)
+        paddingTop: theme.spacing(10),
+        '& *': {
+            boxShadow: 'none',
+        }
     },
     button: {
         textTransform: 'none'
@@ -33,7 +36,9 @@ export default function LogInButton(props) {
             <Button className={classes.button} onClick={handleOpen}>
                 {props.children}
             </Button>
-            <Modal className={classes.modal} open={open} onClose={handleClose}><LogIn/></Modal>
+            <Dialog className={classes.modal} open={open} onClose={handleClose}>
+                <LogIn/>
+            </Dialog>
             {/*    TODO: Expected an element that can hold a ref. Did you accidentally use a plain function component for an element instead? */}
         </div>
     );

@@ -15,7 +15,6 @@ export default function Booking(props) {
     });
 
     useEffect(() => {
-        console.log("Booking did update!");
         setState({
             attended: props.attended,
             payed: props.payed,
