@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './Booking.css'
 import {Link} from "react-router-dom"
 import Paper from '@material-ui/core/Paper'
@@ -13,6 +13,16 @@ export default function Booking(props) {
         date: props.date,
         booking: props.booking
     });
+
+    useEffect(() => {
+        console.log("Booking did update!");
+        setState({
+            attended: props.attended,
+            payed: props.payed,
+            date: props.date,
+            booking: props.booking
+        });
+    }, [props]);
 
     function changePayed() {
         let url = config.serverHost + 'my_students/payment/' + state.booking.id;

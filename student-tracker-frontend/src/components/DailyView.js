@@ -25,7 +25,7 @@ export default function DailyView(props) {
     const [bookings, setBookings] = React.useState(null);
     const date = props.date ? props.date : props.match.params.start_date;
 
-    useEffect(() => {
+    useEffect((prevProps) => {
         fetch(config.serverHost + 'my_appointments/daily/' + date,
             {
                 headers: {
@@ -61,7 +61,7 @@ export default function DailyView(props) {
 
     return (
         <Paper className={classes.paper}>
-            <h2 ><Link to={'/daily/' + date} className={classes.header}>{day}</Link></h2>
+            <h2><Link to={'/daily/' + date} className={classes.header}>{day}</Link></h2>
             <h5>{date}</h5>
             {!bookings ? 'Loading...' : bookings.map(b =>
                 <Booking key={b.lesson_plan.id} attended={b.attended} payed={b.payed}
