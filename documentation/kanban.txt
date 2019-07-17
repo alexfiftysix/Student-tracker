@@ -1,5 +1,7 @@
 ## backlog
 
+On mobile - Daily view in portrait, weekly view in landscape
+
 Text input verification (email verification, password strength, etc.)
 
 As a teacher I want to be able to email a copy of the invoice to myself and my student.

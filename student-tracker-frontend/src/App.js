@@ -17,7 +17,7 @@ import InvoiceBrowser from './components/invoiceBrowser'
 import Calendar from './components/calendar'
 import Hero from './components/hero'
 import SignOut from './components/signOut'
-
+import DayOrWeek from './components/dayOrWeek'
 
 function App() {
     return (
@@ -29,6 +29,7 @@ function App() {
                 <Route path="/log_in" component={LogIn}/>
                 <Route path="/weekly/:start_date" component={WeekNavigator}/>
                 <Route path="/daily/:date" component={DayNavigator}/>
+                <Route path="/day_or_week/:date" component={DayOrWeek}/>
                 <Route path="/student/:student_id" component={Student}/>
                 <Route path="/student_notes/:student_id" component={AllNotesPerStudent}/>
                 <Route path="/student_add_notes/:student_id" component={NewNoteForm}/>
