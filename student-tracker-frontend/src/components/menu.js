@@ -18,6 +18,7 @@ import PersonAdd from '@material-ui/icons/PersonAdd'
 import Payment from '@material-ui/icons/Payment'
 import CalendarToday from '@material-ui/icons/CalendarToday'
 import MenuIcon from '@material-ui/icons/Menu'
+import ExitToApp from '@material-ui/icons/ExitToApp'
 
 const useStyles = makeStyles({
     list: {
@@ -79,7 +80,7 @@ export default function Menu() {
         {
             name: 'Sign Out',
             link: '/signout',
-            icon: <CalendarToday/>
+            icon: <ExitToApp/>
         }
     ];
 
@@ -107,15 +108,6 @@ export default function Menu() {
                             <ListItemText primary={link.name}/>
                         </ListItem>
                     </Link>
-                ))}
-            </List>
-            <Divider/>
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                        <ListItemText primary={text}/>
-                    </ListItem>
                 ))}
             </List>
         </div>

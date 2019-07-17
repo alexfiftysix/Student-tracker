@@ -1,19 +1,8 @@
-### Gereral notes
-
-Should be able to view unnattended booking 
-
-
 ## backlog
 
 Text input verification (email verification, password strength, etc.)
 
-Addresses should be decomposed - to allow for easily showing relevant address information only depending on context
-
 As a teacher I want to be able to email a copy of the invoice to myself and my student.
-
-As a teacher I want to be able to change student lesson times so I can keep up with student's schedules
-
-As me I want a pretty home page to get people to understand the product, and get interested
 
 As a teacher I want to be able to view a complete account of my student to check their payment history
     (Shows every lesson attended, amount owed and payed per lesson, and totals)
@@ -50,15 +39,19 @@ As a teacher I want to be able to book one-off and short term lessons to support
 
 ### todo
 
-As a teacher I want to view students on a monthly view so I can understand my schedule
-As a dev, I want my RESTful API to follow standard responses. (Eg. response code (201 for delete success, etc)
+As a teacher I want to be able to change student lesson times so I can keep up with student's schedules
+As a teacher I want to be able to cancel students lessons, and have this show up in invoices.
 As a teacher I want to be able to edit notes I left so I can remove mistakes from earlier notes.
 
 ### doing
 
 Convert all routes to be based off a teacher
+As a dev, I want my RESTful API to follow standard responses. (Eg. response code (201 for delete success, etc)
+As me I want a pretty home page to get people to understand the product, and get interested
 
 ### done
+Addresses should be decomposed - to allow for easily showing relevant address information only depending on context
+As a teacher I want to view students on a monthly view so I can understand my schedule
 Invoices:
     generate invoices: invoices are displayed in browser and have print-styling for simple b+w print.
     Teachers have Company name

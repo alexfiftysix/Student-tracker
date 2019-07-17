@@ -34,6 +34,8 @@ const useStyles = makeStyles(theme => ({
             padding: 0,
             '& li': {
                 margin: theme.spacing(1),
+                marginBottom: theme.spacing(0.1),
+                marginTop: theme.spacing(0.1),
             }
         }
     },
@@ -84,7 +86,6 @@ function TopBar(props) {
                             <Button href={'/daily/' + dateString}>Daily View</Button>
                         }
                     </li>
-                    <li>{width}</li>
                 </ul>
                 {width !== 'xs' ?
                     <ul>
