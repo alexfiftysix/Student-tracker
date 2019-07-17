@@ -16,6 +16,7 @@ import Invoice from './components/invoice'
 import InvoiceBrowser from './components/invoiceBrowser'
 import Calendar from './components/calendar'
 import Hero from './components/hero'
+import SignOut from './components/signOut'
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                 <Route path={'/invoice/:student_id/:month'} component={Invoice}/>
                 <Route path={'/invoices'} component={InvoiceBrowser}/>
                 <Route path={'/calendar'} component={Calendar}/>
+                <Route path={'/signout'} component={SignOut}/>
             </Router>
         </main>
     );

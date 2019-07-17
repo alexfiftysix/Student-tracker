@@ -76,6 +76,11 @@ export default function Menu() {
             link: '/calendar',
             icon: <CalendarToday/>
         },
+        {
+            name: 'Sign Out',
+            link: '/signout',
+            icon: <CalendarToday/>
+        }
     ];
 
     const toggleDrawer = (side, open) => event => {

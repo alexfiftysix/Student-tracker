@@ -30,7 +30,7 @@ export default function LogInButton(props) {
 
     return (
         <div>
-            <Button className={classes.button} variant={'contained'} onClick={handleOpen}>
+            <Button className={classes.button} onClick={handleOpen}>
                 {props.children}
             </Button>
             <Modal className={classes.modal} open={open} onClose={handleClose}><LogIn/></Modal>

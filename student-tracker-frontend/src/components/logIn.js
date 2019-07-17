@@ -79,7 +79,7 @@ export default function LogIn(props) {
                 {errors.username && errors.username.type === 'pattern' && <Typography color={'error'}>Username must be a valid email address</Typography>}
                 {errors.username && errors.username.type === 'required' && <Typography color={'error'}>Username is required</Typography>}
                 <Input name={'password'} placeholder={'Password'} inputRef={register({required: true})}
-                       className={classes.textField}/>
+                       className={classes.textField} type={'password'}/>
                 {errors.password && errors.password.type === 'required' && <Typography color={'error'}>Password is required</Typography>}
                 {errors.password && console.log(errors.password)}
                 {warning ?
@@ -87,7 +87,6 @@ export default function LogIn(props) {
                     : null}
                 <Button type={'submit'} variant="contained" color="primary" className={classes.button}
                         onTouchStart={handleSubmit} onClick={handleSubmit}
-                    // disabled={!(register.username && register.password)}
                 >
                     Submit
                 </Button>

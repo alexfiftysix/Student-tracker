@@ -43,7 +43,7 @@ export default function SignUpButton(props) {
 
     return (
         <div>
-            <Button className={props.cta ? classes.cta : classes.button} variant={'contained'} onClick={handleOpen}>
+            <Button className={props.cta ? classes.cta : classes.button} onClick={handleOpen}>
                 {props.children}
             </Button>
             <Modal className={classes.modal} open={open} onClose={handleClose}><NewTeacherForm/></Modal>
