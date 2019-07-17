@@ -7,8 +7,8 @@ import config from '../config'
 
 const useStyles = makeStyles(theme => ({
     paper: {
-        margin: theme.spacing(1),
-        padding: theme.spacing(1),
+        margin: theme.spacing(0.5),
+
         backgroundColor: '#f5f5ef',
     },
     header: {
@@ -25,7 +25,7 @@ export default function DailyView(props) {
     const [bookings, setBookings] = React.useState(null);
     const date = props.date ? props.date : props.match.params.start_date;
 
-    useEffect((prevProps) => {
+    useEffect(() => {
         fetch(config.serverHost + 'my_appointments/daily/' + date,
             {
                 headers: {

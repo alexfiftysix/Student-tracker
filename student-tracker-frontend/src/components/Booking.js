@@ -22,6 +22,10 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
         padding: theme.spacing(1),
         margin: theme.spacing(1),
+        '& *': {
+            margin: 0,
+            // padding: 0
+        },
         '& > div': {
             display: 'flex',
             flexDirection: 'row',
@@ -35,6 +39,11 @@ const useStyles = makeStyles(theme => ({
     cancelled: {
         color: 'grey',
         background: 'rgb(192,192,192)'
+    },
+    nameButton: {
+        margin :0,
+        padding: 0,
+        textTransform: 'capitalize',
     }
 }));
 
@@ -155,10 +164,10 @@ export default function Booking(props) {
     // end Popover stuff
 
     return (
-        <Paper className={clsx(classes.booking, state.cancelled ? classes.cancelled: null)}>
+        <Paper className={clsx(classes.booking, state.cancelled ? classes.cancelled : null)}>
             <div>
-                <Button onClick={openPopover} className={classes.nameButton}>
-                    {state.booking.name}
+                <Button className={classes.nameButton}>
+                    <Typography onClick={openPopover} variant={'h6'}>{state.booking.name}</Typography>
                 </Button>
                 <Popover
                     className={classes.popover}
@@ -180,9 +189,10 @@ export default function Booking(props) {
                     <Typography><strong>Address: </strong>{state.booking.address.printable}</Typography>
                     <Typography><strong>Email: </strong>{state.booking.email}</Typography>
                     <Typography><strong>Price: </strong>${state.booking.lesson_plan.price}</Typography>
-                    <Button variant={'contained'} onClick={changeCancelled}>{state.cancelled && 'Un-'}Cancel lesson</Button>
+                    <Button variant={'contained'} onClick={changeCancelled}>{state.cancelled && 'Un-'}Cancel
+                        lesson</Button>
                 </Popover>
-                <h4>{String(state.booking.lesson_plan.lesson_time).substr(0, 5)}-{String(state.booking.lesson_plan.end_time).substr(0, 5)}</h4>
+                <Typography>{String(state.booking.lesson_plan.lesson_time).substr(0, 5)}-{String(state.booking.lesson_plan.end_time).substr(0, 5)}</Typography>
             </div>
             {state.cancelled ?
                 <div>
