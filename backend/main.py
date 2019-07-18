@@ -606,8 +606,10 @@ class LessonPlan(db.Model):
 
             if not lesson_time:
                 return {'message': '"lesson_time" must be included'}
-            elif lesson_time:
-                lesson_time = datetime.strptime(lesson_time, "%H:%M")
+            # elif lesson_time:
+                # lesson_time = datetime.strptime(lesson_time, "%H:%M")
+                # lesson_time = lesson_time.strftime('%H:%M:%S')
+                # print(lesson_time)
 
             if not lesson_day:
                 return {'message': '"lesson_day" must be included'}
@@ -618,16 +620,16 @@ class LessonPlan(db.Model):
                 return {'message': '"lesson_length_minutes" must be included'}
 
             if not lesson_price:
-                return {'message': '"lesson_price" must be included'}
-            else:
+                return {'message': '"price" must be included'}
+            # else:
                 # TODO: try-catch for parsing errors
-                lesson_price = float(lesson_price)
+                # lesson_price = deci(lesson_price)
 
             # TODO: Wrap in try-catch
             lesson_length_minutes = int(lesson_length_minutes)
 
             to_add = LessonPlan(student=student_id, start_date=start_date, lesson_time=lesson_time,
-                                lesson_day=lesson_day, lesson_length_minutes=lesson_length_minutes, price=lesson_price)
+                                lesson_day=lesson_day, length_minutes=lesson_length_minutes, price=lesson_price)
             db.session.add(to_add)
             db.session.commit()
 
