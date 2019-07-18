@@ -37,7 +37,6 @@ def token_required(f):
         except:
             return {'message': 'Token is invalid'}, 401
 
-        print(current_user)
         return f(current_user, *args, **kwargs)
 
     return decorated
@@ -324,12 +323,20 @@ class Student(db.Model):
 
         return total
 
-    def get_lesson_plan(self):
-        """Get current lesson plan"""
+    def get_lesson_plan(self, lesson_date=None):
+        """
+        Get current lesson plan
+        lesson_date is a date object
+        """
+
         plans = [x for x in LessonPlan.query.filter_by(student=self.id)]
-        now = datetime.now().date()
+        if plans:
+            # TODO: This is dodgy. Will generally work but not all cases. Sort by start_date properly
+            plans.reverse()
+        if not lesson_date:
+            lesson_date = datetime.now().date()
         for plan in plans:
-            if now >= plan.start_date:
+            if lesson_date >= plan.start_date:
                 return plan
 
         return None
@@ -517,10 +524,9 @@ class Booking(Resource):
             'cancelled': False
         }
 
-        plan: LessonPlan = student.get_lesson_plan()
+        plan: LessonPlan = student.get_lesson_plan(lesson_date=lesson_date_time.date())
         if plan:
             booking['lesson_plan'] = plan.json()
-
         # Append the following to student:
         # Attended: bool: if there's an attendance record for this day/time
         # Payed: bool: if there's a payment object for this day/time
@@ -609,7 +615,6 @@ class LessonPlan(db.Model):
             # elif lesson_time:
                 # lesson_time = datetime.strptime(lesson_time, "%H:%M")
                 # lesson_time = lesson_time.strftime('%H:%M:%S')
-                # print(lesson_time)
 
             if not lesson_day:
                 return {'message': '"lesson_day" must be included'}
@@ -889,6 +894,8 @@ class Invoice(Resource):
         total_price = 0
         for booking in bookings:
             dt = datetime.strptime(booking.get('datetime'), '%Y-%m-%d %H:%M:%S')
+            print(dt)
+            print(booking)
             attendance = Attendance.query.filter_by(datetime=booking.get('datetime')).first()
             if attendance:
                 booking['attended'] = str(attendance.attended)
@@ -899,7 +906,6 @@ class Invoice(Resource):
 
             b, code = Booking.get(student_id, dt.strftime('%Y-%m-%d_%H:%M'))
             if b:
-                print(b)
                 if attendance and booking['cancelled'] == 'True':
                     booking['price'] = '0'
                 else:

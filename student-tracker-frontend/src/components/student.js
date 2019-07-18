@@ -70,6 +70,11 @@ export default function Student(props) {
                         <p>Add notes</p>
                     </Link>
                 </li>
+                <li>
+                    <Link to={'/change_lesson_time/' + student.id}>
+                        <p>Change lesson time</p>
+                    </Link>
+                </li>
             </ul>
 
         </div>

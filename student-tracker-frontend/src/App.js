@@ -18,6 +18,7 @@ import Hero from './components/hero'
 import SignOut from './components/signOut'
 import DayOrWeek from './components/dayOrWeek'
 import StudentBrowser from './components/studentBrowser'
+import StudentTimeChange from './components/studentTimeChange'
 
 function App() {
     return (
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/add_student" component={NewStudentForm}/>
                 <Route path={'/me'} component={Teacher}/>
                 <Route path={'/invoice/:student_id/:month'} component={Invoice}/>
+                <Route path={'/change_lesson_time/:student_id'} component={StudentTimeChange}/>
                 <Route path={'/invoices'} component={InvoiceBrowser}/>
                 <Route path={'/calendar'} component={Calendar}/>
                 <Route path={'/signout'} component={SignOut}/>

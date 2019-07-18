@@ -11,6 +11,7 @@ import useForm from 'react-hook-form'
 import Input from '@material-ui/core/Input'
 import PropTypes from 'prop-types'
 import withWidth from '@material-ui/core/withWidth'
+import TextField from '@material-ui/core/TextField'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -72,7 +73,7 @@ function LogIn(props) {
         <Paper className={classes.paper}>
             <form onSubmit={handleSubmit(onSubmit)} className={clsx(classes.container, classes.flex)}>
                 <h3>Log in</h3>
-                <Input name={'username'} placeholder={'Username'}
+                <TextField label={'Username'} name={'username'} placeholder={'Username'}
                        inputRef={register({
                            required: true,
                            pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
@@ -80,7 +81,7 @@ function LogIn(props) {
                        className={classes.textField} autoFocus={true}/>
                 {errors.username && errors.username.type === 'pattern' && <Typography color={'error'}>Username must be a valid email address</Typography>}
                 {errors.username && errors.username.type === 'required' && <Typography color={'error'}>Username is required</Typography>}
-                <Input name={'password'} placeholder={'Password'} inputRef={register({required: true})}
+                <TextField label={'Password'} name={'password'} placeholder={'Password'} inputRef={register({required: true})}
                        className={classes.textField} type={'password'}/>
                 {errors.password && errors.password.type === 'required' && <Typography color={'error'}>Password is required</Typography>}
                 {errors.password && console.log(errors.password)}
