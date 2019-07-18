@@ -8,6 +8,7 @@ import {makeStyles, Typography} from "@material-ui/core"
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
 import withWidth from '@material-ui/core/withWidth'
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
     booking: {
@@ -178,7 +179,7 @@ function Booking(props) {
 
     return (
         <Paper className={clsx(classes.booking, state.cancelled ? classes.cancelled : null)}>
-            <div className={width !== 'lg' && classes.notWide}>
+            <div className={width !== 'lg' ? classes.notWide: null}>
                 <Button className={classes.nameButton}>
                     <Typography onClick={openPopover} variant={'h6'}>{state.booking.name}</Typography>
                 </Button>
@@ -202,17 +203,17 @@ function Booking(props) {
                     <Typography><strong>Email: </strong>{state.booking.email}</Typography>
                     <Typography><strong>Price: </strong>${state.booking.lesson_plan.price}</Typography>
                     <Typography><strong>Phone: </strong>{state.booking.phone}</Typography>
-                    <Button variant={'contained'} onClick={changeCancelled}>{state.cancelled && 'Un-'}Cancel
-                        lesson</Button>
+                    <Button variant={'contained'} onClick={changeCancelled}>{state.cancelled && 'Un-'}Cancel lesson</Button>
+                    <Button component={Link} to={'/student/' + state.booking.id} variant={'contained'}>Go to Student</Button>
                 </Popover>
                 <Typography>{String(state.booking.lesson_plan.lesson_time).substr(0, 5)}-{String(state.booking.lesson_plan.end_time).substr(0, 5)}</Typography>
             </div>
             {state.cancelled ?
-                <div className={width !== 'lg' && classes.notWide}>
+                <div className={width !== 'lg' ? classes.notWide: null}>
                     <Typography>Lesson cancelled</Typography>
                 </div>
                 :
-                <div className={width !== 'lg' && classes.notWide}>
+                <div className={width !== 'lg' ? classes.notWide : null}>
                     <div className={'attended'}>
                         Attended
                         <Checkbox
