@@ -173,7 +173,7 @@ function Booking(props) {
     }
 
     const open = Boolean(anchorEl);
-    const id = open ? 'address-popover' : undefined;
+    const id = open ? 'popover' : undefined;
     // end Popover stuff
 
     return (
@@ -184,7 +184,7 @@ function Booking(props) {
                 </Button>
                 <Popover
                     className={classes.popover}
-                    id={'popover'}
+                    id={id}
                     open={open}
                     anchorEl={anchorEl}
                     onClose={closePopover}

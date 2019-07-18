@@ -1,7 +1,6 @@
-import React from 'react';
-import {BrowserRouter as Router, Route} from "react-router-dom";
-
-import './App.css';
+import React from 'react'
+import {BrowserRouter as Router, Route} from "react-router-dom"
+import './App.css'
 import WeekNavigator from './components/weekNavigator'
 import DayNavigator from './components/dayNavigator'
 import NewStudentForm from './components/NewStudentForm'
@@ -18,6 +17,7 @@ import Calendar from './components/calendar'
 import Hero from './components/hero'
 import SignOut from './components/signOut'
 import DayOrWeek from './components/dayOrWeek'
+import StudentBrowser from './components/studentBrowser'
 
 function App() {
     return (
@@ -39,6 +39,7 @@ function App() {
                 <Route path={'/invoices'} component={InvoiceBrowser}/>
                 <Route path={'/calendar'} component={Calendar}/>
                 <Route path={'/signout'} component={SignOut}/>
+                <Route path={'/students'} component={StudentBrowser}/>
             </Router>
         </main>
     );
