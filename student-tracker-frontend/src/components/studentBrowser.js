@@ -18,7 +18,11 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
     },
+    header: {
+        marginBottom: theme.spacing(1),
+    }
 }));
 
 export default function StudentBrowser() {
@@ -41,7 +45,7 @@ export default function StudentBrowser() {
 
     return (
         <Paper className={classes.paper}>
-            <Typography variant={'h4'}>Students</Typography>
+            <Typography variant={'h4'} className={classes.header}>My students</Typography>
             <div className={classes.container}>
                 {students.map(s =>
                     <Button component={Link} to={'/student/' + s.id} key={s.name} className={classes.button} variant={'contained'}>{s.name}</Button>
