@@ -8,12 +8,15 @@ import config from '../config'
 const useStyles = makeStyles(theme => ({
     paper: {
         margin: theme.spacing(0.5),
-
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
         backgroundColor: '#f5f5ef',
     },
     header: {
         textDecoration: 'none',
         color: 'black',
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
         "&:visited": {
             color: 'black',
         }
