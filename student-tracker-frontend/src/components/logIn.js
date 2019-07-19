@@ -73,23 +73,38 @@ function LogIn(props) {
         <Paper className={classes.paper}>
             <form onSubmit={handleSubmit(onSubmit)} className={clsx(classes.container, classes.flex)}>
                 <h3>Log in</h3>
-                <TextField label={'Username'} name={'username'} placeholder={'Username'}
-                       inputRef={register({
-                           required: true,
-                           pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-                       })}
-                       className={classes.textField} autoFocus={true}/>
-                {errors.username && errors.username.type === 'pattern' && <Typography color={'error'}>Username must be a valid email address</Typography>}
-                {errors.username && errors.username.type === 'required' && <Typography color={'error'}>Username is required</Typography>}
-                <TextField label={'Password'} name={'password'} placeholder={'Password'} inputRef={register({required: true})}
-                       className={classes.textField} type={'password'}/>
-                {errors.password && errors.password.type === 'required' && <Typography color={'error'}>Password is required</Typography>}
+                <TextField
+                    placeholder={'Username'}
+                    name={'username'}
+                    label={errors.username ? 'Valid email is required' : 'Username'}
+                    error={!!errors.username}
+                    inputRef={register({
+                        required: true,
+                        pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+                    })}
+                    className={classes.textField}
+                    autoFocus={true}
+                />
+                <TextField
+                    label={'Password' + (errors.password ? ' is required' : '')}
+                    error={!!errors.password}
+                    name={'password'}
+                    placeholder={'Password'}
+                    inputRef={register({required: true})}
+                    className={classes.textField}
+                    type={'password'}
+                />
                 {errors.password && console.log(errors.password)}
                 {warning ?
                     <Typography className={classes.textField} color={'error'}>{warning}</Typography>
                     : null}
-                <Button type={'submit'} variant="contained" color="primary" className={classes.button}
-                        onTouchStart={handleSubmit} onClick={handleSubmit}
+                <Button
+                    type={'submit'}
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onTouchStart={handleSubmit}
+                    onClick={handleSubmit}
                 >
                     Submit
                 </Button>
