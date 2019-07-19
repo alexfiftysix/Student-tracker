@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import history from './history'
 import clsx from 'clsx'
 import TextField from '@material-ui/core/TextField'
@@ -10,12 +10,14 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
 import Paper from '@material-ui/core/Paper'
 import config from '../config'
+import useForm from 'react-hook-form'
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        width: '40%'
+        // width: '40%'
     },
     margin: {
         marginTop: theme.spacing(1),
@@ -43,6 +45,8 @@ const useStyles = makeStyles(theme => ({
 export default function NewTeacherForm(props) {
     // TODO: Use Material-ui stepper
     const classes = useStyles();
+    const {register, handleSubmit, errors} = useForm();
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
     const [values, setValues] = React.useState({
         name: '',
         email: '',
@@ -58,16 +62,17 @@ export default function NewTeacherForm(props) {
         country: ''
     });
 
+    const teacherFields = ['name', 'email', 'password', 'password_confirm', 'standard_rate'];
     const addressFields = ['unit_number', 'street_number', 'street_name', 'suburb', 'post_code', 'state', 'country'];
-    const handleChange = name => event => {
-        setValues({...values, [name]: event.target.value});
-    };
 
-    function handleSubmit(event) {
-        event.preventDefault();
-        if (values.password !== values.password_confirm) {
-            alert("Passwords don't match");
+    const onSubmit = data => {
+
+
+        if (data.password !== data.password_confirm) {
+            setPasswordsMatch(false);
             return;
+        } else {
+            setPasswordsMatch(true);
         }
 
         let url = config.serverHost + 'teachers';
@@ -79,67 +84,89 @@ export default function NewTeacherForm(props) {
             credentials: 'same-origin',
             body: new FormData()
         };
-        for (let key in values) {
-            options.body.append(key, values[key]);
+
+        for (const i in teacherFields) {
+            options.body.append(teacherFields[i], data[teacherFields[i]]);
+        }
+
+        for (const i in addressFields) {
+            options.body.append(addressFields[i], data[addressFields[i]]);
         }
 
         fetch(url, options)
             .then(response => response.json())
             .then(data => {
-                history.push('/log_in');
-                window.location.assign(window.location);
+                if (data.message) {
+                    console.log(data.message);
+                    alert(data.message);
+                } else {
+                    history.push('/log_in');
+                    window.location.assign(window.location);
+                }
             });
-    }
+    };
 
     function prepare(str) {
         str = str.charAt(0).toUpperCase() + str.slice(1);
         return str.replace('_', ' ')
     }
 
+    useEffect(() => {
+    }, [passwordsMatch]);
+
     return (
         <Paper className={classes.paper}>
-            <form className={clsx(classes.container, classes.flex)} noValidate autoComplete="off">
+            <form className={clsx(classes.container, classes.flex)} onSubmit={handleSubmit(onSubmit)}>
                 <h2>Sign up</h2>
                 <h3>Your Details</h3>
                 <div className={classes.section}>
                     <TextField
-                        id={'name'}
-                        label={'Name'}
+                        name={'name'}
+                        label={errors.name ? 'Name is required' : '* Name'}
                         className={classes.textField}
+                        error={!!errors.name}
                         margin="normal"
-                        onChange={handleChange('name')}
                         autoFocus={true}
+                        inputRef={register({required: true})}
                     />
                     <TextField
-                        id={'email'}
-                        label={'Email'}
+                        name={'email'}
+                        label={errors.email ? 'Valid email is required' : '* Email'}
+                        error={!!errors.email}
                         className={classes.textField}
                         margin={'normal'}
-                        onChange={handleChange('email')}
+                        inputRef={register({
+                            required: true,
+                            pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+                        })}
                     />
+                    {errors.password && errors.password.type === 'pattern' && <Typography color={'error'}>Password must be at least 8 characters long, contain 1 lowercase letter, 1 uppercase letter, and 1 number</Typography>}
                     <TextField
-                        id={'password'}
-                        label={'Password'}
+                        name={'password'}
+                        label={errors.password ? 'Password is required' : '* Password'}
+                        error={!!errors.password}
                         className={classes.textField}
                         type="password"
                         margin="normal"
-                        onChange={handleChange('password')}
+                        inputRef={register({required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/})}
                     />
                     <TextField
-                        id={'password_confirm'}
-                        label={'Confirm Password'}
+                        name={'password_confirm'}
+                        label={!passwordsMatch ? "Passwords must match" : errors.password_confirm ? 'Please confirm password' : '* Confirm Password'}
+                        error={!!errors.password_confirm || !passwordsMatch}
                         className={classes.textField}
                         type="password"
                         margin="normal"
-                        onChange={handleChange('password_confirm')}
+                        inputRef={register({required: true})}
                     />
                     <FormControl fullWidth className={clsx(classes.margin, classes.textField)}>
-                        <InputLabel htmlFor="adornment-amount">Standard Rate</InputLabel>
+                        <InputLabel htmlFor="adornment-amount">Standard lesson cost</InputLabel>
                         <Input
-                            id="standard_rate"
-                            value={values.standard_rate}
-                            onChange={handleChange('standard_rate')}
+                            name="standard_rate"
+                            type={'number'}
+                            defaultValue={values.standard_rate}
                             startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                            inputRef={register}
                         />
                     </FormControl>
                 </div>
@@ -148,18 +175,18 @@ export default function NewTeacherForm(props) {
                 <div className={classes.section}>
                     {addressFields.map(f =>
                         <TextField
-                            id={f}
+                            name={f}
                             key={f}
                             label={prepare(f)}
                             className={classes.textField}
                             margin="normal"
-                            onChange={handleChange(f)}
+                            inputRef={register}
                         />
                     )}
                 </div>
 
                 <Button type={'submit'} variant="contained" color="primary" className={classes.button}
-                        onClick={handleSubmit}>
+                        onClick={onSubmit}>
                     Submit
                 </Button>
             </form>

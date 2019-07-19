@@ -20,7 +20,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 api = Api(app)
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)  # TODO: Migrations
+migrate = Migrate(app, db)
 
 
 def token_required(f):
@@ -328,7 +328,6 @@ class Student(db.Model):
         Get current lesson plan
         lesson_date is a date object
         """
-
         plans = [x for x in LessonPlan.query.filter_by(student=self.id)]
         if plans:
             # TODO: This is dodgy. Will generally work but not all cases. Sort by start_date properly

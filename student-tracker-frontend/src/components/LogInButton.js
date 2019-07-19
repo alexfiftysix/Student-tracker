@@ -19,6 +19,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function LogInButton(props) {
+    /*
+     * A button which opens a LogIn popover
+     */
+    // TODO: Generalise to button which opens a 'component' popover, with text 'text'
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 

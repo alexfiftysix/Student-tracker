@@ -4,8 +4,6 @@ As a teacher I want to be able to email a copy of the invoice to myself and my s
 
 On mobile - Daily view in portrait, weekly view in landscape
 
-Text input verification (email verification, password strength, etc.)
-
 As a teacher I want to be able to view a complete account of my student to check their payment history
     (Shows every lesson attended, amount owed and payed per lesson, and totals)
 
@@ -41,16 +39,18 @@ As a teacher I want to be able to book one-off and short term lessons to support
 
 ### todo
 
-As a teacher I want to be able to change student lesson times so I can keep up with student's schedules
 As a teacher I want to be able to edit notes I left so I can remove mistakes from earlier notes.
+Print invoices
 
 ### doing
 
+Text input verification (email verification, password strength, etc.)
 Convert all routes to be based off a teacher
 As a dev, I want my RESTful API to follow standard responses. (Eg. response code (201 for delete success, etc)
 As me I want a pretty home page to get people to understand the product, and get interested
 
 ### done
+As a teacher I want to be able to change student lesson times so I can keep up with student's schedules
 As a teacher I want to be able to cancel students lessons, and have this show up in invoices.
 Addresses should be decomposed - to allow for easily showing relevant address information only depending on context
 As a teacher I want to view students on a monthly view so I can understand my schedule
