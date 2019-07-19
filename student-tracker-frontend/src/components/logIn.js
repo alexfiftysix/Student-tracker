@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button"
 import Paper from '@material-ui/core/Paper'
 import config from '../config'
 import useForm from 'react-hook-form'
-import Input from '@material-ui/core/Input'
 import PropTypes from 'prop-types'
 import withWidth from '@material-ui/core/withWidth'
 import TextField from '@material-ui/core/TextField'

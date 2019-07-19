@@ -1,18 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import history from './history'
 import currentDateAsString from '../utilities/dates'
 import {makeStyles} from "@material-ui/core"
 import clsx from 'clsx'
 import TextField from '@material-ui/core/TextField'
 import Button from "@material-ui/core/Button"
-import InputAdornment from '@material-ui/core/InputAdornment'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
-import Input from '@material-ui/core/Input'
 import Paper from '@material-ui/core/Paper'
 import Select from "@material-ui/core/Select"
-import MenuItem from "@material-ui/core/MenuItem"
 import config from '../config'
+import useForm from 'react-hook-form'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -54,32 +52,28 @@ const useStyles = makeStyles(theme => ({
 export default function NewTeacherForm(props) {
     // TODO: Use Material-ui stepper
     const classes = useStyles();
+    const {register, handleSubmit, errors} = useForm();
     const [values, setValues] = React.useState({
         name: '',
-        lesson_day: '',
+        lesson_day: 'Monday',
         lesson_time: '15:00',
         lesson_duration: '',
         address: '',
         price: '',
         email: '',
     });
+    const [lessonDay, setLessonDay] = useState('Monday');
 
-    const addressFields = ['unit_number', 'street_number', 'street_name', 'suburb', 'post_code', 'state', 'country'];
-    const weekDays = [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday'
-    ];
 
     const handleChange = name => event => {
         setValues({...values, [name]: event.target.value});
     };
 
-    function handleSubmit(event) {
+    const handleDayChange = name => event => {
+        setLessonDay(event.target.value);
+    };
+
+    function handleSubmitOld(event) {
         event.preventDefault();
 
         let url = config.serverHost + 'my_students';
@@ -105,95 +99,168 @@ export default function NewTeacherForm(props) {
             });
     }
 
+
     function prepare(str) {
         str = str.charAt(0).toUpperCase() + str.slice(1);
         return str.replace('_', ' ')
     }
 
+    const fields = [
+        {
+            name: 'name',
+            required: true,
+            label: 'Name',
+            autoFocus: true
+        },
+        {
+            name: 'email',
+            required: true,
+            label: 'Email',
+            pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+        },
+        {
+            name: 'price',
+            required: true,
+            type: 'number',
+            label: 'Lesson Price ($)'
+        },
+        {
+            name: 'lesson_time',
+            required: true,
+            type: 'time',
+            label: 'Lesson time',
+            defaultValue: '15:00'
+        },
+        {
+            name: 'lesson_length_minutes',
+            required: true,
+            type: 'number',
+            label: 'Lesson duration',
+            defaultValue: 30
+        },
+    ];
+    const addressFields = [
+        {name: 'unit_number', required: false},
+        {name: 'street_number', required: true},
+        {name: 'street_name', required: true},
+        {name: 'suburb', required: true},
+        {name: 'post_code', required: false},
+        {name: 'state', required: false},
+        {name: 'country', required: false},
+    ];
+    const weekDays = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+    ];
+    // lesson day is special
+
+    const onSubmit = data => {
+        let url = config.serverHost + 'my_students';
+        let options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'x-access-token': localStorage.getItem('token')
+            },
+            credentials: 'same-origin',
+            body: new FormData()
+        };
+
+        for (const f in fields) {
+            options.body.append(fields[f].name, data[fields[f].name]);
+        }
+        for (const f in addressFields) {
+            options.body.append(addressFields[f].name, data[addressFields[f].name]);
+        }
+        options.body.append('lesson_day', lessonDay);
+
+        fetch(url, options)
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message)
+                } else {
+                    history.push('/weekly/' + currentDateAsString());
+                    window.location.assign(window.location);
+                }
+            });
+    };
+
     return (
         <Paper className={classes.paper}>
-            <form className={clsx(classes.container, classes.flex)} noValidate autoComplete="off">
+            <form className={clsx(classes.container, classes.flex)} onSubmit={handleSubmit(onSubmit)} noValidate>
                 <h2>New Student</h2>
                 <h3>Details</h3>
+
                 <div className={classes.section}>
-                    <TextField
-                        id={'name'}
-                        label={'Name'}
-                        className={classes.textField}
-                        margin="normal"
-                        onChange={handleChange('name')}
-                    />
-                    <TextField
-                        id={'email'}
-                        label={'Email'}
-                        className={classes.textField}
-                        margin="normal"
-                        onChange={handleChange('email')}
-                    />
+                    {fields.map(f =>
+                        <TextField
+                            placeholder={f.label}
+                            id={f.name}
+                            name={f.name}
+                            key={f.name}
+                            className={classes.textField}
+                            label={(f.required ? '* ' : '') + f.label}
+                            error={!!errors[f.name]}
+                            type={f.type || 'text'}
+                            defaultValue={f.defaultValue || ''}
+                            autoFocus={!!f.autoFocus}
+                            inputRef={register({
+                                required: !!f.required,
+                                pattern: f.pattern ? f.pattern : null
+                            })}
+                        />
+                    )}
                     <FormControl className={classes.textField}>
-                        <InputLabel htmlFor="age-simple">Lesson day</InputLabel>
+                        <InputLabel htmlFor={'weekday'}>* Lesson day</InputLabel>
                         <Select
+                            native
                             className={classes.leftAlign}
                             value={values.lesson_day}
-                            onChange={handleChange('lesson_day')}
+                            error={!!errors.lesson_day}
+                            onChange={handleDayChange}
                             inputProps={{
-                                name: 'month',
-                                id: 'age-simple',
+                                name: 'weekday',
+                                id: 'weekday',
                             }}
+                            inputRef={register({
+                                required: true
+                            })}
                         >
                             {weekDays.map(w =>
-                                <MenuItem key={w} value={w}>{w}</MenuItem>
+                                <option key={w} value={w}>{w}</option>
                             )}
                         </Select>
-                    </FormControl>
-                    <TextField
-                        id="lesson_time"
-                        label="Lesson Time"
-                        type="time"
-                        defaultValue="15:00"
-                        className={classes.textField}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        inputProps={{
-                            step: 300, // 5 min
-                        }}
-                        onChange={handleChange('lesson_time')}
-                    />
-                    <TextField
-                        id={'lesson_duration'}
-                        label={'Lesson Duration'}
-                        className={classes.textField}
-                        type={'number'}
-                        margin="normal"
-                        onChange={handleChange('lesson_duration')}
-                    />
-                    <FormControl fullWidth className={clsx(classes.margin, classes.textField)}>
-                        <InputLabel htmlFor="adornment-amount">Price</InputLabel>
-                        <Input
-                            id="price"
-                            value={values.price}
-                            type={'number'}
-                            onChange={handleChange('price')}
-                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                        />
                     </FormControl>
                 </div>
                 <h3>Address</h3>
                 <div className={classes.section}>
                     {addressFields.map(f =>
                         <TextField
-                            id={f}
-                            key={f}
-                            label={prepare(f)}
+                            name={f.name}
+                            key={f.name}
+                            label={prepare(f.name) + (errors[f.name] ? ' is required' : '')}
+                            error={!!errors[f.name]}
                             className={classes.textField}
+                            required={f.required}
+                            inputRef={register({required: f.required,})}
                             margin="normal"
-                            onChange={handleChange(f)}
+                            // onChange={handleChange(f)}
                         />
                     )}
                 </div>
-                <Button type={'submit'} variant="contained" color="primary" className={classes.button}
-                        onClick={handleSubmit}>
+                <Button
+                    type={'submit'}
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={handleSubmit}
+                >
                     Submit
                 </Button>
             </form>

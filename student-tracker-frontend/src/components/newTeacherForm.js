@@ -149,7 +149,9 @@ export default function NewTeacherForm(props) {
                             pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
                         })}
                     />
-                    {errors.password && errors.password.type === 'pattern' && <Typography color={'error'}>Password must be at least 8 characters long, contain 1 lowercase letter, 1 uppercase letter, and 1 number</Typography>}
+                    {errors.password && errors.password.type === 'pattern' &&
+                    <Typography color={'error'}>Password must be at least 8 characters long, contain 1 lowercase letter,
+                        1 uppercase letter, and 1 number</Typography>}
                     <TextField
                         name={'password'}
                         label={errors.password ? 'Password is required' : '* Password'}
@@ -198,8 +200,12 @@ export default function NewTeacherForm(props) {
                     )}
                 </div>
 
-                <Button type={'submit'} variant="contained" color="primary" className={classes.button}
-                        onClick={onSubmit}>
+                <Button
+                    type={'submit'}
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={onSubmit}>
                     Submit
                 </Button>
             </form>
