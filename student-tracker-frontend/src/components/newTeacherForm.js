@@ -169,7 +169,9 @@ export default function NewTeacherForm(props) {
                         inputRef={register({required: true})}
                     />
                     <FormControl fullWidth className={clsx(classes.margin, classes.textField)}>
-                        <InputLabel error={!!errors.standard_rate} htmlFor="adornment-amount">* Standard lesson cost {errors.standard_rate ? 'is required' : null} </InputLabel>
+                        <InputLabel error={!!errors.standard_rate} htmlFor="adornment-amount">
+                            * Standard lesson cost {errors.standard_rate ? 'is required' : null}
+                        </InputLabel>
                         <Input
                             name="standard_rate"
                             type={'number'}

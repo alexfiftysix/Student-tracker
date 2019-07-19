@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
         background: 'rgb(192,192,192)'
     },
     nameButton: {
-        margin :0,
+        margin: 0,
         padding: 0,
         textTransform: 'capitalize',
         textAlign: 'left',
@@ -60,6 +60,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Booking(props) {
+    // TODO: Collapse booking based on props, not screen width (variant='narrow')
     const {width} = props;
     const classes = useStyles();
     const [state, setState] = React.useState({
@@ -179,9 +180,9 @@ function Booking(props) {
 
     return (
         <Paper className={clsx(classes.booking, state.cancelled ? classes.cancelled : null)}>
-            <div className={width !== 'lg' ? classes.notWide: null}>
-                <Button className={classes.nameButton}>
-                    <Typography onClick={openPopover} variant={'h6'}>{state.booking.name}</Typography>
+            <div className={width !== 'lg' ? classes.notWide : null}>
+                <Button onClick={openPopover} className={classes.nameButton}>
+                    <Typography variant={'h6'}>{state.booking.name}</Typography>
                 </Button>
                 <Popover
                     className={classes.popover}
@@ -203,13 +204,15 @@ function Booking(props) {
                     <Typography><strong>Email: </strong>{state.booking.email}</Typography>
                     <Typography><strong>Price: </strong>${state.booking.lesson_plan.price}</Typography>
                     <Typography><strong>Phone: </strong>{state.booking.phone}</Typography>
-                    <Button variant={'contained'} onClick={changeCancelled}>{state.cancelled && 'Un-'}Cancel lesson</Button>
-                    <Button component={Link} to={'/student/' + state.booking.id} variant={'contained'}>Go to Student</Button>
+                    <Button variant={'contained'} onClick={changeCancelled}>{state.cancelled && 'Un-'}Cancel
+                        lesson</Button>
+                    <Button component={Link} to={'/student/' + state.booking.id} variant={'contained'}>Go to
+                        Student</Button>
                 </Popover>
                 <Typography>{String(state.booking.lesson_plan.lesson_time).substr(0, 5)}-{String(state.booking.lesson_plan.end_time).substr(0, 5)}</Typography>
             </div>
             {state.cancelled ?
-                <div className={width !== 'lg' ? classes.notWide: null}>
+                <div className={width !== 'lg' ? classes.notWide : null}>
                     <Typography>Lesson cancelled</Typography>
                 </div>
                 :
