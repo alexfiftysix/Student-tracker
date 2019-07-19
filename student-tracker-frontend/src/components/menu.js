@@ -17,6 +17,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday'
 import MenuIcon from '@material-ui/icons/Menu'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 import People from '@material-ui/icons/People'
+import Home from '@material-ui/icons/Home'
 
 const useStyles = makeStyles({
     list: {
@@ -85,7 +86,11 @@ export default function Menu() {
             link: '/signout',
             icon: <ExitToApp/>
         },
-
+        {
+            name: 'Home',
+            link: '/',
+            icon: <Home/>
+        }
     ];
 
     const toggleDrawer = (side, open) => event => {
