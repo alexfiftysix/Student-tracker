@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="20cfc609-3330-477e-9691-15a11792953d" name="Default Changelist" comment="">
+    <list default="true" id="20cfc609-3330-477e-9691-15a11792953d" name="Default Changelist" comment="Added home button to menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentation/kanban.txt" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/kanban.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/LogInButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/LogInButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/SignUpButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/SignUpButton.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,112 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="58" column="17" selection-start-line="55" selection-start-column="16" selection-end-line="58" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="96" column="41" selection-start-line="96" selection-start-column="41" selection-end-line="96" selection-end-column="41" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-                <element signature="e#594#1151#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="71" column="4" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-                <element signature="n#!!block;n#changePayed#0;n#!!block;n#Booking#0" />
-                <element signature="n#!!block;n#changeCancelled#0;n#!!block;n#Booking#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/studentTimeChange.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-69">
-              <caret line="70" column="27" selection-start-line="70" selection-start-column="27" selection-end-line="70" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#48#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-651">
-              <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
-              <folding>
-                <element signature="e#812#1320#0" />
-                <element signature="e#866#1298#0" />
-                <element signature="e#1069#1177#0" />
-                <element signature="e#1352#4081#0" />
-                <element signature="e#1352#1453#1" />
-                <element signature="e#2005#2565#0" />
-                <element signature="e#2207#2565#0" />
-                <element signature="e#2682#2969#0" />
-                <element signature="e#3016#3255#0" />
-                <element signature="e#3101#3255#0" />
-                <element signature="e#3307#4081#0" />
-                <element signature="e#3389#4081#0" />
-                <element signature="e#4736#4824#0" />
-                <element signature="e#4903#5264#0" />
-                <element signature="e#4984#5264#0" />
-                <element signature="e#5316#5481#0" />
-                <element signature="e#5534#5713#0" />
-                <element signature="e#5534#5683#1" />
-                <element signature="e#5757#6980#0" />
-                <element signature="e#5802#6980#0" />
-                <element signature="e#6055#6191#0" />
-                <element signature="e#6062#6191#0" />
-                <element signature="e#6118#6191#0" />
-                <element signature="e#6312#6444#0" />
-                <element signature="e#6319#6444#0" />
-                <element signature="e#6371#6444#0" />
-                <element signature="e#6531#6839#0" />
-                <element signature="e#6550#6718#0" />
-                <element signature="e#6859#6980#0" />
-                <element signature="e#6911#6980#0" />
-                <element signature="e#7025#7259#0" />
-                <element signature="e#7106#7259#0" />
-                <element signature="e#8861#9216#0" />
-                <element signature="e#9273#9393#0" />
-                <element signature="e#9484#9678#0" />
-                <element signature="e#9716#10383#0" />
-                <element signature="e#9798#10383#0" />
-                <element signature="e#10040#10360#0" />
-                <element signature="e#10097#10360#0" />
-                <element signature="e#10923#11744#0" />
-                <element signature="e#11168#11464#0" />
-                <element signature="e#11541#11575#0" />
-                <element signature="e#11778#11863#0" />
-                <element signature="e#11896#11918#0" />
-                <element signature="e#11951#12170#0" />
-                <element signature="e#11951#12079#1" />
-                <element signature="e#12209#12379#0" />
-                <element signature="e#12209#12271#1" />
-              </folding>
+            <state relative-caret-position="325">
+              <caret line="171" column="96" selection-start-line="171" selection-start-column="96" selection-end-line="171" selection-end-column="96" />
             </state>
           </provider>
         </entry>
@@ -141,7 +36,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>log ou</find>
       <find>query</find>
       <find>order_by</find>
       <find>overflow</find>
@@ -171,6 +65,7 @@
       <find>handl</find>
       <find>valid email</find>
       <find>useEffect</find>
+      <find>menu</find>
     </findStrings>
     <replaceStrings>
       <replace>window.location.assign(window.location);</replace>
@@ -229,7 +124,6 @@
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/topBar.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/dayOrWeek.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/studentBrowser.js" />
-        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/menu.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/DailyView.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/Booking.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/student.js" />
@@ -240,6 +134,7 @@
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/SignUpButton.js" />
         <option value="$PROJECT_DIR$/backend/main.py" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/logIn.js" />
+        <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/menu.js" />
         <option value="$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js" />
       </list>
     </option>
@@ -587,21 +482,7 @@
       <workItem from="1563405922380" duration="8458000" />
       <workItem from="1563417743268" duration="2650000" />
       <workItem from="1563421516556" duration="2085000" />
-      <workItem from="1563497450640" duration="4282000" />
-    </task>
-    <task id="LOCAL-00077" summary="New Student form upgraded. Has some styling issues">
-      <created>1562047208303</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1562047208303</updated>
-    </task>
-    <task id="LOCAL-00078" summary="Removed unused imports.&#10;Added email to student view">
-      <created>1562051618949</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1562051618949</updated>
+      <workItem from="1563497450640" duration="5915000" />
     </task>
     <task id="LOCAL-00079" summary="Added more comprehensive address table to teacher and student records.">
       <created>1562138062714</created>
@@ -932,7 +813,21 @@
       <option name="project" value="LOCAL" />
       <updated>1563423847772</updated>
     </task>
-    <option name="localTasksCounter" value="126" />
+    <task id="LOCAL-00126" summary="Teacher sign up has form validation. Could have some address validation - I want to get street number/name/suburb for invoicing">
+      <created>1563501960536</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1563501960537</updated>
+    </task>
+    <task id="LOCAL-00127" summary="Added home button to menu">
+      <created>1563502038619</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1563502038619</updated>
+    </task>
+    <option name="localTasksCounter" value="128" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -968,7 +863,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="301219000" />
+    <option name="totallyTimeSpent" value="302852000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1051,8 +946,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="TopBar cleaned up a little." />
-    <MESSAGE value="Elements will now display full size on mobile, though users should be dissuaded from certain views on mobile" />
     <MESSAGE value="Added arrows to go up or back one week in dayNavigator. Don't fully work" />
     <MESSAGE value="Changed dayNavigator to use date-fns for date formatting" />
     <MESSAGE value="Login Displays errors on bad input and doesn't let invalid users pass" />
@@ -1076,7 +969,9 @@
     <MESSAGE value="Can go to student profile from booking popover" />
     <MESSAGE value="Backend can update lesson time - front end will reflect lesson time changes" />
     <MESSAGE value="Updating lesson plan works a bit better now. Needs to be better" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updating lesson plan works a bit better now. Needs to be better" />
+    <MESSAGE value="Teacher sign up has form validation. Could have some address validation - I want to get street number/name/suburb for invoicing" />
+    <MESSAGE value="Added home button to menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added home button to menu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1375,16 +1270,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/menu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="78" column="23" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/DailyView.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -1464,8 +1349,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-651">
-          <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
+        <state relative-caret-position="285">
+          <caret line="197" column="38" selection-start-line="197" selection-start-column="38" selection-end-line="197" selection-end-column="38" />
           <folding>
             <element signature="e#812#1320#0" />
             <element signature="e#866#1298#0" />
@@ -1551,14 +1436,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js">
+    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/menu.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="96" column="41" selection-start-line="96" selection-start-column="41" selection-end-line="96" selection-end-column="41" />
+        <state relative-caret-position="192">
+          <caret line="47" column="18" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
-            <element signature="e#594#1151#0" />
+            <element signature="e#1516#2452#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student-tracker-frontend/src/components/newTeacherForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="171" column="96" selection-start-line="171" selection-start-column="96" selection-end-line="171" selection-end-column="96" />
         </state>
       </provider>
     </entry>

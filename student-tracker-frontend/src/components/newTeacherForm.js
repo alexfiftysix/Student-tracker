@@ -63,7 +63,16 @@ export default function NewTeacherForm(props) {
     });
 
     const teacherFields = ['name', 'email', 'password', 'password_confirm', 'standard_rate'];
-    const addressFields = ['unit_number', 'street_number', 'street_name', 'suburb', 'post_code', 'state', 'country'];
+    // const addressFields = ['unit_number', 'street_number', 'street_name', 'suburb', 'post_code', 'state', 'country'];
+    const addressFields = [
+        {name: 'unit_number', required: false},
+        {name: 'street_number', required: true},
+        {name: 'street_name', required: true},
+        {name: 'suburb', required: true},
+        {name: 'post_code', required: false},
+        {name: 'state', required: false},
+        {name: 'country', required: false},
+    ];
 
     const onSubmit = data => {
 
@@ -90,7 +99,7 @@ export default function NewTeacherForm(props) {
         }
 
         for (const i in addressFields) {
-            options.body.append(addressFields[i], data[addressFields[i]]);
+            options.body.append(addressFields[i]['name'], data[addressFields[i]['name']]);
         }
 
         fetch(url, options)
@@ -160,13 +169,14 @@ export default function NewTeacherForm(props) {
                         inputRef={register({required: true})}
                     />
                     <FormControl fullWidth className={clsx(classes.margin, classes.textField)}>
-                        <InputLabel htmlFor="adornment-amount">Standard lesson cost</InputLabel>
+                        <InputLabel error={!!errors.standard_rate} htmlFor="adornment-amount">* Standard lesson cost {errors.standard_rate ? 'is required' : null} </InputLabel>
                         <Input
                             name="standard_rate"
                             type={'number'}
+                            error={!!errors.standard_rate}
                             defaultValue={values.standard_rate}
                             startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                            inputRef={register}
+                            inputRef={register({required: true})}
                         />
                     </FormControl>
                 </div>
@@ -175,12 +185,13 @@ export default function NewTeacherForm(props) {
                 <div className={classes.section}>
                     {addressFields.map(f =>
                         <TextField
-                            name={f}
-                            key={f}
-                            label={prepare(f)}
+                            name={f.name}
+                            key={f.name}
+                            label={(f.required ? '* ' : '') + prepare(f.name) + (errors[f.name] ? ' is required' : '')}
+                            error={errors[f.name]}
                             className={classes.textField}
                             margin="normal"
-                            inputRef={register}
+                            inputRef={register({required: f.required})}
                         />
                     )}
                 </div>
