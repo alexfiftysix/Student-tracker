@@ -2,6 +2,8 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
+/*TODO: Fix whatever's going wrong here*/
+
 .calendar .icon {
     font-family: 'Material Icons', serif;
     font-style: normal;
@@ -119,7 +121,7 @@
     display: block;
     position: relative;
     width: 100%;
-    background: var(--neutral-color);
+    background: white;
     border: 1px solid var(--border-color);
     margin: 20px;
 }

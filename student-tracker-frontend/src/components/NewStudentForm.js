@@ -62,14 +62,14 @@ export default function NewTeacherForm(props) {
         price: '',
         email: '',
     });
-    const [lessonDay, setLessonDay] = useState('Monday');
+    const [lessonDay, setLessonDay] = useState('');
 
 
     const handleChange = name => event => {
         setValues({...values, [name]: event.target.value});
     };
 
-    const handleDayChange = name => event => {
+    const handleDayChange = event => {
         setLessonDay(event.target.value);
     };
 
@@ -221,17 +221,18 @@ export default function NewTeacherForm(props) {
                         <Select
                             native
                             className={classes.leftAlign}
-                            value={values.lesson_day}
-                            error={!!errors.lesson_day}
+                            value={lessonDay}
+                            // error={!!errors.lesson_day}
                             onChange={handleDayChange}
                             inputProps={{
                                 name: 'weekday',
                                 id: 'weekday',
                             }}
-                            inputRef={register({
-                                required: true
-                            })}
+                            // inputRef={register({
+                            //     required: true
+                            // })}
                         >
+                            <option value=''></option>
                             {weekDays.map(w =>
                                 <option key={w} value={w}>{w}</option>
                             )}
