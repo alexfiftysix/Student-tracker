@@ -349,7 +349,9 @@ class Student(db.Model):
         plans = [x for x in LessonPlan.query.filter_by(student=self.id).order_by(LessonPlan.start_date.desc())]
         current_plan = None
         for plan in plans:
-            if plan.start_date <= requested_date:
+            if plan.lesson_day == weekday \
+                    and plan.start_date <= requested_date \
+                    and ((plan.end_date and plan.end_date >= requested_date) or not plan.end_date):
                 current_plan = plan
                 break
 

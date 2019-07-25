@@ -1,3 +1,8 @@
+## Other ideas
+
+Redesign bookings. Bookings have start date and end date. This allows one student to have multiple bookings per week.
+Change lesson time will select a lesson to change to a new lesson, and will set the start and end dates of each lesson on the back-end accordingly.
+
 ## backlog
 
 As a teacher I want to be able to email a copy of the invoice to myself and my student.
