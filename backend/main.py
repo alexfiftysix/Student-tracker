@@ -275,6 +275,8 @@ class Student(db.Model):
 
     def json(self):
         plan: LessonPlan = self.get_lesson_plan()
+        plans = LessonPlan.query.filter_by(student=self.id).all()
+        plans = [p.json() for p in plans]
         teacher = Teacher.query.filter_by(id=self.teacher).first().public_id  # Maybe don't release this info
         address = Address.query.filter_by(id=self.address).first().json()
 
@@ -287,6 +289,7 @@ class Student(db.Model):
             'email': str(self.email),
             'phone': self.phone,
             'lesson_plan': None,
+            'plans': plans
         }
 
         if plan:
@@ -471,6 +474,26 @@ class Student(db.Model):
             db.session.commit()
 
             return new_student.json(), 201
+
+    class AllLessonTimes(Resource):
+        @staticmethod
+        @token_required
+        def get(student_id, lesson_date):
+            '''
+            Get all lesson times for the given student which are active for the current date
+            :param student_id: student id (int)
+            :param lesson_date: date string "%Y-%m-%d"
+            :return: json-serialiseable list of lesson plans
+            '''
+            # student: Student = Student.query.filter_by(id=int(student_id)).first()
+            all_lesson_plans = LessonPlan.query.filter_by(student=int(student_id))
+            current_lessons = []
+            lesson_date = datetime.strptime(lesson_date, "%Y-%m-%d").date()
+            for plan in all_lesson_plans:
+                if plan.start_date <= lesson_date and (not plan.end_date or plan.end_date >= lesson_date):
+                    current_lessons.append(plan.json())
+
+            return current_lessons
 
     class AllStudents(Resource):
         @staticmethod
@@ -957,6 +980,7 @@ api.add_resource(Payment.PaymentResource, '/my_students/payment/<student_id>')
 api.add_resource(Attendance.AttendanceResource, '/my_students/attendance/<student_id>')
 
 api.add_resource(Booking, '/my_students/booking/<student_id>/<lesson_date_time>')
+api.add_resource(Student.AllLessonTimes, '/my_students/all_bookings/<student_id>/<lesson_date>')
 
 api.add_resource(Invoice, '/my_students/invoice/<student_id>/<year_and_month>')
 api.add_resource(Address.AllAddressesResource, '/address')

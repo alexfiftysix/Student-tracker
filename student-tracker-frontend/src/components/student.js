@@ -3,12 +3,19 @@ import './student.css'
 import {Link} from "react-router-dom"
 import {makeStyles} from '@material-ui/core/styles'
 import config from '../config'
+import Button from '@material-ui/core/Button'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     caps: {
         textTransform: 'capitalize',
+    },
+    lesson_time: {
+        border: '1px solid black',
+        margin: theme.spacing(1),
+        padding: theme.spacing(1),
+        textAlign: 'left'
     }
-});
+}));
 
 export default function Student(props) {
     const [student, setStudent] = React.useState(null);
@@ -77,6 +84,15 @@ export default function Student(props) {
                 </li>
             </ul>
 
+            <h3>Lesson times</h3>
+            {student.plans.map(p =>
+                <div key={p.id} className={classes.lesson_time}>
+                    <div>{p.lesson_time} {p.lesson_day}</div>
+                    <Button variant={'contained'}>Delete lesson time</Button>
+                    <Button variant={'contained'}>Change lesson time</Button>
+                </div>
+                )}
+                <Button variant={'contained'}>Add lesson time</Button>
         </div>
     );
 }
