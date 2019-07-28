@@ -4,6 +4,9 @@ import {Link} from "react-router-dom"
 import {makeStyles} from '@material-ui/core/styles'
 import config from '../config'
 import Button from '@material-ui/core/Button'
+import Paper from '@material-ui/core/Paper'
+import Dialog from '@material-ui/core/Dialog'
+import currentDateAsString from '../utilities/dates'
 
 const useStyles = makeStyles(theme => ({
     caps: {
@@ -14,11 +17,49 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1),
         padding: theme.spacing(1),
         textAlign: 'left'
-    }
+    },
+    modal: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        '& *': {
+            boxShadow: 'none',
+        }
+    },
+    change: {
+        padding: theme.spacing(2),
+    },
 }));
+
+function deleteLessonTime(lessonId) {
+    // Sets the end-date of the lesson plan to today
+    const today = currentDateAsString();
+    const url = config.serverHost + 'lesson_time/' + lessonId;
+    let options = {
+        method: 'put',
+        headers: {
+            'x-access-token': localStorage.getItem('token')
+        },
+        body: new FormData(),
+    };
+    options.body.append('end_date', today);
+    fetch(url, options)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
+}
+
+function ChangeTime(props) {
+    return(
+        <Paper>Change Lesson Time!</Paper>
+    )
+}
+
 
 export default function Student(props) {
     const [student, setStudent] = React.useState(null);
+    const [open, setOpen] = React.useState(false);
     const student_id = props.id ? props.id : props.match.params.student_id;
     const classes = useStyles();
 
@@ -39,6 +80,15 @@ export default function Student(props) {
     if (!student) {
         return <h1>Student loading...</h1>;
     }
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
 
     return (
         <div className={'student'}>
@@ -89,11 +139,12 @@ export default function Student(props) {
                 <div key={p.id} className={classes.lesson_time}>
                     <div>{p.lesson_time} {p.lesson_day}</div>
                     <div>{p.start_date} - {p.end_date !== 'None' ? p.end_date : ''}</div>
-                    <Button variant={'contained'}>Delete lesson time</Button>
-                    <Button variant={'contained'}>Change lesson time</Button>
+                    <Button variant={'contained'} onClick={e => deleteLessonTime(p.id)}>Delete lesson time</Button>
+                    <Button variant={'contained'} onClick={handleOpen}>Change lesson time</Button>
+                    <Dialog className={classes.modal} open={open} onClose={handleClose}><ChangeTime className={classes.change}/></Dialog>
                 </div>
-                )}
-                <Button variant={'contained'}>Add lesson time</Button>
+            )}
+            <Button variant={'contained'}>Add lesson time</Button>
         </div>
     );
 }
