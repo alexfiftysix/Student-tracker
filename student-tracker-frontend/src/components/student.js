@@ -88,6 +88,7 @@ export default function Student(props) {
             {student.plans.map(p =>
                 <div key={p.id} className={classes.lesson_time}>
                     <div>{p.lesson_time} {p.lesson_day}</div>
+                    <div>{p.start_date} - {p.end_date !== 'None' ? p.end_date : ''}</div>
                     <Button variant={'contained'}>Delete lesson time</Button>
                     <Button variant={'contained'}>Change lesson time</Button>
                 </div>

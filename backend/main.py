@@ -637,8 +637,8 @@ class LessonPlan(db.Model):
             if not lesson_time:
                 return {'message': '"lesson_time" must be included'}
             # elif lesson_time:
-                # lesson_time = datetime.strptime(lesson_time, "%H:%M")
-                # lesson_time = lesson_time.strftime('%H:%M:%S')
+            # lesson_time = datetime.strptime(lesson_time, "%H:%M")
+            # lesson_time = lesson_time.strftime('%H:%M:%S')
 
             if not lesson_day:
                 return {'message': '"lesson_day" must be included'}
@@ -651,8 +651,8 @@ class LessonPlan(db.Model):
             if not lesson_price:
                 return {'message': '"price" must be included'}
             # else:
-                # TODO: try-catch for parsing errors
-                # lesson_price = deci(lesson_price)
+            # TODO: try-catch for parsing errors
+            # lesson_price = deci(lesson_price)
 
             # TODO: Wrap in try-catch
             lesson_length_minutes = int(lesson_length_minutes)
@@ -675,6 +675,33 @@ class LessonPlan(db.Model):
             db.session.remove(lt)
             db.session.commit()
             return {'message': 'Lesson Time deleted successfully'}
+
+        @staticmethod
+        def put(lesson_time_id):
+            lesson_plan = LessonPlan.query.filter_by(id=int(lesson_time_id)).first()
+
+            keys = [
+                'start_date',
+                'end_date',
+                'lesson_time',
+                'lesson_day',
+                'lesson_length_minutes',
+                'lesson_price',
+                'length_minutes',
+                'price',
+            ]
+
+            attributes = {}
+
+            for a in keys:
+                attributes[a] = request.form.get(a)
+
+            for key in attributes.keys():
+                if attributes[key]:
+                    setattr(lesson_plan, key, attributes[key])
+
+            db.session.commit()
+            return lesson_plan.json(), 200
 
 
 class Note(db.Model):
@@ -975,6 +1002,7 @@ api.add_resource(Note.SingleNote, '/student/note/<id>')
 api.add_resource(Note.AllNotesPerStudent, '/student/notes/<student_id>')
 
 api.add_resource(LessonPlan.StudentLessonPlanResource, '/my_students/lesson_time/<student_id>')
+api.add_resource(LessonPlan.LessonPlanResource, '/lesson_time/<lesson_time_id>')
 
 api.add_resource(Payment.PaymentResource, '/my_students/payment/<student_id>')
 api.add_resource(Attendance.AttendanceResource, '/my_students/attendance/<student_id>')
